@@ -1,10 +1,12 @@
+import LoginPage from "./page/login"
+
  
 function App() {
  
   return (
-    <div className='justify-center flex'>
-   <p className='text-black font-xl'>Readora</p>
-    </div>
+    <>
+    <LoginPage />
+    </>
   )
 }
 

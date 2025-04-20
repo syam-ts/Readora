@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 
@@ -14,7 +15,12 @@ const [formData, setFormData] = useState<FormData>({
 });
 
 const submitForm = async () => {
-    
+    const { data } = await axios.post('http://localhost:3000/user/login', {
+        email: formData.email,
+        password: formData.password
+    });
+
+    console.log('The result: ', data)
 }
  
 
@@ -63,6 +69,7 @@ const handleChange = (e: any) => {
 
                             <div className="mb-6 text-center">
                                 <button
+                                onClick={submitForm}
                                     className="w-full px-4 py-2 font-bold text-white bg-gray-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                     type="button"
                                 >

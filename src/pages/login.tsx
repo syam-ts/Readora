@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 interface FormData {
@@ -13,6 +14,7 @@ const [formData, setFormData] = useState<FormData>({
     email: "",
     password: ""
 });
+const navigate = useNavigate();
 
 const submitForm = async () => {
     const { data } = await axios.post('http://localhost:3000/user/login', {
@@ -21,6 +23,9 @@ const submitForm = async () => {
     });
 
     console.log('The result: ', data)
+    if(data.success) {
+        navigate('/home')
+    }
 }
  
 

@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Navbar from "./components/Navbar"
 import Article from "./pages/Article"
 import ArticleCreation from "./pages/ArticleCreation"
+import MonoArticle from "./pages/MonoArticle"
 
  
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path='/home' element={ <Home />} /> 
       <Route path='/articles' element={ <Article />} /> 
       <Route path='/articleCreation' element={ <ArticleCreation />} /> 
+      <Route path='/monoArticle/:articleId' element={ <MonoArticle />} /> 
     </Routes>
    
     </>

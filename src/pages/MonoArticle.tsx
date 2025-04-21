@@ -30,7 +30,8 @@ const MonoArticle: React.FC = () => {
         try {
             const fetchArticles = async () => {
                 const { data } = await axios.get(`http://localhost:3000/user/monoArticleView/${articleId}`);
-            
+           
+
                 setArticle(data.article);
             };
 

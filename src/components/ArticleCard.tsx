@@ -30,10 +30,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles }) => {
                                 />
                             </div>
                             <div className="p-6 w-full">
-                                <h4 className="font-sans line-clamp-1 text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                                <h4 className="font-sans line-clamp-1 text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                                     {article[1].title}
                                 </h4>
-                                <span className="line-clamp-4 mt-3 font-sans text-md text-gray-700">
+                                <span className="line-clamp-4 mt-3 font-sans text-sm text-gray-700">
                                     {article[1].description}
                                 </span>
                             </div>

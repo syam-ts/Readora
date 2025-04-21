@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
 import { ArticleCard } from "../components/ArticleCard";
+import axios from "axios";
 
 
 
 
 const Home = () => {
+
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    try {
+        const fetchArticles = async () => {
+
+            const { data } = await axios.get('http://localhost:3000/user/viewAllArticles/home');
+
+            console.log('The result: ', data)
+            setArticles(data.articles)
+        };
+
+        fetchArticles();
+
+    } catch (err) {
+        console.log('ERROR: ', err);
+    }
+}, []);
 
 
     return (
@@ -18,7 +39,7 @@ const Home = () => {
             {/* Card section */}
             <section>
               <div className='flex justify-center pt-44'>
-                <ArticleCard /> 
+                <ArticleCard articles={articles} /> 
               </div>  
             </section>
         </div>

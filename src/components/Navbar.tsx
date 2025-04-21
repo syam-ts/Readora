@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signOutUser } from "../redux/slices/userSlice";
 
 const Navbar = () => {
+    const distpatch = useDispatch();
+    const navigate = useNavigate();
+
+ const signoutUser = (): void => {
+    distpatch(signOutUser());
+
+    navigate('/login');
+    
+ };
+
     return (
         <div>
             <nav className="shadow bg-[#151031]">
@@ -24,6 +36,9 @@ const Navbar = () => {
                         <span className="mx-1.5 sm:mx-6">
                             <Link to="/login">Login</Link>
                         </span>
+                        <button onClick={signoutUser} className="mx-1.5 sm:mx-6 cursor-pointer">
+                            Signout
+                        </button>
                     </div>
                 </div>
             </nav>

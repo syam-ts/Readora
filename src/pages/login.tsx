@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { signInUser } from "../redux/slices/userSlice";
 
 
 interface FormData {
@@ -15,12 +17,15 @@ const [formData, setFormData] = useState<FormData>({
     password: ""
 });
 const navigate = useNavigate();
+const dispatch = useDispatch();
 
 const submitForm = async () => {
     const { data } = await axios.post('http://localhost:3000/user/login', {
         email: formData.email,
         password: formData.password
     });
+    
+    dispatch(signInUser(data.user));
 
     console.log('The result: ', data)
     if(data.success) {

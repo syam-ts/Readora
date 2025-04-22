@@ -10,7 +10,7 @@ interface FormData {
     password: string
 };
 
-const LoginPage = () => {
+const SignupPage = () => {
 
 const [formData, setFormData] = useState<FormData>({
     email: "",
@@ -20,7 +20,7 @@ const navigate = useNavigate();
 const dispatch = useDispatch();
 
 const submitForm = async () => {
-    const { data } = await axios.post('http://localhost:3000/user/login', {
+    const { data } = await axios.post('http://localhost:3000/user/signup', {
         email: formData.email,
         password: formData.password
     });
@@ -29,7 +29,7 @@ const submitForm = async () => {
 
     console.log('The result: ', data)
     if(data.success) {
-        navigate('/home')
+        navigate('/login')
     }
 }
  
@@ -54,6 +54,18 @@ const handleChange = (e: any) => {
                         <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700">
+                                    Name
+                                </label>
+                                <input
+                                onChange={(e) => handleChange(e)}
+                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    name="name"
+                                    type="text"
+                                    placeholder="Username"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-bold text-gray-700">
                                     Email
                                 </label>
                                 <input
@@ -61,7 +73,7 @@ const handleChange = (e: any) => {
                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     name="email"
                                     type="text"
-                                    placeholder="email"
+                                    placeholder="Email"
                                 />
                             </div>
                             <div className="mb-4">
@@ -83,7 +95,7 @@ const handleChange = (e: any) => {
                                     className="w-full px-4 py-2 font-bold text-white bg-gray-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                     type="button"
                                 >
-                                    Sign In
+                                    Sign Up
                                 </button>
                             </div>
                             <hr className="mb-6 border-t" />
@@ -93,9 +105,9 @@ const handleChange = (e: any) => {
                                         className="inline-block underline text-sm text-gray-500 align-baseline hover:text-blue-800"
                                         href="#"
                                     >
-                                        <Link to='/signup'>
-                                        Create an Account!
-                                        </Link>
+                                       <Link to='/login'>
+                                          Alreay have an Account!
+                                       </Link>
                                     </a>
                                 </div>
                                 <div className="text-center">
@@ -115,4 +127,4 @@ const handleChange = (e: any) => {
     );
 };
 
-export default LoginPage;
+export default SignupPage;

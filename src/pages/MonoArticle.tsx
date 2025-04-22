@@ -24,13 +24,13 @@ const MonoArticle: React.FC = () => {
     });
 
     const { articleId } = useParams();
- 
 
     useEffect(() => {
         try {
             const fetchArticles = async () => {
-                const { data } = await axios.get(`http://localhost:3000/user/monoArticleView/${articleId}`);
-           
+                const { data } = await axios.get(
+                    `http://localhost:3000/user/monoArticleView/${articleId}`
+                );
 
                 setArticle(data.article);
             };
@@ -50,15 +50,16 @@ const MonoArticle: React.FC = () => {
 
             <div className="text-sm text-gray-400 mb-10">By {article.author}</div>
 
-            {article.image && (
-                <div className="mb-10">
-                    <img
-                        src={article.image}
-                        alt="Article visual"
-                        className="w-full rounded-lg object-cover"
-                    />
-                </div>
-            )}
+            <div className="mb-10">
+                <img
+                    src={
+                        article.image ||
+                        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
+                    }
+                    alt="Article visual"
+                    className="w-full rounded-lg object-cover"
+                />
+            </div>
 
             <div className="text-base leading-relaxed whitespace-pre-line mb-10">
                 {article.description}
@@ -67,8 +68,7 @@ const MonoArticle: React.FC = () => {
             <div className="mb-4">
                 <h4 className="text-sm text-gray-500 mb-1">Tags</h4>
                 <div className="flex flex-wrap gap-2">
-                   { 
-                    article.tags && (
+                    {article.tags &&
                         article?.tags.map((tag) => (
                             <span
                                 key={tag}
@@ -76,9 +76,7 @@ const MonoArticle: React.FC = () => {
                             >
                                 {tag}
                             </span>
-                        ))
-                    )
-                   }
+                        ))}
                 </div>
             </div>
 

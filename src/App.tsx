@@ -7,6 +7,8 @@ import ArticleCreation from './pages/ArticleCreation';
 import MonoArticle from './pages/MonoArticle';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
+import SignupPage from './pages/Signup';
+import Footer from './components/Footer';
 
 function App() {
   const location = useLocation();
@@ -19,6 +21,7 @@ function App() {
 
       <Routes>
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignupPage />} />
         <Route path='/home' element={<Home />} />
         <Route path='/articles' element={<Article />} />
         <Route path='/articleCreation' element={<ArticleCreation />} />
@@ -26,6 +29,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/profile-edit' element={<ProfileEdit />} />
       </Routes>
+      {!shouldHideNavbar && <Footer />}
     </>
   );
 }

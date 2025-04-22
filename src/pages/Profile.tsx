@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
 
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800">
+    <div className="max-w-2xl mx-auto px-4 py-28 font-sans text-gray-800">
       <div className="flex items-center gap-4 mb-10">
         <img
           src={user.profilePicture}

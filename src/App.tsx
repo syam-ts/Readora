@@ -6,6 +6,7 @@ import Article from './pages/Article';
 import ArticleCreation from './pages/ArticleCreation';
 import MonoArticle from './pages/MonoArticle';
 import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
         <Route path='/articleCreation' element={<ArticleCreation />} />
         <Route path='/monoArticle/:articleId' element={<MonoArticle />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/profile-edit' element={<ProfileEdit />} />
       </Routes>
     </>
   );

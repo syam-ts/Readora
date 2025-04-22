@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 interface User {
   name: string;
@@ -13,7 +12,7 @@ interface User {
   preferences: string[];
 }
 
-const Profile: React.FC = () => {
+const ProfileEdit: React.FC = () => {
 
     const [user, setUser] = useState<User>({
         name: '',
@@ -46,28 +45,24 @@ const Profile: React.FC = () => {
 
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800">
+    <div className="max-w-2xl mx-auto px-4 py-44 font-sans text-gray-800">
       <div className="flex items-center gap-4 mb-10">
         <img
           src={user.profilePicture}
           alt="Profile"
           className="w-16 h-16 rounded-full object-cover"
         />
-        <div>
-          <h2 className="text-2xl font-semibold">{user.name}</h2>
-          <p className="text-sm text-gray-500">{user.email}</p>
-          <button className='underline text-blue-600'>
-            <Link to='/Profile-edit'>
-            Edit
-            </Link>
-          </button>
+        <div className='grid'>
+          <input className="text-2xl font-semibold" placeholder={user.name} /> 
+          <input className="text-sm font-regular" placeholder={user.email} /> 
+          <button className='flex underline text-blue-600'>Edit</button>
         </div>
       </div>
 
       <div className="space-y-6 text-sm text-gray-700">
         <div>
-          <p className="text-gray-400 mb-1">Phone</p>
-          <p>{user.phone}</p>
+          
+          <input className="text-gray-400 mb-1" value={user.phone} /> 
         </div>
 
         <div>
@@ -98,4 +93,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default ProfileEdit;

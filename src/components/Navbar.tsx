@@ -23,7 +23,7 @@ const Navbar = () => {
     return (
         <div>
             <nav className="shadow bg-[#151031]">
-                <div className="flex justify-between p-5 text-white">
+                <div className="flex justify-between p-5 text-white nunito-regular">
                     <div className="pl-[45rem]">
                         <span className="text-white mx-1.5 sm:mx-6">
                             <Link to="/home"> Home </Link>

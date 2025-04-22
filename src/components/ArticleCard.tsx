@@ -20,7 +20,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles }) => {
         <div className="flex flex-wrap gap-12 w-2/3 justify-center">
             {Object.entries(articles).map((article: any) => (
                 <div className="flex flex-wrap ">
-                    <div className="w-[300px] mx-auto border border-gray-300">
+                    <div className="w-[300px] mx-auto border border-gray-300 nunito-regular">
                         <div className="relative flex max-w-[24rem] flex-col overflow-hidden bg-white bg-clip-border text-gray-700 shadow-md">
                             <div className="relative m-0 overflow-hidden text-gray-700 bg-transparent shadow-none bg-clip-border">
                               <Link to={`/monoArticle/${article[1]._id}`}>

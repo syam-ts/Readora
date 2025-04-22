@@ -31,7 +31,7 @@ const Home = () => {
         <div>
             <section>
               <div className='grid justify-center pt-16 gap-3'>
-                 <p className='font-mono text-center'>Explore</p>
+                 <p className='font-mono text-center nunito-regular'>Explore</p>
                  <hr className='w-[20rem]' />
               </div>
             </section>

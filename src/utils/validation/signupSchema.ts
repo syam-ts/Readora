@@ -1,7 +1,7 @@
 import * as yup from "yup";
   
 
-export const signupSchemaClient = yup.object().shape({
+export const userSignupSchema = yup.object().shape({
     name: yup.string()
     .trim()
     .min(5, "Invalid name (minimum 5 characters)")

@@ -66,11 +66,11 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="container mx-auto">
-            <div className="flex justify-center px-6 my-44 h-[36rem]">
-                <div className="w-full xl:w-3/4 lg:w-11/12 flex border border-gray-300 rounded-lg">
+        <div className="container mx-auto nunito-regular">
+            <div className="flex justify-center px-6 my-44 h-[40rem]">
+                <div className="w-full xl:w-4/5 lg:w-11/12 flex border border-gray-300 rounded-lg">
                     <div className="w-full h-auto bg-gray-400 lg:block bg-[url('https://images.unsplash.com/photo-1533756102515-155e3863ee1c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixname=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] lg:w-1/2 bg-cover rounded-l-lg"></div>
-                    <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+                    <div className="w-full lg:w-2/4 bg-white p-5 rounded-lg lg:rounded-l-none">
                         <h3 className="pt-12 text-2xl text-center">Welcome Back!</h3>
                         <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                             <div className="mb-4">
@@ -102,7 +102,7 @@ const LoginPage = () => {
                                 : error?.map((err: string, index: number) => {
                                     if (
                                         err.includes("Email is required") ||
-                                        err.includes("Email is invalid....")
+                                        err.includes("Email is invalid")
                                     ) {
                                         return (
                                             <div key={index} className="text-center">

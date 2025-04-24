@@ -3,46 +3,67 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../redux/slices/userSlice";
-
+import { userLoginSchema } from "../utils/validation/loginSchema";
 
 interface FormData {
-    email: string
-    password: string
-};
+    email: string;
+    password: string;
+}
 
 const LoginPage = () => {
-
-const [formData, setFormData] = useState<FormData>({
-    email: "",
-    password: ""
-});
-const navigate = useNavigate();
-const dispatch = useDispatch();
-
-const submitForm = async () => {
-    const { data } = await axios.post('http://localhost:3000/user/login', {
-        email: formData.email,
-        password: formData.password
+    const [formData, setFormData] = useState<FormData>({
+        email: "",
+        password: "",
     });
-    
-    dispatch(signInUser(data.user));
+    const [error, setError] = useState<string[]>([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    console.log('The result: ', data)
-    if(data.success) {
-        navigate('/home')
-    }
-}
- 
+    const submitForm = async () => {
+        try { 
+            const validForm = await userLoginSchema.validate(formData, {
+                abortEarly: false,
+            });
+            console.log("er", validForm);
 
-const handleChange = (e: any) => {
-  const {name, value} = e.target;
- setFormData(prev => ({
-    ...prev,
-    [name]:  value
- }))
-}
+            if (validForm) {
+                try {
+                    const { data } = await axios.post("http://localhost:3000/login", {
+                        email: formData.email,
+                        password: formData.password,
+                    });
 
+                    dispatch(signInUser(data.user));
 
+                    console.log("The result: ", data);
+                    if (data.success) {
+                        navigate("/home");
+                    }
+                } catch (err) {
+                    console.log("ERROR: ", err);
+                }
+            } else {
+                await userLoginSchema.validate(
+                    { formData },
+                    {
+                        abortEarly: false,
+                    }
+                );
+            }
+        } catch (error: unknown) {
+            const err = error as { errors: string[] };
+            console.log("VALIDATION ERRORS: ", err.errors);
+            setError(err.errors);
+        }
+    };
+
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     return (
         <div className="container mx-auto">
@@ -57,19 +78,49 @@ const handleChange = (e: any) => {
                                     Email
                                 </label>
                                 <input
-                                onChange={(e) => handleChange(e)}
+                                    onChange={(e) => handleChange(e)}
                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     name="email"
                                     type="text"
                                     placeholder="email"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block mb-2 text-sm font-bold text-gray-700">
+
+                            {error?.some((err: string) => err.includes("Email is required"))
+                                ? error?.map((err: string, index: number) => {
+                                    if (err.includes("Email is required")) {
+                                        return (
+                                            <div key={index} className="text-center">
+                                                <span className="text-black text-xs montserrat-bold">
+                                                    {err}
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })
+                                : error?.map((err: string, index: number) => {
+                                    if (
+                                        err.includes("Email is required") ||
+                                        err.includes("Email is invalid....")
+                                    ) {
+                                        return (
+                                            <div key={index} className="text-center">
+                                                <span className="text-black text-xs montserrat-bold">
+                                                    {err}
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })}
+
+                            <div className="py-2">
+                                <label className="block text-sm font-bold text-gray-700">
                                     Password
                                 </label>
-                                <input 
-                                onChange={(e) => handleChange(e)}
+                                <input
+                                    onChange={(e) => handleChange(e)}
                                     className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     name="password"
                                     type="password"
@@ -77,9 +128,40 @@ const handleChange = (e: any) => {
                                 />
                             </div>
 
-                            <div className="mb-6 text-center">
+                            {error?.some((err: string) =>
+                                err.includes("Password is required")
+                            )
+                                ? error?.map((err: string, index: number) => {
+                                    if (err.includes("Password is required")) {
+                                        return (
+                                            <div key={index} className="text-center">
+                                                <span className="text-black text-xs montserrat-bold">
+                                                    {err}
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })
+                                : error?.map((err: string, index: number) => {
+                                    if (
+                                        err.includes("Password is required") ||
+                                        err.includes("minimum 8 characters need")
+                                    ) {
+                                        return (
+                                            <div key={index} className="text-center">
+                                                <span className="text-black text-xs montserrat-bold">
+                                                    {err}
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })}
+
+                            <div className="mb-6 mt-3 text-center">
                                 <button
-                                onClick={submitForm}
+                                    onClick={submitForm}
                                     className="w-full px-4 py-2 font-bold text-white bg-gray-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                     type="button"
                                 >
@@ -89,14 +171,9 @@ const handleChange = (e: any) => {
                             <hr className="mb-6 border-t" />
                             <div className="flex justify-between">
                                 <div className="text-center">
-                                    <a
-                                        className="inline-block underline text-sm text-gray-500 align-baseline hover:text-blue-800"
-                                        href="#"
-                                    >
-                                        <Link to='/signup'>
-                                        Create an Account!
-                                        </Link>
-                                    </a>
+                                    <p className="inline-block underline text-sm text-gray-500 align-baseline hover:text-blue-800">
+                                        <Link to="/signup">Create an Account!</Link>
+                                    </p>
                                 </div>
                                 <div className="text-center">
                                     <a

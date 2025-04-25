@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { ArticleCard } from "../components/ArticleCard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Article = () => {
-  const [articleType, setArticleType] = useState<string>("trending");
+const Article = () => { 
   const [articles, setArticles] = useState([]);
+  const userId = useSelector((state: any) => state.currentUser._id);
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/user/viewAllArticles/${articleType}`
+          `http://localhost:3000/user/articles/${userId}`
         );
 
         setArticles(data.articles);
@@ -21,7 +22,7 @@ const Article = () => {
     } catch (err: unknown) {
       console.log("ERROR: ", err);
     }
-  }, [articleType]);
+  }, []);
 
   return (
     <div>
@@ -45,16 +46,9 @@ const Article = () => {
 
       <section>
         <div className="flex justify-center gap-10 py-3 pt-16">
+        
           <p
-            className="font-thin text-xl cursor-pointer"
-            onClick={() => setArticleType("trending")}
-          >
-            Trending Articles
-          </p>
-          <p> | </p>
-          <p
-            className="font-thin text-xl cursor-pointer"
-            onClick={() => setArticleType("myArticles")}
+            className="font-thin text-xl cursor-pointer" 
           >
             My Articles
           </p>
@@ -64,7 +58,7 @@ const Article = () => {
 
       <section>
         <div className="flex justify-center py-20">
-          <ArticleCard articles={articles} />
+          <ArticleCard articles={articles} type='myArticles' />
         </div>
       </section>
     </div>

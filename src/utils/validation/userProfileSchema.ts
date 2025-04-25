@@ -37,7 +37,7 @@ export const userProfileSchema = yup.object().shape({
 
     preferences: yup
         .array()
-        .min(3, "Minimum 4 preferences needed")
+        .min(3, "Minimum 3 preferences needed")
         .max(5, "Maximum 5 preferences are allowed")
         .required("Preferences required"),
 });

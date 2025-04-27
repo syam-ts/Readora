@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { categories } from "../utils/constants/categories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface Article {
@@ -28,11 +28,10 @@ const ArticleEditPage: React.FC = () => {
     createdAt: "",
   });
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState<string>("");
+  const [tagInput, setTagInput] = useState<string>('');
   const [preview, setPreview] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const articleId = searchParams.get("articleId");
-  const userId = useSelector((state: any) => state.currentUser._id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +43,7 @@ const ArticleEditPage: React.FC = () => {
 
         setArticle(data.article);
         setTags(data.article.tags);
+        setPreview(data.article.image)
       };
 
       fetchArticles();
@@ -52,7 +52,7 @@ const ArticleEditPage: React.FC = () => {
     }
   }, []);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = (e: any): void => {
     const { name, value } = e.target;
     setArticle((prevState) => ({
       ...prevState,
@@ -95,8 +95,8 @@ const ArticleEditPage: React.FC = () => {
       console.log("file", [...data.entries()]);
       const response = await cloudinaryInstance.post("", data);
       console.log("finl imag: ", response.data?.url);
-      // formData.image = response.data?.url;
       setPreview(response.data.url);
+      article.image = response.data.url
     } catch (err) {
       console.log("ERR: ", err);
     }
@@ -105,8 +105,9 @@ const ArticleEditPage: React.FC = () => {
   const submitForm = async (): Promise<void> => {
     try {
       console.log("The formData: ", article);
-      const { data } = await axios.post(
-        `http://localhost:3000/article/${userId}`,
+      article.tags = tags
+      const { data } = await axios.put(
+        `http://localhost:3000/article`,
         article
       );
 
@@ -131,7 +132,7 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="title"
         placeholder={article.title}
-        className="w-full text-2xl font-medium placeholder-neutral-400 mb-4 focus:outline-none"
+        className="w-full text-2xl font-medium placeholder-blue-500 mb-4 focus:outline-none"
       />
 
       {/* Subtitle */}
@@ -141,7 +142,7 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="subtitle"
         placeholder={article.subtitle}
-        className="w-full text-sm placeholder-neutral-400 mb-8 focus:outline-none"
+        className="w-full text-sm placeholder-blue-500 mb-8 focus:outline-none"
       />
 
       {/* Image Upload */}
@@ -170,7 +171,7 @@ const ArticleEditPage: React.FC = () => {
         name="description"
         placeholder={article.description}
         rows={8}
-        className="w-full text-sm p-3 placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-12"
+        className="w-full text-sm p-3 placeholder-blue-500 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-12"
       />
 
       {/* Tags */}
@@ -200,7 +201,7 @@ const ArticleEditPage: React.FC = () => {
             onChange={(e) => setTagInput(e.target.value)}
             value={tagInput}
             placeholder="Enter a tag"
-            className="w-2/4 text-xs placeholder-neutral-400 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
+            className="w-2/4 text-xs placeholder-blue-500 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
           ></input>
           <button
             onClick={() => addTag(tagInput)}
@@ -214,16 +215,17 @@ const ArticleEditPage: React.FC = () => {
       {/* Categories */}
       <div className="mb-14">
         <label className="text-md text-neutral-500 block mb-2">Category</label>
-        <p className="py-3">{article.category}</p>
         <select
           onChange={onChangeHandler}
           name="category"
           className="w-[10rem] text-xs bg-transparent border border-neutral-300 px-2 py-2 rounded-md focus:outline-none"
         >
-          <option value="">Select category</option>
-          <option value="tech">Tech</option>
-          <option value="design">Design</option>
-          <option value="lifestyle">Lifestyle</option>
+          <option value="">{article.category}</option>
+          {
+            categories.map((category: string) => (
+              <option>{category}</option>
+            ))
+          }
         </select>
       </div>
 

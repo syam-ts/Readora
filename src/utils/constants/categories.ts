@@ -1,0 +1,23 @@
+
+export const categories: string[] = [
+    'technology',
+    'health',
+    'finance',
+    'travel',
+    'food',
+    'lifestyle',
+    'education',
+    'business',
+    'entertainment',
+    'music',
+    'movies',
+    'sports',
+    'fashion',
+    'beauty',
+    'science',
+    'politics',
+    'decor',
+    'gaming',
+    'relationships',
+    'carrer',
+];

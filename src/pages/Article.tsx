@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { ArticleCard } from "../components/ArticleCard";
-import axios from "axios";
+import { ArticleCard } from "../components/ArticleCard"; 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 const Article = () => { 
   const [articles, setArticles] = useState([]);
-  const userId = useSelector((state: any) => state.currentUser[0]._id);
+  const userId = useSelector((state: any) => state.currentUser._id);
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
-        const { data } = await axios.get(
+        const { data } = await apiInstance.get(
           `http://localhost:3000/articles/${userId}`
         );
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../redux/slices/userSlice";
 import { userLoginSchema } from "../utils/validation/loginSchema";
@@ -19,8 +19,15 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const isUser = useSelector((state: any) => state.isUser);
+
+    useEffect(() => {
+        if (isUser)
+            navigate('/home')
+    }, []);
+
     const submitForm = async () => {
-        try { 
+        try {
             const validForm = await userLoginSchema.validate(formData, {
                 abortEarly: false,
             });
@@ -31,12 +38,15 @@ const LoginPage = () => {
                     const { data } = await axios.post("http://localhost:3000/login", {
                         email: formData.email,
                         password: formData.password,
+                    }, {
+                        withCredentials: true
                     });
-                        
 
                     dispatch(signInUser(data.user));
+                    const { accessToken } = data;
 
-                    console.log("The result: ", data);
+                    localStorage.setItem('accessToken', accessToken);
+
                     if (data.success) {
                         navigate("/home");
                     }

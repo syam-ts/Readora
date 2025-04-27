@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 interface Article {
     title: string;
@@ -28,7 +28,7 @@ const MonoArticle: React.FC = () => {
     useEffect(() => {
         try {
             const fetchArticles = async () => {
-                const { data } = await axios.get(
+                const { data } = await apiInstance.get(
                     `http://localhost:3000/article/${articleId}`
                 );
 

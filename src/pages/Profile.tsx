@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 interface User {
   name: string;
@@ -25,14 +25,14 @@ const Profile: React.FC = () => {
         preferences: [''],
     })
 
-    const userId = useSelector((state: any) => state.currentUser[0]._id);
+    const userId = useSelector((state: any) => state.currentUser._id);
 
 
     useEffect(() => {
      try{
         const fetchUserData = async () => {
 
-            const {data} = await axios.get(`http://localhost:3000/profile/${userId}`);
+            const {data} = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
 
             setUser(data.user);
         };

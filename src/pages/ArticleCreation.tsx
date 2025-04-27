@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 const ArticleCreation: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
@@ -15,7 +16,7 @@ const ArticleCreation: React.FC = () => {
     tags: [""],
     categories: "",
   });
-  const userId = useSelector((state: any) => state.currentUser[0]._id);
+  const userId = useSelector((state: any) => state.currentUser._id);
   const navigate = useNavigate();
 
   const onChangeHandler = (e: any) => {
@@ -65,7 +66,7 @@ const ArticleCreation: React.FC = () => {
 
   const submitForm = async () => {
     try {
-      const { data } = await axios.post(
+      const { data } = await apiInstance.post(
         `http://localhost:3000/user/createArticle/${userId}`,
         formData
       );

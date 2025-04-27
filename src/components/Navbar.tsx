@@ -7,12 +7,11 @@ const Navbar = () => {
     const [dropdown, setDropdown] = useState(false);
     const distpatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state: any) => state.currentUser[0]);
+    const user = useSelector((state: any) => state.currentUser);
     const isUser = useSelector((state: any) => state.isUser);
-
-    // useEffect(() => {
-    //     setDropdown(false);
-    // }, []);
+    const us = useSelector((state: any) => state.currentUser)
+    console.log('user main', us)
+ 
 
     const signoutUser = (): void => {
         distpatch(signOutUser());

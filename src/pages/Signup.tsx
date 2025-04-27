@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../redux/slices/userSlice";
 import { userSignupSchema } from "../utils/validation/signupSchema";
@@ -20,6 +20,12 @@ const SignupPage = () => {
     const [error, setError] = useState<string[]>([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isUser = useSelector((state: any) => state.isUser);
+
+    useEffect(() => {
+        if(isUser)
+            navigate('/home')
+    }, []);
 
     const submitForm = async () => {
         try {

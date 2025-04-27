@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userProfileSchema } from "../utils/validation/userProfileSchema";
 import { ErrorComponent } from "../components/ErrorComponent";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 interface User {
   name: string;
@@ -27,12 +27,12 @@ const ProfileEdit: React.FC = () => {
   const [imageError, setImageError] = useState<string[]>([]);
   const navigate = useNavigate();
   
-  const userId = useSelector((state: any) => state.currentUser[0]._id);
+  const userId = useSelector((state: any) => state.currentUser._id);
   
   useEffect(() => {
     try {
       const fetchUserData = async () => {
-        const { data } = await axios.get(
+        const { data } = await apiInstance.get(
           `http://localhost:3000/profile/${userId}`
         );
         
@@ -151,7 +151,7 @@ const ProfileEdit: React.FC = () => {
           preferences: preferences || user.preferences
         };
 
-        const { data } = await axios.put(
+        const { data } = await apiInstance.put(
           "http://localhost:3000/user/profile",
           {
             body,

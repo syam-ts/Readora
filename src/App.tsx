@@ -10,6 +10,7 @@ import ProfileEdit from './pages/ProfileEdit';
 import SignupPage from './pages/Signup';
 import Footer from './components/Footer';
 import ArticleEditPage from './pages/ArticleEditPage';
+import { UserProtectedRoute } from './utils/extra/ProtectedRoute';
 
 function App() {
   const location = useLocation();
@@ -23,13 +24,15 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
-        <Route path='/home' element={<Home />} />
+       <Route element={<UserProtectedRoute />}>
+       <Route path='/home' element={<Home />} />
         <Route path='/articles' element={<Article />} />
         <Route path='/articleCreation' element={<ArticleCreation />} />
         <Route path='/article/:articleId' element={<MonoArticle />} />
         <Route path='/article' element={<ArticleEditPage />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/profile/edit' element={<ProfileEdit />} />
+       </Route>
       </Routes>
       {!shouldHideNavbar && <Footer />}
     </>

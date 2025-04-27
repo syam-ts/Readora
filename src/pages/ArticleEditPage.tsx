@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { categories } from "../utils/constants/categories";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 interface Article {
   userId: string;
@@ -37,7 +38,7 @@ const ArticleEditPage: React.FC = () => {
   useEffect(() => {
     try {
       const fetchArticles = async () => {
-        const { data } = await axios.get(
+        const { data } = await apiInstance.get(
           `http://localhost:3000/article/${articleId}`
         );
 
@@ -106,7 +107,7 @@ const ArticleEditPage: React.FC = () => {
     try {
       console.log("The formData: ", article);
       article.tags = tags
-      const { data } = await axios.put(
+      const { data } = await apiInstance.put(
         `http://localhost:3000/article`,
         article
       );
@@ -132,7 +133,7 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="title"
         placeholder={article.title}
-        className="w-full text-2xl font-medium placeholder-blue-500 mb-4 focus:outline-none"
+        className="w-full text-2xl font-medium placeholder-blue-200 mb-4 focus:outline-none"
       />
 
       {/* Subtitle */}
@@ -142,12 +143,12 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="subtitle"
         placeholder={article.subtitle}
-        className="w-full text-sm placeholder-blue-500 mb-8 focus:outline-none"
+        className="w-full text-sm placeholder-blue-200 mb-8 focus:outline-none"
       />
 
       {/* Image Upload */}
       <div className="mb-12 grid">
-        <label className="text-xs text-neutral-500 mb-2">Upload image</label>
+        <label className="text-xl text-neutral-500 mb-2">Upload image</label>
         <input
           onChange={handleFileUpload}
           name="image"
@@ -171,17 +172,17 @@ const ArticleEditPage: React.FC = () => {
         name="description"
         placeholder={article.description}
         rows={8}
-        className="w-full text-sm p-3 placeholder-blue-500 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-12"
+        className="w-full text-sm p-3 placeholder-blue-200 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-12"
       />
 
       {/* Tags */}
       <div className="mb-12">
-        <label className="text-xs text-neutral-500 block mb-2">Tags</label>
+        <label className="text-xl text-neutral-500 block mb-2">Tags</label>
         <div className="flex flex-wrap gap-2 mb-2">
           {tags?.map((tag) => (
             <span
               key={tag}
-              className="text-xs bg-neutral-100 px-3 py-1 rounded-full flex items-center"
+              className="text-xs bg-gray-300 px-3 py-1 rounded-full font-bold flex items-center"
             >
               {tag}
               <button
@@ -201,7 +202,7 @@ const ArticleEditPage: React.FC = () => {
             onChange={(e) => setTagInput(e.target.value)}
             value={tagInput}
             placeholder="Enter a tag"
-            className="w-2/4 text-xs placeholder-blue-500 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
+            className="w-2/4 text-xs placeholder-blue-200 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
           ></input>
           <button
             onClick={() => addTag(tagInput)}
@@ -214,7 +215,7 @@ const ArticleEditPage: React.FC = () => {
 
       {/* Categories */}
       <div className="mb-14">
-        <label className="text-md text-neutral-500 block mb-2">Category</label>
+        <label className="text-lg text-neutral-500 block mb-2">Category</label>
         <select
           onChange={onChangeHandler}
           name="category"

@@ -27,7 +27,7 @@ const ProfileEdit: React.FC = () => {
   const [imageError, setImageError] = useState<string[]>([]);
   const navigate = useNavigate();
   
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const userId = useSelector((state: any) => state.currentUser[0]._id);
   
   useEffect(() => {
     try {

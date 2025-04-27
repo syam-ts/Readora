@@ -29,7 +29,7 @@ const MonoArticle: React.FC = () => {
         try {
             const fetchArticles = async () => {
                 const { data } = await axios.get(
-                    `http://localhost:3000/user/monoArticleView/${articleId}`
+                    `http://localhost:3000/article/${articleId}`
                 );
 
                 setArticle(data.article);
@@ -41,14 +41,15 @@ const MonoArticle: React.FC = () => {
         }
     }, []);
 
-    return (
-        <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800">
-            <h1 className="text-4xl font-semibold mb-2">{article.title}</h1>
-            {article.subtitle && (
-                <p className="text-lg text-gray-500 mb-6">{article.subtitle}</p>
-            )}
+ 
 
-            <div className="text-sm text-gray-400 mb-10">By {article.author}</div>
+
+
+    return (
+        <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800 nunito-regular">
+            <h1 className="text-4xl font-semibold mb-2">{article.title}</h1> 
+
+            <div className="text-sm text-gray-400 mb-10">By: {article.author}</div>
 
             <div className="mb-10">
                 <img
@@ -62,6 +63,10 @@ const MonoArticle: React.FC = () => {
             </div>
 
             <div className="text-base leading-relaxed whitespace-pre-line mb-10">
+                {article.subtitle}
+            </div>
+
+            <div className="text-base leading-relaxed whitespace-pre-line text-black mb-10">
                 {article.description}
             </div>
 
@@ -72,7 +77,7 @@ const MonoArticle: React.FC = () => {
                         article?.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="bg-gray-100 text-sm px-3 py-1 rounded-full"
+                                className="bg-gray-300 text-sm px-3 py-1 rounded-full"
                             >
                                 {tag}
                             </span>

@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import SignupPage from './pages/Signup';
 import Footer from './components/Footer';
+import ArticleEditPage from './pages/ArticleEditPage';
 
 function App() {
   const location = useLocation();
@@ -25,9 +26,10 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/articles' element={<Article />} />
         <Route path='/articleCreation' element={<ArticleCreation />} />
-        <Route path='/monoArticle/:articleId' element={<MonoArticle />} />
+        <Route path='/article/:articleId' element={<MonoArticle />} />
+        <Route path='/article' element={<ArticleEditPage />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile-edit' element={<ProfileEdit />} />
+        <Route path='/profile/edit' element={<ProfileEdit />} />
       </Routes>
       {!shouldHideNavbar && <Footer />}
     </>

@@ -25,14 +25,14 @@ const Profile: React.FC = () => {
         preferences: [''],
     })
 
-    const userId = useSelector((state: any) => state.currentUser._id);
+    const userId = useSelector((state: any) => state.currentUser[0]._id);
 
 
     useEffect(() => {
      try{
         const fetchUserData = async () => {
 
-            const {data} = await axios.get(`http://localhost:3000/user/profile/${userId}`);
+            const {data} = await axios.get(`http://localhost:3000/profile/${userId}`);
 
             setUser(data.user);
         };
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
           <h2 className="text-2xl font-semibold">{user.name}</h2>
           <p className="text-sm text-gray-500">{user.email}</p>
           <button className='underline text-blue-600'>
-            <Link to='/Profile-edit'>
+            <Link to='/Profile/edit'>
             Edit
             </Link>
           </button>

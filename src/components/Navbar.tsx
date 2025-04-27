@@ -7,7 +7,7 @@ const Navbar = () => {
     const [dropdown, setDropdown] = useState(false);
     const distpatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state: any) => state.currentUser);
+    const user = useSelector((state: any) => state.currentUser[0]);
     const isUser = useSelector((state: any) => state.isUser);
 
     // useEffect(() => {

@@ -6,13 +6,13 @@ import { useSelector } from "react-redux";
 
 const Article = () => { 
   const [articles, setArticles] = useState([]);
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const userId = useSelector((state: any) => state.currentUser[0]._id);
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/user/articles/${userId}`
+          `http://localhost:3000/articles/${userId}`
         );
 
         setArticles(data.articles);
@@ -26,12 +26,12 @@ const Article = () => {
 
   return (
     <div>
-      <section className="w-screen bg-gradient-to-r text-white py-12 px-6 mt-12">
-        <div className="w-2/3 mx-auto bg-[#ffffff] shadow-2xl border-t border-gray-300 text-black rounded-2xl p-8 flex flex-col items-center text-center">
+      <section className="w-screen bg-gradient-to-r text-white py-12 px-6 mt-12 nunito-regular">
+        <div className="w-2/3 mx-auto bg-[#ffffff] shadow-2xl border-t border-gray-300 text-black rounded-2xl p-6 flex flex-col items-center text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Share Your Voice with the World
           </h2>
-          <p className="text-base md:text-md mb-6 max-w-2xl">
+          <p className="text-base md:text-md mb-6 w-full px-60">
             Add your own personal articles to inspire, educate, or entertain
             readers across the globe. Whether it's tech insights, travel
             experiences, or life lessons — your stories deserve to be heard.
@@ -48,7 +48,7 @@ const Article = () => {
         <div className="flex justify-center gap-10 py-3 pt-16">
         
           <p
-            className="font-thin text-xl cursor-pointer" 
+            className="font-thin text-2xl cursor-pointer" 
           >
             My Articles
           </p>

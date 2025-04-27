@@ -32,6 +32,7 @@ const LoginPage = () => {
                         email: formData.email,
                         password: formData.password,
                     });
+                        
 
                     dispatch(signInUser(data.user));
 

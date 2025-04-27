@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { ArticleCard } from "../components/ArticleCard";
 import axios from "axios";
-import { useSelector } from "react-redux";
-
-
+import { useSelector } from "react-redux"; 
 
 
 const Home = () => {
 
   const [articles, setArticles] = useState([]);
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const userId = useSelector((state: any) => state.currentUser[0]._id);
 
   useEffect(() => {
     try {
@@ -33,7 +31,7 @@ const Home = () => {
     <div>
       <section>
         <div className='grid justify-center pt-16 gap-3'>
-          <p className='font-mono text-center nunito-regular'>Explore</p>
+          <p className='font-mono text-center text-2xl nunito-regular'>For You</p>
           <hr className='w-[20rem]' />
         </div>
       </section>

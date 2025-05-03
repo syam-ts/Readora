@@ -41,13 +41,13 @@ const MonoArticle: React.FC = () => {
         }
     }, []);
 
- 
+
 
 
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800 nunito-regular">
-            <h1 className="text-4xl font-semibold mb-2">{article.title}</h1> 
+            <h1 className="text-4xl font-semibold mb-2">{article.title}</h1>
 
             <div className="text-sm text-gray-400 mb-10">By: {article.author}</div>
 
@@ -62,8 +62,12 @@ const MonoArticle: React.FC = () => {
                 />
             </div>
 
-            <div className="text-base leading-relaxed whitespace-pre-line mb-10">
-                {article.subtitle}
+            <div className="text-base flex justify-between leading-relaxed whitespace-pre-line mb-10">
+                <p>{article.subtitle}</p>
+                <div className='flex justify-between gap-10 pr-3'>
+                    <p><img src='https://cdn-icons-png.flaticon.com/128/126/126473.png' className='h-6 w-6' alt='like-image' /></p>
+                    <p><img src='https://cdn-icons-png.flaticon.com/128/126/126504.png' className='h-6 w-6' alt='like-image' /></p>
+                </div>
             </div>
 
             <div className="text-base leading-relaxed whitespace-pre-line text-black mb-10">

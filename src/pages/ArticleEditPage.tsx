@@ -88,7 +88,7 @@ const ArticleEditPage: React.FC = () => {
 
   const handleFileUpload = async (e: any): Promise<void> => {
     try {
-      const file = e.target.files[0];
+      const file = e.target.files[0]; 
       if (!file) return;
 
       const data = new FormData();
@@ -120,14 +120,13 @@ const ArticleEditPage: React.FC = () => {
 
       if (validForm) {
         const { data } = await apiInstance.put(
-          `http://localhost:3000`,
+          `http://localhost:3000/article`,
           article
         );
 
         console.log("The result: ", data);
         if (data.success) {
-          setTimeout(() => {
-            alert("success");
+          setTimeout(() => { 
             navigate("/articles");
           }, 500);
         } else {

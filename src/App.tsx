@@ -11,6 +11,7 @@ import SignupPage from './pages/Signup';
 import Footer from './components/Footer';
 import ArticleEditPage from './pages/ArticleEditPage';
 import { UserProtectedRoute } from './utils/extra/ProtectedRoute';
+import Prefrences from './components/Preferences';
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
+        <Route path='/preferences' element={<Prefrences />} />
        <Route element={<UserProtectedRoute />}>
        <Route path='/home' element={<Home />} />
         <Route path='/articles' element={<Article />} />

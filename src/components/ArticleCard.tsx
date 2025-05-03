@@ -82,7 +82,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                         alt="article image"
                                     />
                                 </Link>
-                            </div>
+                            </div> 
                             <div className="p-6 w-full">
                                 <h4 className="font-sans line-clamp-1 text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                                     {article[1].title}

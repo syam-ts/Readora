@@ -107,7 +107,7 @@ const MonoArticle: React.FC = () => {
                         onClick={() => likeArticle(article._id)}
                     >
                         <img
-                            src="https://cdn-icons-png.flaticon.com/128/126/126473.png"
+                            src="/like.png"
                             className="h-6 w-6 hover:scale-130"
                             alt="like-image"
                         />
@@ -117,9 +117,9 @@ const MonoArticle: React.FC = () => {
                         onClick={() => dislikeArticle(article._id)}
                     >
                         <img
-                            src="https://cdn-icons-png.flaticon.com/128/126/126504.png"
+                            src="/dislike.png"
                             className="h-6 w-6 hover:scale-130"
-                            alt="like-image"
+                            alt="dislike-image"
                         />
                     </button>
                 </div>

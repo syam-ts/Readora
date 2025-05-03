@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { categories } from "../utils/constants/categories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { articleSchema } from "../utils/validation/articleEditSchema";
+import { ErrorComponent } from "../components/ErrorComponent";
 
 interface Article {
   userId: string;
@@ -29,8 +31,9 @@ const ArticleEditPage: React.FC = () => {
     createdAt: "",
   });
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState<string>('');
+  const [tagInput, setTagInput] = useState<string>("");
   const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
   const articleId = searchParams.get("articleId");
   const navigate = useNavigate();
@@ -44,7 +47,7 @@ const ArticleEditPage: React.FC = () => {
 
         setArticle(data.article);
         setTags(data.article.tags);
-        setPreview(data.article.image)
+        setPreview(data.article.image);
       };
 
       fetchArticles();
@@ -97,7 +100,7 @@ const ArticleEditPage: React.FC = () => {
       const response = await cloudinaryInstance.post("", data);
       console.log("finl imag: ", response.data?.url);
       setPreview(response.data.url);
-      article.image = response.data.url
+      article.image = response.data.url;
     } catch (err) {
       console.log("ERR: ", err);
     }
@@ -106,21 +109,40 @@ const ArticleEditPage: React.FC = () => {
   const submitForm = async (): Promise<void> => {
     try {
       console.log("The formData: ", article);
-      article.tags = tags
-      const { data } = await apiInstance.put(
-        `http://localhost:3000/article`,
-        article
+      article.tags = tags;
+
+      const validForm = await articleSchema.validate(
+        article,
+        {
+          abortEarly: false,
+        }
       );
 
-      console.log("The result: ", data);
-      if (data.success) {
-        setTimeout(() => {
-          alert("success");
-          navigate("/articles");
-        }, 500);
+      if (validForm) {
+        const { data } = await apiInstance.put(
+          `http://localhost:3000`,
+          article
+        );
+
+        console.log("The result: ", data);
+        if (data.success) {
+          setTimeout(() => {
+            alert("success");
+            navigate("/articles");
+          }, 500);
+        } else {
+          await articleSchema.validate(
+            { article },
+            {
+              abortEarly: false,
+            }
+          );
+        }
       }
-    } catch (err: unknown) {
-      // console.log("ERROR: ", err);
+    } catch (error: unknown) {
+      const err = error as { errors: string[] };
+      console.log('ERRORS: ', err.errors);
+      setError(err.errors);
     }
   };
 
@@ -136,6 +158,12 @@ const ArticleEditPage: React.FC = () => {
         className="w-full text-2xl font-medium placeholder-blue-200 mb-4 focus:outline-none"
       />
 
+      <ErrorComponent error={error}
+        e1='Name is required'
+        e2='Invalid title (minimum 10 characters)'
+        e3='Invalid title (maximum 80 characters)'
+      />
+
       {/* Subtitle */}
       <label className="text-xl">Sub Title</label>
       <input
@@ -144,6 +172,12 @@ const ArticleEditPage: React.FC = () => {
         name="subtitle"
         placeholder={article.subtitle}
         className="w-full text-sm placeholder-blue-200 mb-8 focus:outline-none"
+      />
+
+      <ErrorComponent error={error}
+        e1='Invalid subtitle (maximum 50 characters)'
+        e2='Invalid subtitle (minimum 10 characters)'
+        e3='Invalid subtitle (maximum 50 characters)'
       />
 
       {/* Image Upload */}
@@ -172,11 +206,17 @@ const ArticleEditPage: React.FC = () => {
         name="description"
         placeholder={article.description}
         rows={8}
-        className="w-full text-sm p-3 placeholder-blue-200 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-12"
+        className="w-full text-sm p-3 placeholder-blue-200 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-3"
+      />
+
+      <ErrorComponent error={error}
+        e1='Description should have atleast 80 characters'
+        e2='Description should be under 450 characters'
+        e3='Description should have atleast 80 characters'
       />
 
       {/* Tags */}
-      <div className="mb-12">
+      <div className="mt-12">
         <label className="text-xl text-neutral-500 block mb-2">Tags</label>
         <div className="flex flex-wrap gap-2 mb-2">
           {tags?.map((tag) => (
@@ -213,8 +253,14 @@ const ArticleEditPage: React.FC = () => {
         </div>
       </div>
 
+      <ErrorComponent error={error}
+        e1='Minimum 4 preferences needed'
+        e2='Maximum 5 preferences are allowed'
+        e3='Minimum 4 preferences needed'
+      />
+
       {/* Categories */}
-      <div className="mb-14">
+      <div className="mt-12">
         <label className="text-lg text-neutral-500 block mb-2">Category</label>
         <select
           onChange={onChangeHandler}
@@ -222,11 +268,9 @@ const ArticleEditPage: React.FC = () => {
           className="w-[10rem] text-xs bg-transparent border border-neutral-300 px-2 py-2 rounded-md focus:outline-none"
         >
           <option value="">{article.category}</option>
-          {
-            categories.map((category: string) => (
-              <option>{category}</option>
-            ))
-          }
+          {categories.map((category: string) => (
+            <option>{category}</option>
+          ))}
         </select>
       </div>
 
@@ -234,7 +278,7 @@ const ArticleEditPage: React.FC = () => {
       <div className="flex justify-end">
         <button
           onClick={submitForm}
-          className="text-xs px-6 py-2 border bg-sky-500 text-white border-neutral-300 rounded-md hover:bg-neutral-100 transition"
+          className="text-xs px-6 py-2 border cursor-pointer bg-sky-700 text-white border-neutral-300 rounded-md hover:bg-gray-800 transition"
         >
           Submit
         </button>

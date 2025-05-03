@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
 interface Article {
+    _id: string;
     title: string;
     subtitle?: string;
     author: string;
@@ -10,10 +11,13 @@ interface Article {
     description: string;
     tags?: string[];
     category: string;
+    likes: number;
+    dislikes: number;
 }
 
 const MonoArticle: React.FC = () => {
     const [article, setArticle] = useState<Article>({
+        _id: "",
         title: "",
         subtitle: "",
         author: "",
@@ -21,7 +25,10 @@ const MonoArticle: React.FC = () => {
         description: "",
         tags: [""],
         category: "",
+        likes: 0,
+        dislikes: 0,
     });
+    const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
     const { articleId } = useParams();
 
@@ -36,14 +43,44 @@ const MonoArticle: React.FC = () => {
             };
 
             fetchArticles();
+
+            setRefreshPage(false);
         } catch (err) {
             console.log("ERROR: ", err);
         }
-    }, []);
+    }, [refreshPage]);
 
+    const likeArticle = async (articleId: string) => {
+        try {
+            const { data } = await apiInstance.put(
+                `http://localhost:3000/like/${articleId}`
+            );
 
+            console.log("The result: ", data);
+            if (data.success) {
+                // alert('success')
+                setRefreshPage(true);
+            }
+        } catch (err) {
+            console.log("ERROR: ", err);
+        }
+    };
 
+    const dislikeArticle = async (articleId: string) => {
+        try {
+            const { data } = await apiInstance.put(
+                `http://localhost:3000/dislike/${articleId}`
+            );
 
+            console.log("The result: ", data);
+            if (data.success) {
+                // alert('success')
+                setRefreshPage(true);
+            }
+        } catch (err) {
+            console.log("ERROR: ", err);
+        }
+    };
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800 nunito-regular">
@@ -64,9 +101,27 @@ const MonoArticle: React.FC = () => {
 
             <div className="text-base flex justify-between leading-relaxed whitespace-pre-line mb-10">
                 <p>{article.subtitle}</p>
-                <div className='flex justify-between gap-10 pr-3'>
-                    <p><img src='https://cdn-icons-png.flaticon.com/128/126/126473.png' className='h-6 w-6' alt='like-image' /></p>
-                    <p><img src='https://cdn-icons-png.flaticon.com/128/126/126504.png' className='h-6 w-6' alt='like-image' /></p>
+                <div className="flex justify-between gap-10 pr-3">
+                    <button
+                        className="cursor-pointer"
+                        onClick={() => likeArticle(article._id)}
+                    >
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/128/126/126473.png"
+                            className="h-6 w-6 hover:scale-130"
+                            alt="like-image"
+                        />
+                    </button>
+                    <button
+                        className="cursor-pointer"
+                        onClick={() => dislikeArticle(article._id)}
+                    >
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/128/126/126504.png"
+                            className="h-6 w-6 hover:scale-130"
+                            alt="like-image"
+                        />
+                    </button>
                 </div>
             </div>
 
@@ -90,8 +145,14 @@ const MonoArticle: React.FC = () => {
             </div>
 
             <div className="mt-6 text-sm text-gray-500">
-                <span className="font-medium text-gray-700">Category:</span>{" "}
+                <span className="font-medium text-gray-700">Category:</span>
                 {article.category}
+            </div>
+            <div className="mt-6 flex justify-end gap-5 text-sm text-gray-500">
+                <span className="font-medium text-gray-700">Like: {article.likes}</span>
+                <span className="font-medium text-gray-700">
+                    Dislike: {article.dislikes}
+                </span>
             </div>
         </div>
     );

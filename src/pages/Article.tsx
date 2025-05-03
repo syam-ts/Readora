@@ -12,7 +12,7 @@ const Article = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `http://localhost:3000/articles/${userId}`
+          `http://localhost:3000/user/articles/${userId}`
         );
 
         setArticles(data.articles);

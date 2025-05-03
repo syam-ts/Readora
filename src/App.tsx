@@ -15,7 +15,7 @@ import Prefrences from './components/Preferences';
 
 function App() {
   const location = useLocation();
-  const hideNavbarRoutes = ['/login', '/signup'];
+  const hideNavbarRoutes = ['/login', '/signup', '/preferences'];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (

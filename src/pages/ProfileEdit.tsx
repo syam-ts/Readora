@@ -10,6 +10,8 @@ interface User {
   profilePicture: string;
   phone: number | null;
   dob: number | null;
+  gender: string;
+  location: string;
   preferences: string[];
 }
 
@@ -19,6 +21,8 @@ const ProfileEdit: React.FC = () => {
     profilePicture: "",
     phone: null,
     dob: null,
+    gender: "",
+    location: "",
     preferences: [""],
   });
   const [preferences, setPreferences] = useState<string[]>([]);
@@ -26,33 +30,50 @@ const ProfileEdit: React.FC = () => {
   const [error, setError] = useState<string[]>([]);
   const [imageError, setImageError] = useState<string[]>([]);
   const navigate = useNavigate();
-  
+
   const userId = useSelector((state: any) => state.currentUser._id);
-  
+
   useEffect(() => {
     try {
       const fetchUserData = async () => {
         const { data } = await apiInstance.get(
           `http://localhost:3000/profile/${userId}`
         );
-        
+
         setUser(data.user);
       };
-      
+
       fetchUserData();
     } catch (err) {
       console.log("ERROR: ", err);
     }
   }, []);
-  
+
   const [formData, setFormData] = useState<User>({
     name: user.name,
     profilePicture: user.profilePicture,
     phone: user.phone,
     dob: user.dob,
+    gender: user.gender,
+    location: user.location,
     preferences: user.preferences,
   });
-  console.log('The form', formData, user)
+
+
+  useEffect(() => {
+    try {
+      const fetchUserData = async () => {
+
+        const { data } = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
+
+        setUser(data.user);
+      };
+
+      fetchUserData();
+    } catch (err) {
+      console.log('ERROR: ', err);
+    }
+  }, [])
 
   const onChangeHandler = (e: any) => {
     const { name, value } = e.target;
@@ -94,7 +115,7 @@ const ProfileEdit: React.FC = () => {
 
     const file = e.target.files?.[0];
 
-    
+
     if (!file || Array(file).length === 0) {
       setImageError(['Profile Picture required']);
       return;
@@ -130,6 +151,8 @@ const ProfileEdit: React.FC = () => {
         profilePicture: formData.profilePicture,
         phone: formData.phone,
         dob: formData.dob,
+        gender: formData.gender,
+        location: formData.location,
         preferences: preferences
       }
 
@@ -148,6 +171,8 @@ const ProfileEdit: React.FC = () => {
           profilePicture: formData.profilePicture || user.profilePicture,
           phone: formData.phone || user.phone,
           dob: formData.dob || user.dob,
+          gender: formData.gender || user.gender,
+          location: formData.location || user.location,
           preferences: preferences || user.preferences
         };
 
@@ -230,6 +255,32 @@ const ProfileEdit: React.FC = () => {
           e1='Phone Number is required'
           e2='Invalid Number (must be positive)'
           e3='Invalid Number (must be at least 10 digits)'
+        />
+
+
+
+        <form className="w-44">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+          <select onChange={(e) => onChangeHandler(e.target.value)} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>{user.gender}</option>
+
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </form>
+
+ 
+
+        <div className="grid">
+          <label>Location</label>
+          <input onChange={(e) => onChangeHandler(e)} name='location' value={formData.location}
+            className="text-2xl font-semibold outline-none" placeholder={user.location} />
+        </div>
+
+        <ErrorComponent error={error}
+          e1='Location is required'
+          e2='Invalid location (minimum 5 characters)'
+          e3='Invalid location (maximum 20 characters)'
         />
 
         <div>

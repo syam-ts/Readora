@@ -7,6 +7,7 @@ import { userSignupSchema } from "../utils/validation/signupSchema";
 
 
 interface FormData {
+    name: string
     email: string
     password: string
 };
@@ -14,6 +15,7 @@ interface FormData {
 const SignupPage = () => {
 
     const [formData, setFormData] = useState<FormData>({
+        name: "",
         email: "",
         password: ""
     });
@@ -34,16 +36,16 @@ const SignupPage = () => {
             });
 
             if (validForm) {
-                const { data } = await axios.post('http://localhost:3000/user/signup', {
+                const { data } = await axios.post('http://localhost:3000/signup', {
+                    name: formData.name,
                     email: formData.email,
                     password: formData.password
                 });
-
-                dispatch(signInUser(data.user));
+ 
 
                 console.log('The result: ', data)
                 if (data.success) {
-                    navigate('/login')
+                    navigate('/login');
                 }
             } else {
                 await userSignupSchema.validate(formData, {

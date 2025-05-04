@@ -9,39 +9,45 @@ interface User {
   password: string;
   profilePicture: string;
   phone: number;
+  location: string;
+  gender: string;
   dob: number;
   preferences: string[];
+  noOfArticles: number
 }
 
 const Profile: React.FC = () => {
 
-    const [user, setUser] = useState<User>({
-        name: '',
-        email: '',
-        password: '',
-        profilePicture: '',
-        phone: 0,
-        dob: 0,
-        preferences: [''],
-    })
+  const [user, setUser] = useState<User>({
+    name: '',
+    email: '',
+    password: '',
+    profilePicture: '',
+    phone: 0,
+    location: "",
+    gender: "",
+    dob: 0,
+    preferences: [''],
+    noOfArticles: 0
+  })
 
-    const userId = useSelector((state: any) => state.currentUser._id);
+  const userId = useSelector((state: any) => state.currentUser._id);
 
 
-    useEffect(() => {
-     try{
-        const fetchUserData = async () => {
+  useEffect(() => {
+    try {
+      const fetchUserData = async () => {
 
-            const {data} = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
+        const { data } = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
 
-            setUser(data.user);
-        };
+        setUser(data.user);
+      };
 
-        fetchUserData();
-     }catch(err){
-        console.log('ERROR: ',err);
-     }
-    }, [])
+      fetchUserData();
+    } catch (err) {
+      console.log('ERROR: ', err);
+    }
+  }, [])
 
 
 
@@ -58,7 +64,7 @@ const Profile: React.FC = () => {
           <p className="text-sm text-gray-500">{user.email}</p>
           <button className='underline text-blue-600'>
             <Link to='/Profile/edit'>
-            Edit
+              Edit
             </Link>
           </button>
         </div>
@@ -68,6 +74,16 @@ const Profile: React.FC = () => {
         <div>
           <p className="text-gray-400 mb-1">Phone</p>
           <p>{user.phone}</p>
+        </div>
+
+        <div>
+          <p className="text-gray-400 mb-1"> Location </p>
+          <p>{user.location}</p>
+        </div>
+
+        <div>
+          <p className="text-gray-400 mb-1"> Gender </p>
+          <p>{user.gender}</p>
         </div>
 
         <div>

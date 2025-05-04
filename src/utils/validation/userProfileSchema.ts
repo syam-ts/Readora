@@ -34,6 +34,13 @@ export const userProfileSchema = yup.object().shape({
         .typeError("Date of Birth must be a valid date")
         .max(new Date(), "Date of Birth cannot be in the future")
         .required("Date of Birth is required"),
+        
+        location: yup
+        .string()
+        .trim()
+        .min(5, "Invalid Location (minimum 5 characters)")
+        .max(20, "Invalid Location (maximum 20 characters)")
+        .required("Location is required"),
 
     preferences: yup
         .array()

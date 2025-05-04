@@ -3,18 +3,21 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
+import { ErrorComponent } from "../components/ErrorComponent";
 
 const ArticleCreation: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState("");
-  const [image, setImage] = useState("");
+  const [tagInput, setTagInput] = useState<string>("");
+  const [image, setImage] = useState<string>("");
+  const [error, setError] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
     description: "",
     image: "",
     tags: [""],
-    categories: "",
+    category: "",
   });
   const userId = useSelector((state: any) => state.currentUser._id);
   const navigate = useNavigate();
@@ -66,20 +69,35 @@ const ArticleCreation: React.FC = () => {
 
   const submitForm = async () => {
     try {
-      const { data } = await apiInstance.post(
-        `http://localhost:3000/user/createArticle/${userId}`,
-        formData
-      );
+      console.log('FORM: ',formData)
+      formData.tags = tags;
+      const validForm = await articleCreationSchema.validate(formData, {
+        abortEarly: false
+      });
 
-      console.log("The result: ", data);
-      if (data.success) {
-        setTimeout(() => {
-          alert("success");
-          navigate("/articles");
-        }, 500);
+      if(validForm) {
+        const { data } = await apiInstance.post(
+          `http://localhost:3000`,
+          formData
+        );
+  
+        console.log("The result: ", data);
+        if (data.success) {
+          setTimeout(() => {
+            alert("success");
+            navigate("/articles");
+          }, 500);
+        }
+      } else {
+        await articleCreationSchema.validate(formData, {
+          abortEarly: false
+        })
       }
-    } catch (err: unknown) {
-      console.log("ERROR: ", err);
+    
+    } catch (error: unknown) {
+      const err = error as {errors: string[]};
+      setError(err.errors);
+      console.log("ERROR: ", err.errors);
     }
   };
 
@@ -94,14 +112,25 @@ const ArticleCreation: React.FC = () => {
         className="w-full text-2xl font-medium placeholder-neutral-400 mb-4 focus:outline-none"
       />
 
+           <ErrorComponent error={error}
+              e1='Title is required'
+              e2='Invalid title (minimum 10 characters)'
+              e3='Invalid title (maximum 80 characters)'
+            />
+
       {/* Subtitle */}
       <input
         onChange={onChangeHandler}
         type="text"
         name="subtitle"
         placeholder="Add a subtitle…"
-        className="w-full text-sm placeholder-neutral-400 mb-8 focus:outline-none"
+        className="w-full text-md placeholder-neutral-400 mb-8 focus:outline-none"
       />
+             <ErrorComponent error={error}
+              e1='Subtitle is required'
+              e2='Invalid subtitle (minimum 10 characters)'
+              e3='Invalid subtitle (maximum 50 characters)'
+            />
 
       {/* Image Upload */}
       <div className="mb-12 grid">
@@ -115,13 +144,21 @@ const ArticleCreation: React.FC = () => {
       </div>
 
       {/* Description */}
-      <textarea
-        onChange={onChangeHandler}
-        name="description"
-        placeholder="Start writing…"
-        rows={8}
-        className="w-full text-sm placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl p-3 mb-12"
-      />
+      <div className='grid gap-5'>
+        <label className="text-md text-neutral-500">Description</label>
+        <textarea
+          onChange={onChangeHandler}
+          name="description"
+          placeholder="Start writing…"
+          rows={8}
+          className="w-full text-sm placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl p-3 mb-12"
+        />
+      </div>
+      <ErrorComponent error={error}
+              e1='Description is required'
+              e2='Description should have atleast 20 300 characters'
+              e3="Maximum characters are 500"
+            />
 
       {/* Tags */}
       <div className="mb-12">
@@ -158,6 +195,11 @@ const ArticleCreation: React.FC = () => {
             Add
           </button>
         </div>
+      <ErrorComponent error={error}
+              e1='Tags are required'
+              e2='Minimum 3 tags needed'
+              e3='Maximum 5 tags are allowed'
+            />
       </div>
 
       {/* Categories */}
@@ -175,6 +217,11 @@ const ArticleCreation: React.FC = () => {
           <option value="design">Design</option>
           <option value="lifestyle">Lifestyle</option>
         </select>
+      <ErrorComponent error={error}
+              e1='Category is required'
+              e2='Categorey is required (minimum 10 characters)'
+              e3='Categorey is required (maximum 80 characters)'
+            />
       </div>
 
       {/* Submit */}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { categories } from "../utils/constants/categories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { articleSchema } from "../utils/validation/articleEditSchema";
+import { articleEditSchema } from "../utils/validation/articleEditSchema";
 import { ErrorComponent } from "../components/ErrorComponent";
 
 interface Article {
@@ -111,7 +111,7 @@ const ArticleEditPage: React.FC = () => {
       console.log("The formData: ", article);
       article.tags = tags;
 
-      const validForm = await articleSchema.validate(
+      const validForm = await articleEditSchema.validate(
         article,
         {
           abortEarly: false,
@@ -130,7 +130,7 @@ const ArticleEditPage: React.FC = () => {
             navigate("/articles");
           }, 500);
         } else {
-          await articleSchema.validate(
+          await articleEditSchema.validate(
             { article },
             {
               abortEarly: false,

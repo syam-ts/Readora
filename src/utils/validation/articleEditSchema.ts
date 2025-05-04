@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const articleSchema = yup.object().shape({
+export const articleEditSchema = yup.object().shape({
 
     title: yup
         .string()

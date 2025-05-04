@@ -20,8 +20,7 @@ const SignupPage = () => {
         password: ""
     });
     const [error, setError] = useState<string[]>([]);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const isUser = useSelector((state: any) => state.isUser);
 
     useEffect(() => {
@@ -42,10 +41,10 @@ const SignupPage = () => {
                     password: formData.password
                 });
  
-
-                console.log('The result: ', data)
+                const userId = data.user.userId;
+                console.log('the result', data) 
                 if (data.success) {
-                    navigate('/login');
+                    navigate(`/preferences?userId=${userId}`);
                 }
             } else {
                 await userSignupSchema.validate(formData, {

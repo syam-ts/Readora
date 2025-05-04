@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { categories } from "../utils/constants/categories";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Preferences = () => {
-  const [preferences, setPrefernces] = useState<string[]>([]);
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const [preferences, setPrefernces] = useState<string[]>([]); 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get('userId');
 
   const addPrefences = (value: string) => {
     setPrefernces((prev) =>

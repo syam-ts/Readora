@@ -18,8 +18,8 @@ export const articleCreationSchema = yup.object().shape({
     description: yup
         .string()
         .trim()
-        .min(20, "Description should have atleast 20 300 characters")
-        .max(500, "Maximum characters are 500")
+        .min(80, 'Description should have atleast 80 characters')
+        .max(450, 'Description should be under 450 characters')
         .required("Description is required"),
 
     tags: yup

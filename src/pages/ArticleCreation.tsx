@@ -8,8 +8,8 @@ import { ErrorComponent } from "../components/ErrorComponent";
 
 const ArticleCreation: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState<string>("");
-  const [image, setImage] = useState<string>("");
+  const [tagInput, setTagInput] = useState<string>(""); 
+    const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -62,6 +62,7 @@ const ArticleCreation: React.FC = () => {
       const response = await cloudinaryInstance.post("", data);
       console.log("finl imag: ", response.data?.url);
       formData.image = response.data?.url;
+      setPreview(response.data.url)
     } catch (err) {
       console.log("ERR: ", err);
     }
@@ -77,7 +78,7 @@ const ArticleCreation: React.FC = () => {
 
       if(validForm) {
         const { data } = await apiInstance.post(
-          `http://localhost:3000`,
+          `http://localhost:3000/article/${userId}`,
           formData
         );
   
@@ -104,6 +105,7 @@ const ArticleCreation: React.FC = () => {
   return (
     <div className="max-w-xl mx-auto px-4 py-20 text-neutral-800 font-sans">
       {/* Title */}
+      <div className='grid gap-1 my-5'>
       <input
         onChange={onChangeHandler}
         type="text"
@@ -117,20 +119,23 @@ const ArticleCreation: React.FC = () => {
               e2='Invalid title (minimum 10 characters)'
               e3='Invalid title (maximum 80 characters)'
             />
+      </div> 
 
       {/* Subtitle */}
-      <input
+   <div className='grid gap-1 my-5'>
+   <input
         onChange={onChangeHandler}
         type="text"
         name="subtitle"
         placeholder="Add a subtitle…"
-        className="w-full text-md placeholder-neutral-400 mb-8 focus:outline-none"
+        className="w-full text-md placeholder-neutral-400 focus:outline-none"
       />
              <ErrorComponent error={error}
               e1='Subtitle is required'
               e2='Invalid subtitle (minimum 10 characters)'
               e3='Invalid subtitle (maximum 50 characters)'
             />
+   </div>
 
       {/* Image Upload */}
       <div className="mb-12 grid">
@@ -141,6 +146,14 @@ const ArticleCreation: React.FC = () => {
           type="file"
           className="text-xs text-neutral-500 border w-2/7 py-1 rounded-sm"
         />
+
+{preview && (
+          <img
+            src={preview}
+            alt="Preview"
+            className="mt-4 w-48 h-48 object-cover rounded-md border"
+          />
+        )}
       </div>
 
       {/* Description */}
@@ -151,17 +164,17 @@ const ArticleCreation: React.FC = () => {
           name="description"
           placeholder="Start writing…"
           rows={8}
-          className="w-full text-sm placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl p-3 mb-12"
+          className="w-full text-sm placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl p-3 "
         />
-      </div>
       <ErrorComponent error={error}
               e1='Description is required'
-              e2='Description should have atleast 20 300 characters'
-              e3="Maximum characters are 500"
+              e2='Description should have atleast 80 characters'
+              e3="Description should be under 450 characters"
             />
+      </div>  
 
       {/* Tags */}
-      <div className="mb-12">
+      <div className="mb-12 pt-5">
         <label className="text-xs text-neutral-500 block mb-2">Tags</label>
         <div className="flex flex-wrap gap-2 mb-2">
           {tags.map((tag) => (

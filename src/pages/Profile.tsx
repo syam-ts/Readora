@@ -52,61 +52,64 @@ const Profile: React.FC = () => {
 
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-28 font-sans text-gray-800">
-      <div className="flex items-center gap-4 mb-10">
-        <img
-          src={user.profilePicture}
-          alt="Profile"
-          className="w-16 h-16 rounded-full object-cover"
-        />
-        <div>
-          <h2 className="text-2xl font-semibold">{user.name}</h2>
-          <p className="text-sm text-gray-500">{user.email}</p>
-          <button className='underline text-blue-600'>
-            <Link to='/Profile/edit'>
-              Edit
-            </Link>
-          </button>
-        </div>
-      </div>
+    <div className="w-full justify-center flex mx-auto px-4 py-28 font-sans text-gray-800">
+      <div className=" items-center gap-4 mb-10">
 
-      <div className="space-y-6 text-sm text-gray-700">
-        <div>
-          <p className="text-gray-400 mb-1">Phone</p>
-          <p>{user.phone}</p>
+        <div className='flex gap-5 py-5'>
+          <div>
+            <img
+              src={user.profilePicture}
+              alt="Profile"
+              className="w-16 h-16 rounded-full object-cover"
+            />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold">{user.name}</h2>
+            <p className="text-sm text-gray-500">{user.email}</p>
+            <button className='underline text-blue-600'>
+              <Link to='/Profile/edit'>
+                Edit
+              </Link>
+            </button>
+          </div>
         </div>
 
-        <div>
-          <p className="text-gray-400 mb-1"> Location </p>
-          <p>{user.location}</p>
-        </div>
 
-        <div>
-          <p className="text-gray-400 mb-1"> Gender </p>
-          <p>{user.gender}</p>
-        </div>
+        <div className="space-y-6 text-sm text-gray-700">
+          <div className='flex gap-5'>
+            <p className="text-gray-400 mb-1">Phone</p>
+            <p>{user.phone}</p>
+          </div>
+          <div className='flex gap-5'>
+            <p className="text-gray-400 mb-1">Gender</p>
+            <p>{user.gender}</p>
+          </div>
+          <div className='flex gap-5'>
+            <p className="text-gray-400 mb-1">Location</p>
+            <p>{user.location}</p>
+          </div>
 
-        <div>
-          <p className="text-gray-400 mb-1">Date of Birth</p>
-          <p>{new Date(user.dob).toLocaleDateString()}</p>
-        </div>
+          <div className='flex gap-5'>
+            <p className="text-gray-400 mb-1">Date of Birth</p>
+            <p>{new Date(user.dob).toLocaleDateString()}</p>
+          </div>
 
-        {/* <div>
+
+
+          {/* <div>
           <p className="text-gray-400 mb-1">Password</p>
           <p className="text-gray-500 italic">••••••••••</p>
         </div> */}
 
-        <div>
-          <p className="text-gray-400 mb-2">Preferences</p>
-          <div className="flex flex-wrap gap-2">
-            {/* {user.preferences?.map(pref => (
-              <span
-                keyuser.pref}
-                className="bg-gray-100 text-sm px-3 py-1 rounded-full"
-              >
-                {pref}
-              </span>
-            ))} */}
+          <div>
+            <p className="text-gray-400 mb-2">Preferences</p>
+            <div className="flex flex-wrap gap-3 pt-3">
+              {
+                user.preferences.map((pref: string) => (
+                  <p className='bg-gray-200 text-sm px-3 py-1 rounded-full'>{pref}</p>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 
-const Article = () => { 
+const MyArticle = () => { 
   const [articles, setArticles] = useState([]);
   const userId = useSelector((state: any) => state.currentUser._id);
 
@@ -65,4 +65,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default MyArticle;

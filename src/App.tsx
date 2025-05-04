@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/login';
 import Home from './pages/Home';
-import Article from './pages/Article';
+import MyArticle from './pages/MyArticle';
 import ArticleCreation from './pages/ArticleCreation';
 import MonoArticle from './pages/MonoArticle';
 import Profile from './pages/Profile';
@@ -28,7 +28,7 @@ function App() {
         <Route path='/preferences' element={<Prefrences />} />
        <Route element={<UserProtectedRoute />}>
        <Route path='/home' element={<Home />} />
-        <Route path='/articles' element={<Article />} />
+        <Route path='/articles' element={<MyArticle />} />
         <Route path='/articleCreation' element={<ArticleCreation />} />
         <Route path='/article/:articleId' element={<MonoArticle />} />
         <Route path='/article' element={<ArticleEditPage />} />

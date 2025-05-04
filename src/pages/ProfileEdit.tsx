@@ -49,35 +49,24 @@ const ProfileEdit: React.FC = () => {
     }
   }, []);
 
-  const [formData, setFormData] = useState<User>({
-    name: user.name,
-    profilePicture: user.profilePicture,
-    phone: user.phone,
-    dob: user.dob,
-    gender: user.gender,
-    location: user.location,
-    preferences: user.preferences,
-  });
-
-
   useEffect(() => {
     try {
       const fetchUserData = async () => {
-
-        const { data } = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
-
+        const { data } = await apiInstance.get(
+          `http://localhost:3000/profile/${userId}`
+        );
         setUser(data.user);
       };
 
       fetchUserData();
     } catch (err) {
-      console.log('ERROR: ', err);
+      console.log("ERROR: ", err);
     }
-  }, [])
+  }, []);
 
   const onChangeHandler = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
+    setUser((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -94,14 +83,11 @@ const ProfileEdit: React.FC = () => {
     setPreferences(preferences.filter((p) => p !== preference));
   };
 
-
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     // const file = e.target.files[0];
     // if (!file) return;
 
-    // const data = new FormData();
+    // const data = new user();
     // data.append("file", file);
     // data.append("upload_preset", "devlink-userProfle"),
     //   data.append("cloud_name", "dusbc29s2");
@@ -110,70 +96,67 @@ const ProfileEdit: React.FC = () => {
     // const response = await cloudinaryInstance.post("", data);
     // console.log("finl imag: ", response.data?.url);
 
-
-
-
     const file = e.target.files?.[0];
 
-
     if (!file || Array(file).length === 0) {
-      setImageError(['Profile Picture required']);
+      setImageError(["Profile Picture required"]);
       return;
-    };
+    }
 
-    const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const validTypes = ["image/jpeg", "image/png", "image/webp"];
     const maxSize = 3 * 1024 * 1024; // 3MB
 
     if (!validTypes.includes(file.type)) {
-      setImageError(['Invalid file type. Only JPEG, PNG, and WEBP are allowed']);
+      setImageError([
+        "Invalid file type. Only JPEG, PNG, and WEBP are allowed",
+      ]);
       return;
     }
 
     if (file.size > maxSize) {
-      setImageError(['File size must be under 3MB']);
+      setImageError(["File size must be under 3MB"]);
       return;
     }
 
     setImageError([]);
     const reader = new FileReader();
     reader.onloadend = () => {
-      onChangeHandler({ target: { name: 'profilePicture', value: reader.result } });
+      onChangeHandler({
+        target: { name: "profilePicture", value: reader.result },
+      });
     };
     reader.readAsDataURL(file);
   };
-  console.log('Image Error: ', imageError)
-
+  console.log("Image Error: ", imageError);
 
   const submitForm = async () => {
     try {
       const data = {
-        name: formData.name,
-        profilePicture: formData.profilePicture,
-        phone: formData.phone,
-        dob: formData.dob,
-        gender: formData.gender,
-        location: formData.location,
-        preferences: preferences
-      }
+        name: user.name,
+        profilePicture: user.profilePicture,
+        phone: user.phone,
+        dob: user.dob,
+        gender: user.gender,
+        location: user.location,
+        preferences: preferences,
+      };
 
-      console.log('THE FORM: ', data);
+      console.log("THE FORM: ", data);
 
       const validForm = await userProfileSchema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
-
       if (validForm) {
-
         const body = {
           userId,
-          name: formData.name || user.name,
-          profilePicture: formData.profilePicture || user.profilePicture,
-          phone: formData.phone || user.phone,
-          dob: formData.dob || user.dob,
-          gender: formData.gender || user.gender,
-          location: formData.location || user.location,
-          preferences: preferences || user.preferences
+          name: user.name,
+          profilePicture: user.profilePicture,
+          phone: user.phone,
+          dob: user.dob,
+          gender: user.gender,
+          location: user.location,
+          preferences: preferences,
         };
 
         const { data } = await apiInstance.put(
@@ -183,18 +166,17 @@ const ProfileEdit: React.FC = () => {
           }
         );
 
-
         if (data.success) {
           navigate("/profile");
         }
-
       } else {
-        await userProfileSchema.validate({ formData }, {
-          abortEarly: false
-        });
+        await userProfileSchema.validate(
+          { user },
+          {
+            abortEarly: false,
+          }
+        );
       }
-
-
     } catch (error: unknown) {
       const err = error as { errors: string[] };
       console.log("VALIDATION ERROR: ", err.errors);
@@ -204,8 +186,6 @@ const ProfileEdit: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-44 font-sans text-gray-800">
-
-
       <div className="grid">
         <label htmlFor="profilePicture">Profile Picture</label>
         <input
@@ -215,94 +195,106 @@ const ProfileEdit: React.FC = () => {
           onChange={(e) => handleImageChange(e)}
           className="text-gray-700 text-sm"
         />
-        <img src={formData.profilePicture} className='w-16 h-16 rounded-full' />
+        <img src={user.profilePicture} className="w-16 h-16 rounded-full" />
       </div>
 
-      <ErrorComponent error={imageError}
-        e1='Profile Picture required'
-        e2='Invalid file type. Only JPEG, PNG, and WEBP are allowed'
-        e3='File size must be under 3MB'
+      <ErrorComponent
+        error={imageError}
+        e1="Profile Picture required"
+        e2="Invalid file type. Only JPEG, PNG, and WEBP are allowed"
+        e3="File size must be under 3MB"
       />
 
       <div className="space-y-6 text-sm text-gray-700">
         <div className="grid">
           <label>Name</label>
-          <input onChange={(e) => onChangeHandler(e)} name='name' value={formData.name}
-            className="text-2xl font-semibold outline-none" placeholder={user.name} />
-        </div>
-
-        <ErrorComponent error={error}
-          e1='Name is required'
-          e2='Invalid name (minimum 5 characters)'
-          e3='Invalid name (maximum 20 characters)'
-        />
-
-
-
-        <div className='grid'>
-          <label>Phone</label>
           <input
             onChange={(e) => onChangeHandler(e)}
-            name='phone'
-            className="text-gray-500 mb-1 outline-none"
-            type='number'
-
-            placeholder={user.phone ? String(user.phone) : "Enter phone number"}
+            name="name"
+            value={user.name}
+            className="text-2xl font-semibold outline-none"
           />
         </div>
 
-        <ErrorComponent error={error}
-          e1='Phone Number is required'
-          e2='Invalid Number (must be positive)'
-          e3='Invalid Number (must be at least 10 digits)'
+        <ErrorComponent
+          error={error}
+          e1="Name is required"
+          e2="Invalid name (minimum 5 characters)"
+          e3="Invalid name (maximum 20 characters)"
         />
 
+        <div className="grid">
+          <label>Phone</label>
+          <input
+            onChange={(e) => onChangeHandler(e)}
+            name="phone"
+            className="mb-1 outline-none" 
+            value={user.phone?.toString()}
+          />
+        </div>
 
+        <ErrorComponent
+          error={error}
+          e1="Phone Number is required"
+          e2="Invalid Number (must be positive)"
+          e3="Invalid Number (must be at least 10 digits)"
+        />
 
         <form className="w-44">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-          <select onChange={(e) => onChangeHandler(e.target.value)} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>{user.gender}</option>
-
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Gender
+          </label>
+          <select
+            onChange={(e) => onChangeHandler(e)}
+            name="gender"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option >{user.gender}</option> 
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </form>
 
- 
-
         <div className="grid">
           <label>Location</label>
-          <input onChange={(e) => onChangeHandler(e)} name='location' value={formData.location}
-            className="text-2xl font-semibold outline-none" placeholder={user.location} />
+          <input
+            onChange={(e) => onChangeHandler(e)}
+            name="location"
+            value={user.location}
+            className="text-2xl font-semibold outline-none"
+            placeholder={user.location}
+          />
         </div>
 
-        <ErrorComponent error={error}
-          e1='Location is required'
-          e2='Invalid location (minimum 5 characters)'
-          e3='Invalid location (maximum 20 characters)'
+        <ErrorComponent
+          error={error}
+          e1="Location is required"
+          e2="Invalid location (minimum 5 characters)"
+          e3="Invalid location (maximum 20 characters)"
         />
 
         <div>
           <p className="text-gray-400 mb-1 ">Date of Birth</p>
           <p>
-            <input onChange={(e) => onChangeHandler(e)} name='dob'
-              type='date'
-              placeholder={String(user.dob)}
-              className="outline-none" />
+            <input
+              onChange={(e) => onChangeHandler(e)}
+              name="dob"
+              type="date"
+              value={String(user.dob)}
+              className="outline-none"
+            />
           </p>
         </div>
 
-        <ErrorComponent error={error}
-          e1='Date of Birth is required'
-          e2='Date of Birth must be a valid date'
-          e3='Date of Birth cannot be in the future'
+        <ErrorComponent
+          error={error}
+          e1="Date of Birth is required"
+          e2="Date of Birth must be a valid date"
+          e3="Date of Birth cannot be in the future"
         />
-
 
         <div>
           <div className="flex flex-wrap gap-2">
-
             <div className="mb-12">
               <label>Preferences</label>
 
@@ -317,7 +309,7 @@ const ProfileEdit: React.FC = () => {
                       onClick={() => removePreference(preference)}
                       className="ml-2 text-neutral-400 hover:text-neutral-600"
                     >
-                      ×
+                      x
                     </button>
                   </span>
                 ))}
@@ -340,10 +332,11 @@ const ProfileEdit: React.FC = () => {
                 </button>
               </div>
 
-              <ErrorComponent error={error}
-                e1='Preferences required'
-                e2='Minimum 3 preferences needed'
-                e3='Maximum 5 preferences are allowed'
+              <ErrorComponent
+                error={error}
+                e1="Preferences required"
+                e2="Minimum 3 preferences needed"
+                e3="Maximum 5 preferences are allowed"
               />
 
               <div>

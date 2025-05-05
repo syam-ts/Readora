@@ -14,6 +14,7 @@ import ArticleCreation from "./pages/ArticleCreation";
 import Prefrences from "./components/user/Preferences";
 import NotFound from "./components/errorComponents/NotFound";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const App: React.FC = () => {
 
@@ -39,6 +40,7 @@ const App: React.FC = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Route>
 
         <Route path="/404" element={<NotFound />} />

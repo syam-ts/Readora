@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "react-scripts build",
+    "serve": "serve -s build -l 0.0.0.0:$PORT",
     "lint": "eslint .",
     "preview": "vite preview"
   },

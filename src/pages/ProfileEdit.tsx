@@ -136,21 +136,19 @@ const ProfileEdit: React.FC = () => {
       });
 
       if (validForm) {
-        const body = {
-          userId,
-          name: user.name,
-          profilePicture: user.profilePicture,
-          phone: user.phone,
-          dob: user.dob,
-          gender: user.gender,
-          location: user.location,
-          preferences: preferences,
-        };
+      
 
         const { data } = await apiInstance.put(
           `${config.SERVER_URL}/user/profile`,
           {
-            body,
+            userId,
+            name: user.name,
+            profilePicture: user.profilePicture,
+            phone: user.phone,
+            dob: user.dob,
+            gender: user.gender,
+            location: user.location,
+            preferences: preferences,
           }
         );
 

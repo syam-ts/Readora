@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteModal } from "./DeleteArticleModel";
+import { DeleteArticle } from "./DeleteArticleModel";
 
 interface Article {
     userId: string;
@@ -33,41 +33,16 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                         <div className="flex justify-between absolute w-full">
                                             <Link to={`/article?articleId=${article[1]._id}`} >
                                                 <img
-                                                    src="https://cdn-icons-png.flaticon.com/128/4476/4476157.png"
+                                                    src="/edit-icon.png"
                                                     className="w-9 h-9 cursor-pointer bg-gray-200 rounded-full m-2"
                                                 />
                                             </Link>
 
                                             <div>
                                                 <button onClick={() => setIsModalOpen(true)}>
-                                                    <img
-                                                        src="https://cdn-icons-png.flaticon.com/128/8369/8369339.png"
-                                                        className="w-9 h-9 cursor-pointer bg-gray-200 rounded-full m-2"
-                                                    />
+                                                    <DeleteArticle articleId={article[1]._id} /> 
                                                 </button>
 
-                                                <DeleteModal
-                                                    isOpen={isModalOpen}
-                                                    onClose={() => setIsModalOpen(false)}
-                                                >
-                                                    <p className="text-lg font-medium mb-4 h-[5rem]">
-                                                        Are you sure ?
-                                                    </p>
-                                                    <div className='flex gap-4 justify-end'>
-                                                        <button
-                                                            onClick={() => (false)}
-                                                            className="bg-blue-500 text-white font-bold px-4 py-1 rounded-lg"
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                        <button
-                                                            onClick={() => setIsModalOpen(false)}
-                                                            className="bg-red-500 text-white font-bold px-4 py-1 rounded-lg"
-                                                        >
-                                                            Close
-                                                        </button>
-                                                    </div>
-                                                </DeleteModal>
                                             </div>
                                         </div>
                                     )}

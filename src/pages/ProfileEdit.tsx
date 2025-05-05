@@ -6,6 +6,7 @@ import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { config } from "../config/config";
 import { UserState } from "../config/UserStateConftg";
+import { categories } from "../utils/constants/categories";
 
 interface User {
   name: string;
@@ -75,11 +76,13 @@ const ProfileEdit: React.FC = () => {
   };
 
   const addPreference = () => {
+    console.log("TH pre : 1st: ", preferencesInput);
     if (preferencesInput && !preferences.includes(preferencesInput)) {
       setPreferences((prev) => [...prev, preferencesInput]);
       setPreferencesInput("");
     }
   };
+  console.log("Th rpe", preferences);
 
   const removePreference = (preference: string) => {
     setPreferences(preferences.filter((p) => p !== preference));
@@ -136,8 +139,6 @@ const ProfileEdit: React.FC = () => {
       });
 
       if (validForm) {
-      
-
         const { data } = await apiInstance.put(
           `${config.SERVER_URL}/user/profile`,
           {
@@ -172,19 +173,17 @@ const ProfileEdit: React.FC = () => {
 
   return (
     <div className="w-full grid justify-center px-4 py-20 font-sans text-gray-800">
-     
-          <label className='text-lg'>Profile Picture</label>
-        <div className="flex">
-          <input
-            type="file"
-            accept="image/*"
-            placeholder={user.profilePicture}
-            onChange={(e) => handleImageChange(e)}
-            className="text-gray-700 text-sm"
-          />
-          <img src={user.profilePicture} className="w-16 h-16 rounded-full" />
-        </div>
-  
+      <label className="text-lg">Profile Picture</label>
+      <div className="flex">
+        <input
+          type="file"
+          accept="image/*"
+          placeholder={user.profilePicture}
+          onChange={(e) => handleImageChange(e)}
+          className="text-gray-700 text-sm"
+        />
+        <img src={user.profilePicture} className="w-16 h-16 rounded-full" />
+      </div>
 
       <div>
         <div className="text-sm text-gray-700 pt-5">
@@ -220,22 +219,22 @@ const ProfileEdit: React.FC = () => {
             />
           </div>
 
-        <div className='pt-5'>
-        <form className="w-44 flex gap-5">
-            <label className="text-sm font-medium text-gray-900 dark:text-white">
-              Gender
-            </label>
-            <select
-              onChange={(e) => onChangeHandler(e)}
-              name="gender"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option>{user.gender}</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </form>
-        </div>
+          <div className="pt-5">
+            <form className="w-44 flex gap-5">
+              <label className="text-sm font-medium text-gray-900 dark:text-white">
+                Gender
+              </label>
+              <select
+                onChange={(e) => onChangeHandler(e)}
+                name="gender"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option>{user.gender}</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </form>
+          </div>
 
           <div className="flex gap-3 pt-5">
             <label className="text-lg">Location</label>
@@ -254,7 +253,7 @@ const ProfileEdit: React.FC = () => {
             />
           </div>
 
-          <div className='flex gap-3 pt-5'>
+          <div className="flex gap-3 pt-5">
             <p className="text-lg">Date of Birth</p>
             <p>
               <input
@@ -273,7 +272,7 @@ const ProfileEdit: React.FC = () => {
             />
           </div>
 
-          <div className='pt-3'>
+          <div className="pt-3">
             <div className="flex flex-wrap gap-2">
               <div className="">
                 <label className="text-lg">Preferences</label>
@@ -284,7 +283,7 @@ const ProfileEdit: React.FC = () => {
                       key={preference}
                       className="text-xs bg-neutral-100 px-3 p-4 py-1 rounded-full flex items-center"
                     >
-                      {preferences}
+                      {preference}
                       <button
                         onClick={() => removePreference(preference)}
                         className="ml-2 text-neutral-400 hover:text-neutral-600"
@@ -295,21 +294,28 @@ const ProfileEdit: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    name="tags"
-                    value={preferencesInput}
-                    onChange={(e) => setPreferencesInput(e.target.value)}
-                    placeholder="Enter a preference"
-                    className="w-2/4 text-xs placeholder-neutral-400 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
-                  />
-                  <button
-                    onClick={addPreference}
-                    className="text-xs text-white font-bold bg-sky-600 rounded-md px-3 hover:text-black transition cursor-pointer"
-                  >
-                    Add
-                  </button>
+                <div className="grid gap-2">
+       
+                  <div className="flex gap-5">
+                    <select
+                      name="prefrences"
+                      onChange={(e) => setPreferencesInput(e.target.value)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 w-[10rem] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      {categories.map((category: string) => (
+                        <div>
+                          <option value={category}>{category}</option>
+                        </div>
+                      ))}
+                    </select>
+
+                    <button
+                      onClick={addPreference}
+                      className="text-xs text-white font-bold bg-sky-600 rounded-md w-[5rem] py-3 hover:text-black transition cursor-pointer"
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
 
                 <ErrorComponent
@@ -331,8 +337,6 @@ const ProfileEdit: React.FC = () => {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

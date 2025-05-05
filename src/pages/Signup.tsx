@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { userSignupSchema } from "../utils/validation/signupSchema";
 import { config } from "../config/config";
 import { UserState } from "../config/UserStateConftg";
+import { Sonner } from "../components/sonner/Sonner";
+import { toast } from "sonner";
+import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 
 
 interface FormData {
@@ -54,7 +57,14 @@ const SignupPage = () => {
             }
 
         } catch (error: unknown) {
-            const err = error as { errors: string[] };
+            const err = error as {
+                errors: string[];
+                response: {
+                    data: {
+                        message: string;
+                    };
+                };
+            };  
             console.log('VALIDATION ERROR: ',err.errors)
             setError(err.errors);
         }
@@ -72,178 +82,112 @@ const SignupPage = () => {
 
 
     return (
-        <div className="container mx-auto nunito-regular">
-            <div className="flex justify-center px-6 my-44 h-[40rem]">
-                <div className="w-full xl:w-4/5 lg:w-11/12 flex border border-gray-300 ">
-                    <div className="w-full h-auto bg-gray-400 lg:block bg-[url('https://images.unsplash.com/photo-1533756102515-155e3863ee1c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixname=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] lg:w-1/2 bg-cover"></div>
-                    <div className="w-full lg:w-2/4 bg-white p-5 ">
-                        <h3 className="pt-12 text-2xl text-center">Welcome Back!</h3>
-                        <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                            <div className="mb-4">
-                                <label className="block mb-2 text-sm font-bold text-gray-700">
-                                    Name
-                                </label>
-                                <input
-                                    onChange={(e) => handleChange(e)}
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="name"
-                                    type="text"
-                                    placeholder="Username"
-                                />
-                            </div>
+        <div className="w-screen h-screen flex"> 
+                    <div className="w-2/4 h-screen pt-44 px-28">
+                        <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
+                            <h2
+                                className="text-4xl text-indigo-900 font-display font-semibold text-start
+                            xl:text-bold"
+                            >
+                                Sign up
+                            </h2>
+                            <div className="mt-12">
+                                <div>
+                                    <div className="text-sm font-bold text-gray-700 tracking-wide">
+                                        Name
+                                    </div>
+                                    <input
+                                        onChange={(e) => handleChange(e)}
+                                        name="name"
+                                        className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type=""
+                                        placeholder="vinaykumar"
+                                    />
+                                 
+                                 <ErrorComponent
+                                 error={error}
+                                  e1='Name is required'
+                                  e2='Invalid name (minimum 5 characters)'
+                                  e3='Invalid name (maximum 20 characters)'
+                                 />
 
-                            {error?.some((err: string) => err.includes("Email is required"))
-                                ? error?.map((err: string, index: number) => {
-                                    if (err.includes("Name is required")) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                                : error?.map((err: string, index: number) => {
-                                    if (
-                                        err.includes("Name is required") ||
-                                        err.includes("Invalid name (minimum 5 characters)") ||
-                                        err.includes("Invalid name (maximum 20 characters)")
-                                    ) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })}
+                                </div>
 
-                            <div className="mb-4">
-                                <label className="block mb-2 text-sm font-bold text-gray-700">
-                                    Email
-                                </label>
-                                <input
-                                    onChange={(e) => handleChange(e)}
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="email"
-                                    type="text"
-                                    placeholder="Email"
-                                />
-                            </div>
+                                <div className='mt-8'>
+                                    <div className="text-sm font-bold text-gray-700 tracking-wide">
+                                        Email Address
+                                    </div>
+                                    <input
+                                        onChange={(e) => handleChange(e)}
+                                        name="email"
+                                        className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type=""
+                                        placeholder="vinaykumar@gmail.com"
+                                    />
+                                          <ErrorComponent
+                                 error={error}
+                                  e1='Email is required'
+                                  e2='Email is invalid'
+                                  e3='Invalid Mail'
+                                 />
+                                   
+                                </div>
 
 
-                            {error?.some((err: string) => err.includes("Email is required"))
-                                ? error?.map((err: string, index: number) => {
-                                    if (err.includes("Email is required")) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                                : error?.map((err: string, index: number) => {
-                                    if (
-                                        err.includes("Email is required") ||
-                                        err.includes("Email is invalid")
-                                    ) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })}
+                                <div className="mt-8">
+                                    <div className="flex justify-between items-center">
+                                        <div className="text-sm font-bold text-gray-700 tracking-wide">
+                                            Password
+                                        </div>
+                                    </div>
+                                    <input
+                                        onChange={(e) => handleChange(e)}
+                                        name="password"
+                                        className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type=""
+                                        placeholder="Enter your password"
+                                    />
+        
+                               <ErrorComponent
+                                 error={error}
+                                  e1='Password is required'
+                                  e2='Include at least one number, uppercase letter'
+                                  e3='Incorrect (minimum 8 characters)'
+                                 />
 
-                            <div className="py-2">
-                                <label className="block text-sm font-bold text-gray-700">
-                                    Password
-                                </label>
-                                <input
-                                    onChange={(e) => handleChange(e)}
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="password"
-                                    type="password"
-                                    placeholder="password"
-                                />
-                            </div>
-
-                            {error?.some((err: string) =>
-                                err.includes("Password is required")
-                            )
-                                ? error?.map((err: string, index: number) => {
-                                    if (err.includes("Password is required")) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                                : error?.map((err: string, index: number) => {
-                                    if (
-                                        err.includes("Password is required") ||
-                                        err.includes("minimum 8 characters need")
-                                    ) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })}
-
-                     
-                            <div className="mb-6 text-center">
-                                <button
-                                    onClick={submitForm}
-                                    className="w-full px-4 py-2 font-bold text-white bg-gray-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                    type="button"
-                                >
-                                    Sign Up
-                                </button>
-                            </div>
-                            <hr className="mb-6 border-t" />
-                            <div className="flex justify-between">
-                                <div className="text-center">
-                                    <p
-                                        className="inline-block underline text-sm text-gray-500 align-baseline hover:text-blue-800"
+                                </div>
+                                <div className="mt-10">
+                                    <button
+                                        onClick={submitForm}
+                                        className="bg-gray-600 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                        font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+                                        shadow-lg"
                                     >
-                                        <Link to='/login'>
-                                            Alreay have an Account!
-                                        </Link>
+                                        Log In
+                                    </button>
+                                </div>
+        
+                                <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+                                    already have an account ?
+                                    <p className="cursor-pointer text-indigo-600 hover:text-indigo-800">
+                                        <Link to="/login">Login</Link>
                                     </p>
                                 </div>
-                                <div className="text-center">
-                                    <a
-                                        className="inline-block text-sm text-gray-500 align-baseline hover:text-blue-800"
-                                        href="#"
-                                    >
-                                        Forgot Password?
-                                    </a>
-                                </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+        
+                    {/* image section */}
+        
+                    <div className="w-2/4 h-screen">
+                        <div className="max-w-full">
+                            <img
+                                src="https://img.freepik.com/free-photo/concept-fake-news_23-2148837021.jpg?ga=GA1.1.971265415.1746433248&semt=ais_hybrid&w=740"
+                                className="h-screen w-full object-cover"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
     );
 };
 

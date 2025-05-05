@@ -148,7 +148,7 @@ const ProfileEdit: React.FC = () => {
         };
 
         const { data } = await apiInstance.put(
-          `${config.SERVER_URL}user/profile`,
+          `${config.SERVER_URL}/user/profile`,
           {
             body,
           }

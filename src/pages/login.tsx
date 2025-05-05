@@ -118,7 +118,7 @@ const LoginPage = () => {
                                 name="email"
                                 className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                                 type=""
-                                placeholder="mike@gmail.com"
+                                placeholder="vinaykumar@gmail.com"
                             />
                             {error?.some((err: string) => err.includes("Email is required"))
                                 ? error?.map((err: string, index: number) => {

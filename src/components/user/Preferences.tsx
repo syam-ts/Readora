@@ -1,8 +1,8 @@
 import axios from "axios"; 
-import { useState } from "react";
-import { config } from "../config/config";
-import { categories } from "../utils/constants/categories";
+import { useState } from "react";  
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { config } from "../../config/config";
+import { categories } from "../../utils/constants/categories";
 
 const Preferences = () => {
   const [preferences, setPrefernces] = useState<string[]>([]); 

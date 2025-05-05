@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { config } from "../config/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ErrorComponent } from "../components/ErrorComponent";
+import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
 import { UserState } from "../config/UserStateConftg";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArticleCard } from "../components/ArticleCard"; 
+import { ArticleCard } from "../components/article/ArticleCard"; 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";

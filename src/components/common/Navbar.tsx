@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { signOutUser } from "../redux/slices/userSlice";
-import { UserState } from "../config/UserStateConftg";
+import { useDispatch, useSelector } from "react-redux"; 
+import { signOutUser } from "../../redux/slices/userSlice";
+import { UserState } from "../../config/UserStateConftg";
 
 const Navbar = () => {
     const [dropdown, setDropdown] = useState<boolean>(false);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userProfileSchema } from "../utils/validation/userProfileSchema";
-import { ErrorComponent } from "../components/ErrorComponent";
+import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { config } from "../config/config";
 import { UserState } from "../config/UserStateConftg";

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/ui/button";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { Button } from "../ui/button";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "../components/ui/dialog";
+} from "../ui/dialog";
 
 interface DeleteArticleProps {
   articleId: string;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { config } from "../config/config";
+import { UserState } from "../config/UserStateConftg";
 
 interface User {
   name: string;
@@ -31,14 +33,14 @@ const Profile: React.FC = () => {
     noOfArticles: 0
   })
 
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const userId = useSelector((state: UserState) => state.currentUser._id);
 
 
   useEffect(() => {
     try {
       const fetchUserData = async () => {
 
-        const { data } = await apiInstance.get(`http://localhost:3000/profile/${userId}`);
+        const { data } = await apiInstance.get(`${config.SERVER_URL}/profile/${userId}`);
 
         setUser(data.user);
       };

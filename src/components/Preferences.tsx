@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { categories } from "../utils/constants/categories";
 import axios from "axios"; 
+import { useState } from "react";
+import { config } from "../config/config";
+import { categories } from "../utils/constants/categories";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Preferences = () => {
@@ -20,7 +21,7 @@ const Preferences = () => {
   const submitFunction = async () => {
     try {
       const { data } = await axios.put(
-        `http://localhost:3000/preferences/${userId}`,
+        `${config.SERVER_URL}/preferences/${userId}`,
         {
           preferences,
         }

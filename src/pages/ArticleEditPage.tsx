@@ -1,10 +1,11 @@
 import axios from "axios";
+import { config } from "../config/config";
 import React, { useEffect, useState } from "react";
 import { categories } from "../utils/constants/categories";
+import { ErrorComponent } from "../components/ErrorComponent";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { articleEditSchema } from "../utils/validation/articleEditSchema";
-import { ErrorComponent } from "../components/ErrorComponent";
 
 interface Article {
   userId: string;
@@ -19,6 +20,11 @@ interface Article {
 }
 
 const ArticleEditPage: React.FC = () => {
+
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState<string>("");
+  const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState<string[]>([]);
   const [article, setArticle] = useState<Article>({
     userId: "",
     author: "",
@@ -30,10 +36,6 @@ const ArticleEditPage: React.FC = () => {
     category: "",
     createdAt: "",
   });
-  const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState<string>("");
-  const [preview, setPreview] = useState<string | null>(null);
-  const [error, setError] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
   const articleId = searchParams.get("articleId");
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const ArticleEditPage: React.FC = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `http://localhost:3000/article/${articleId}`
+          `${config.SERVER_URL}/article/${articleId}`
         );
 
         setArticle(data.article);
@@ -80,7 +82,7 @@ const ArticleEditPage: React.FC = () => {
   };
 
   const cloudinaryInstance = axios.create({
-    baseURL: `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
+    baseURL: `${config.CLOUDINARY_BASEURL}`,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -120,7 +122,7 @@ const ArticleEditPage: React.FC = () => {
 
       if (validForm) {
         const { data } = await apiInstance.put(
-          `http://localhost:3000/article`,
+          `${config.SERVER_URL}/article`,
           article
         );
 

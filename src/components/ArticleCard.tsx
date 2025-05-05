@@ -18,8 +18,8 @@ interface ArticleCardProps {
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [showEditAndDelete, setShowEditAndDelete] = useState<boolean>(false);
+    
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
     return (
         <div className="flex flex-wrap gap-5 w-2/4 justify-center">

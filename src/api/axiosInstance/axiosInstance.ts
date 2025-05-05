@@ -1,8 +1,9 @@
 import axios from "axios";
 import { signOutUser } from "../../redux/slices/userSlice";
 import store from "../../redux/store";
+import { config } from "../../config/config";
 
-const BASE_SERVER_URL: string = 'http://localhost:3000';
+const BASE_SERVER_URL: string = config.SERVER_URL;
 
 export const apiInstance = axios.create({
   baseURL: `${BASE_SERVER_URL}`,

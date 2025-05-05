@@ -1,21 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutUser } from "../redux/slices/userSlice";
-import { useEffect, useState } from "react";
+import { UserState } from "../config/UserStateConftg";
 
 const Navbar = () => {
-    const [dropdown, setDropdown] = useState(false);
+    const [dropdown, setDropdown] = useState<boolean>(false);
+    const user = useSelector((state: UserState) => state.currentUser);
+    const isUser = useSelector((state: UserState) => state.isUser); 
     const distpatch = useDispatch();
-    const navigate = useNavigate();
-    const user = useSelector((state: any) => state.currentUser);
-    const isUser = useSelector((state: any) => state.isUser);
-    const us = useSelector((state: any) => state.currentUser)
-    console.log('user main', us)
- 
+    const navigate = useNavigate(); 
 
     const signoutUser = (): void => {
-        distpatch(signOutUser());
-
+        distpatch(signOutUser()); 
         navigate("/login");
     };
 

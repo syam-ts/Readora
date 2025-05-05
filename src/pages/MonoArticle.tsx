@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { config } from "../config/config";
 
 interface Article {
     _id: string;
@@ -36,7 +37,7 @@ const MonoArticle: React.FC = () => {
         try {
             const fetchArticles = async () => {
                 const { data } = await apiInstance.get(
-                    `http://localhost:3000/article/${articleId}`
+                    `${config.SERVER_URL}/article/${articleId}`
                 );
 
                 setArticle(data.article);
@@ -53,7 +54,7 @@ const MonoArticle: React.FC = () => {
     const likeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `http://localhost:3000/like/${articleId}`
+                `${config.SERVER_URL}/like/${articleId}`
             );
 
             console.log("The result: ", data);
@@ -69,7 +70,7 @@ const MonoArticle: React.FC = () => {
     const dislikeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `http://localhost:3000/dislike/${articleId}`
+                `${config.SERVER_URL}/dislike/${articleId}`
             );
 
             console.log("The result: ", data);

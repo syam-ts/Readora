@@ -2,17 +2,30 @@ import { useEffect, useState } from "react";
 import { ArticleCard } from "../components/ArticleCard"; 
 import { useSelector } from "react-redux";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { config } from "../config/config";
+import { UserState } from "../config/UserStateConftg";
+
+interface Article {
+  userId: string;
+    title: string;
+    description: string;
+    image: string;
+    tags: string[];
+    categories: string[];
+    createdAt: Date;
+}
+ 
 
 const Home = () => {
 
-  const [articles, setArticles] = useState([]);
-  const userId = useSelector((state: any) => state.currentUser._id);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const userId: string = useSelector((state: UserState) => state.currentUser._id);
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `http://localhost:3000/articles/${userId}`
+          `${config.SERVER_URL}/articles/${userId}`
         );
 
         console.log("The result: ", data);

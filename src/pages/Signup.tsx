@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { signInUser } from "../redux/slices/userSlice";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom"; 
 import { userSignupSchema } from "../utils/validation/signupSchema";
+import { config } from "../config/config";
+import { UserState } from "../config/UserStateConftg";
 
 
 interface FormData {
@@ -21,7 +22,7 @@ const SignupPage = () => {
     });
     const [error, setError] = useState<string[]>([]);
     const navigate = useNavigate(); 
-    const isUser = useSelector((state: any) => state.isUser);
+    const isUser = useSelector((state: UserState) => state.isUser);
 
     useEffect(() => {
         if(isUser)
@@ -35,7 +36,7 @@ const SignupPage = () => {
             });
 
             if (validForm) {
-                const { data } = await axios.post('http://localhost:3000/signup', {
+                const { data } = await axios.post(`${config.SERVER_URL}/signup`, {
                     name: formData.name,
                     email: formData.email,
                     password: formData.password

@@ -10,7 +10,7 @@ import ProfileEdit from './pages/ProfileEdit';
 import SignupPage from './pages/Signup';
 import Footer from './components/Footer';
 import ArticleEditPage from './pages/ArticleEditPage';
-import { UserProtectedRoute } from './utils/extra/ProtectedRoute';
+import { UserProtectedRoute } from './utils/HOC/ProtectedRoute';
 import Prefrences from './components/Preferences';
 
 function App() {

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../redux/slices/userSlice";
 import { userLoginSchema } from "../utils/validation/loginSchema";
+import { config } from "../config/config";
+import { UserState } from "../config/UserStateConftg";
 
 interface FormData {
     email: string;
@@ -19,7 +21,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const isUser = useSelector((state: any) => state.isUser);
+    const isUser = useSelector((state: UserState) => state.isUser);
 
     useEffect(() => {
         if (isUser)
@@ -35,7 +37,7 @@ const LoginPage = () => {
 
             if (validForm) {
                 try {
-                    const { data } = await axios.post("http://localhost:3000/login", {
+                    const { data } = await axios.post(`${config.SERVER_URL}/login`, {
                         email: formData.email,
                         password: formData.password,
                     }, {

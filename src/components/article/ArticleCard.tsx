@@ -22,10 +22,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
     return (
-        <div className="flex flex-wrap gap-5 w-2/4 justify-center">
+        <div className="flex flex-wrap gap-5 w-3/4 justify-center">
             {Object.entries(articles).map((article: any) => (
                 <div className="flex flex-wrap ">
-                    <div className="w-[300px] mx-auto border border-gray-300 nunito-regular">
+                    <div className="w-[350px] mx-auto border border-gray-300 nunito-regular">
                         <div className="relative flex w-full flex-col overflow-hidden bg-white text-gray-700">
                             <div className="relative m-0 overflow-hidden text-gray-700">
                                 <div>
@@ -54,7 +54,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                             article[1].image ||
                                             "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
                                         }
-                                        className={`h-[12rem] w-full ${type !== 'myArticles' && 'hover:scale-110 transition-transform duration-400'}`}
+                                        className={`h-[14rem] w-full ${type !== 'myArticles' && 'hover:scale-110 transition-transform duration-400'}`}
                                         alt="article image"
                                     />
                                 </Link>

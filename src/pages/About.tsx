@@ -3,10 +3,10 @@ import React from "react";
 const About: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 nunito-regular ">
-      <h1 className="text-4xl font-bold mb-6 text-white">About REadora</h1>
+      <h1 className="text-4xl font-bold mb-6 text-white">About Readora</h1>
 
       <p className="text-xl mb-6 leading-relaxed ">
-        <span className="text-indigo-400 font-semibold ">REadora</span> is a modern platform where knowledge flows freely. Designed as an intelligent article feed site, REadora connects readers to curated insights, thought-provoking ideas, and stories that matter — all in one place.
+        <span className="text-indigo-400 font-semibold ">ReadorA</span> is a modern platform where knowledge flows freely. Designed as an intelligent article feed site, REadora connects readers to curated insights, thought-provoking ideas, and stories that matter — all in one place.
       </p>
 
       <p className="text-lg mb-6 leading-relaxed ">

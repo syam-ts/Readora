@@ -6,6 +6,8 @@ import { UserState } from "../config/UserStateConftg";
 import { signInUser } from "../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginSchema } from "../utils/validation/loginSchema";
+import { toast } from "sonner";
+import { Sonner } from "../components/sonner/Sonner";
 
 interface FormData {
     email: string;
@@ -63,7 +65,25 @@ const LoginPage = () => {
                 );
             }
         } catch (error: unknown) {
-            const err = error as { errors: string[] };
+            const err = error as {
+                errors: string[];
+                response: {
+                    data: {
+                        message: string;
+                    };
+                };
+            };
+            toast.error(err.response.data.message, {
+                position: "bottom-center",
+                style: {
+                    backgroundColor: "red",
+                    color: "white",
+                    width: "12rem",
+                    height: "3rem",
+                    justifyContent: "center",
+                    border: "none",
+                },
+            });
             console.log("VALIDATION ERRORS: ", err.errors);
             setError(err.errors);
         }
@@ -79,6 +99,7 @@ const LoginPage = () => {
 
     return (
         <div className="w-screen h-screen flex">
+            <Sonner />
             <div className="w-2/4 h-screen pt-55  px-28">
                 <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
                     <h2

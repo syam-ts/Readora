@@ -28,10 +28,10 @@ const Navbar = () => {
                             <Link to="/articles">Articles</Link>
                         </span>
                         <span className="mx-1.5 sm:mx-6">
-                            <Link to="/home">Contact</Link>
+                            <Link to="/contact">Contact</Link>
                         </span>
                         <span className="mx-1.5 sm:mx-6">
-                            <Link to="/home">About</Link>
+                            <Link to="/about">About</Link>
                         </span>
                     </div>
                     <div>

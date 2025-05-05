@@ -20,6 +20,7 @@ interface ArticleCardProps {
 export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
+    console.log(isModalOpen)
 
     return (
         <div className="flex flex-wrap gap-5 w-3/4 justify-center">

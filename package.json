@@ -10,6 +10,9 @@
     "serve": "vite preview --host",
     "lint": "eslint ."
   },
+  "engines": {
+  "node": "18.x"
+},
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-label": "^2.1.4",

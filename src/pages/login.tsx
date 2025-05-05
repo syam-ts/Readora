@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { signInUser } from "../redux/slices/userSlice";
-import { userLoginSchema } from "../utils/validation/loginSchema";
 import { config } from "../config/config";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserState } from "../config/UserStateConftg";
+import { signInUser } from "../redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { userLoginSchema } from "../utils/validation/loginSchema";
 
 interface FormData {
     email: string;
@@ -24,8 +24,7 @@ const LoginPage = () => {
     const isUser = useSelector((state: UserState) => state.isUser);
 
     useEffect(() => {
-        if (isUser)
-            navigate('/home')
+        if (isUser) navigate("/home");
     }, []);
 
     const submitForm = async () => {
@@ -36,24 +35,24 @@ const LoginPage = () => {
             console.log("er", validForm);
 
             if (validForm) {
-                try {
-                    const { data } = await axios.post(`${config.SERVER_URL}/login`, {
+                const { data } = await axios.post(
+                    `${config.SERVER_URL}/login`,
+                    {
                         email: formData.email,
                         password: formData.password,
-                    }, {
-                        withCredentials: true
-                    });
-
-                    dispatch(signInUser(data.user));
-                    const { accessToken } = data;
-
-                    localStorage.setItem('accessToken', accessToken);
-
-                    if (data.success) {
-                        navigate("/home");
+                    },
+                    {
+                        withCredentials: true,
                     }
-                } catch (err) {
-                    console.log("ERROR: ", err);
+                );
+
+                dispatch(signInUser(data.user));
+                const { accessToken } = data;
+
+                localStorage.setItem("accessToken", accessToken);
+
+                if (data.success) {
+                    navigate("/home");
                 }
             } else {
                 await userLoginSchema.validate(
@@ -79,26 +78,27 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="container mx-auto nunito-regular">
-            <div className="flex justify-center px-6 my-44 h-[40rem]">
-                <div className="w-full xl:w-4/5 lg:w-11/12 flex border border-gray-300 rounded-lg">
-                    <div className="w-full h-auto bg-gray-400 lg:block bg-[url('https://images.unsplash.com/photo-1533756102515-155e3863ee1c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixname=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] lg:w-1/2 bg-cover rounded-l-lg"></div>
-                    <div className="w-full lg:w-2/4 bg-white p-5 rounded-lg lg:rounded-l-none">
-                        <h3 className="pt-12 text-2xl text-center">Welcome Back!</h3>
-                        <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                            <div className="mb-4">
-                                <label className="block mb-2 text-sm font-bold text-gray-700">
-                                    Email
-                                </label>
-                                <input
-                                    onChange={(e) => handleChange(e)}
-                                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="email"
-                                    type="text"
-                                    placeholder="email"
-                                />
+        <div className="w-screen h-screen flex">
+            <div className="w-2/4 h-screen pt-55  px-28">
+                <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
+                    <h2
+                        className="text-4xl text-indigo-900 font-display font-semibold text-start
+                    xl:text-bold"
+                    >
+                        Log in
+                    </h2>
+                    <div className="mt-12">
+                        <div>
+                            <div className="text-sm font-bold text-gray-700 tracking-wide">
+                                Email Address
                             </div>
-
+                            <input
+                                onChange={(e) => handleChange(e)}
+                                name="email"
+                                className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                type=""
+                                placeholder="mike@gmail.com"
+                            />
                             {error?.some((err: string) => err.includes("Email is required"))
                                 ? error?.map((err: string, index: number) => {
                                     if (err.includes("Email is required")) {
@@ -127,19 +127,20 @@ const LoginPage = () => {
                                     }
                                     return null;
                                 })}
-
-                            <div className="py-2">
-                                <label className="block text-sm font-bold text-gray-700">
+                        </div>
+                        <div className="mt-8">
+                            <div className="flex justify-between items-center">
+                                <div className="text-sm font-bold text-gray-700 tracking-wide">
                                     Password
-                                </label>
-                                <input
-                                    onChange={(e) => handleChange(e)}
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="password"
-                                    type="password"
-                                    placeholder="password"
-                                />
+                                </div>
                             </div>
+                            <input
+                                onChange={(e) => handleChange(e)}
+                                name="password"
+                                className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                type=""
+                                placeholder="Enter your password"
+                            />
 
                             {error?.some((err: string) =>
                                 err.includes("Password is required")
@@ -171,34 +172,36 @@ const LoginPage = () => {
                                     }
                                     return null;
                                 })}
+                        </div>
+                        <div className="mt-10">
+                            <button
+                                onClick={submitForm}
+                                className="bg-gray-600 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+                                shadow-lg"
+                            >
+                                Log In
+                            </button>
+                        </div>
 
-                            <div className="mb-6 mt-3 text-center">
-                                <button
-                                    onClick={submitForm}
-                                    className="w-full px-4 py-2 font-bold text-white bg-gray-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                    type="button"
-                                >
-                                    Sign In
-                                </button>
-                            </div>
-                            <hr className="mb-6 border-t" />
-                            <div className="flex justify-between">
-                                <div className="text-center">
-                                    <p className="inline-block underline text-sm text-gray-500 align-baseline hover:text-blue-800">
-                                        <Link to="/signup">Create an Account!</Link>
-                                    </p>
-                                </div>
-                                <div className="text-center">
-                                    <a
-                                        className="inline-block text-sm text-gray-500 align-baseline hover:text-blue-800"
-                                        href="#"
-                                    >
-                                        Forgot Password?
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
+                        <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+                            Don't have an account ?{" "}
+                            <p className="cursor-pointer text-indigo-600 hover:text-indigo-800">
+                                <Link to="/signup">Sign up</Link>
+                            </p>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            {/* image section */}
+
+            <div className="w-2/4 h-screen">
+                <div className="max-w-full">
+                    <img
+                        src="https://img.freepik.com/free-photo/concept-fake-news_23-2148837021.jpg?ga=GA1.1.971265415.1746433248&semt=ais_hybrid&w=740"
+                        className="h-screen w-full object-cover"
+                    />
                 </div>
             </div>
         </div>

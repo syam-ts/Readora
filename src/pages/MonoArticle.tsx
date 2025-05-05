@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { config } from "../config/config";
+import { toast } from "sonner";
+import { Sonner } from "../components/sonner/Sonner";
 
 interface Article {
     _id: string;
@@ -59,7 +61,17 @@ const MonoArticle: React.FC = () => {
 
             console.log("The result: ", data);
             if (data.success) {
-                // alert('success')
+                toast.success('liked the image', {
+                    position: "bottom-center",
+                    style: {
+                      backgroundColor: "#00FF00",
+                      color: "black",
+                      width: "10rem",
+                      height: "3rem",
+                      justifyContent: "center",
+                      border: "none",
+                    }
+            })
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -75,7 +87,17 @@ const MonoArticle: React.FC = () => {
 
             console.log("The result: ", data);
             if (data.success) {
-                // alert('success')
+                toast.success('disliked the image', {
+                    position: "bottom-center",
+                    style: {
+                      backgroundColor: "#FCF259",
+                      color: "black",
+                      width: "12rem",
+                      height: "3rem",
+                      justifyContent: "center",
+                      border: "none",
+                    }
+            })
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -85,6 +107,7 @@ const MonoArticle: React.FC = () => {
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800 nunito-regular">
+            <Sonner />
             <h1 className="text-4xl font-semibold mb-2">{article.title}</h1>
 
             <div className="text-sm text-gray-400 mb-10">By: {article.author}</div>

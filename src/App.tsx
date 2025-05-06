@@ -15,6 +15,8 @@ import Prefrences from "./components/user/Preferences";
 import NotFound from "./components/errorComponents/NotFound";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+console.log("The backend url: ", import.meta.env.VITE_BACKEND_ORIGIN);
+
 
 const App: React.FC = () => {
 

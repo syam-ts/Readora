@@ -23,8 +23,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const isUser = useSelector((state: UserState) => state.isUser);
-    console.log('The backend url: ', import.meta.env.VITE_BACKEND_ORIGIN)
+    const isUser = useSelector((state: UserState) => state.isUser); 
 
     useEffect(() => {
         if (isUser) navigate("/home");

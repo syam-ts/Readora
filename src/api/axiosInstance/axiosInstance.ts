@@ -1,16 +1,15 @@
 import axios from "axios";
 import { signOutUser } from "../../redux/slices/userSlice";
-import store from "../../redux/store";
-import { config } from "../../config/config";
+import store from "../../redux/store"; 
  
 
 export const apiInstance = axios.create({
-  baseURL: `${config.SERVER_URL}`,
+  baseURL: import.meta.env.VITE_BACKEND_ORIGIN,
   withCredentials: true,
 });
 
 const refreshInstance = axios.create({
-  baseURL: `${config.SERVER_URL}`,
+  baseURL: import.meta.env.VITE_BACKEND_ORIGIN,
   withCredentials: true,
 });
 

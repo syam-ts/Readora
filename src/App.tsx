@@ -14,9 +14,7 @@ import ArticleCreation from "./pages/ArticleCreation";
 import Prefrences from "./components/user/Preferences";
 import NotFound from "./components/errorComponents/NotFound";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
-console.log("The backend url: ", import.meta.env.VITE_BACKEND_ORIGIN);
-console.log('live')
+import Contact from "./pages/Contact"; 
 
 
 const App: React.FC = () => {

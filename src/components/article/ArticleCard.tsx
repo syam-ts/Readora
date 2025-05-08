@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DeleteArticle } from "./DeleteArticleModel";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { toast } from "sonner";
+import { Sonner } from "../sonner/Sonner";
 
 interface Article {
     userId: string;
@@ -14,17 +17,63 @@ interface Article {
 
 interface ArticleCardProps {
     articles: Article[];
-    type: string;
+    type: string; 
 }
 
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
-    console.log(isModalOpen)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);  
+
+    const publishArticle = async (articleId: string): Promise<void> => {
+        try{
+          const { data } = await apiInstance.put(`/publishArticle/${articleId}`);
+
+          if(data.success) {
+            toast.error('Article Published', {
+                position: "top-center",
+                style: {
+                    backgroundColor: "green",
+                    color: "white",
+                    width: "12rem",
+                    height: "3rem",
+                    justifyContent: "center",
+                    border: "none",
+                },
+            }); 
+          }
+
+        }catch(err) {
+            console.log('ERROR: ',err);
+        }
+    };
+
+    const archiveArticle = async (articleId: string): Promise<void> => {
+        try{
+          const { data } = await apiInstance.put(`/archiveArticle/${articleId}`);
+
+          if(data.success) {
+            toast.error('Article archived', {
+                position: "top-center",
+                style: {
+                    backgroundColor: "green",
+                    color: "white",
+                    width: "12rem",
+                    height: "3rem",
+                    justifyContent: "center",
+                    border: "none",
+                },
+            }); 
+          }
+
+        }catch(err) {
+            console.log('ERROR: ',err);
+        }
+    };
 
     return (
-        <div className="flex flex-wrap gap-5 w-3/4 justify-center">
+        <div className="flex flex-wrap gap-5 w-3/4 justify-center">{isModalOpen}
+        <Sonner />
             {Object.entries(articles).map((article: any) => (
                 <div className="flex flex-wrap ">
                     <div className="w-[350px] mx-auto border border-gray-300 nunito-regular">
@@ -71,6 +120,20 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                 </span>
                             </div>
                         </div>
+                  {
+                    type === 'unpublished' && (
+                        <div>
+                        <button onClick={() => publishArticle(article[1]._id)} className='w-full border-t border-gray-300 text-xl text-center py-2'> Publish </button>
+                    </div> 
+                    )
+                  }
+                  {
+                    type === 'published' && (
+                        <div>
+                        <button onClick={() => archiveArticle(article[1]._id)} className='w-full border-t border-gray-300 text-xl text-center py-2'> Archive </button>
+                    </div> 
+                    )
+                  }
                     </div>
                 </div>
             ))}

@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux"; 
-import { useEffect, useState } from "react";
-import { UserState } from "../config/UserStateConftg";
+import { Link } from "react-router-dom"; 
+import { useEffect, useState } from "react"; 
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { ArticleCard } from "../components/article/ArticleCard";
 
 const MyArticle = () => {
 
   const [articles, setArticles] = useState([]);
-  const [articleType, setArticleType] = useState<string>('unpublished');
-  const userId = useSelector((state: UserState) => state.currentUser._id);
+  const [articleType, setArticleType] = useState<string>('unpublished'); 
 
   useEffect(() => {
     try {
@@ -26,9 +23,9 @@ const MyArticle = () => {
       console.log("ERROR: ", err);
     }
   }, [articleType]);
+ 
 
-  const articleTypeTitleStyle: string = 'text-black font-normal';
-
+  const articleTypeTitleStyle: string = 'text-black font-normal'; 
 
 
   return (
@@ -61,7 +58,7 @@ const MyArticle = () => {
               <p onClick={() => setArticleType('published')} className={`${articleType === 'published' && articleTypeTitleStyle}`}>  Published Articles</p> 
             </li>
             <li>
-              <p onClick={() => setArticleType('deleted')} className={`${articleType === 'deleted' && articleTypeTitleStyle}`}> Deleted Articles</p> 
+              <p onClick={() => setArticleType('archived')} className={`${articleType === 'archived' && articleTypeTitleStyle}`}> Archived Articles</p> 
             </li>
           </ul>
         </div>
@@ -74,7 +71,7 @@ const MyArticle = () => {
 
       <section>
         <div className="flex justify-center py-20">
-          <ArticleCard articles={articles} type='myArticles' />
+          <ArticleCard articles={articles} type={articleType} />
         </div>
       </section>
     </div>

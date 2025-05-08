@@ -89,7 +89,7 @@ const ArticleCreation: React.FC = () => {
 
       if (validForm) {
         const { data } = await apiInstance.post(
-          `${config.SERVER_URL}/article/${userId}`,
+          `/article/${userId}`,
           formData
         );
  

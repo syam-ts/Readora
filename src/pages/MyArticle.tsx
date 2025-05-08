@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { config } from "../config/config";
+import { useSelector } from "react-redux"; 
 import { useEffect, useState } from "react";
 import { UserState } from "../config/UserStateConftg";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
@@ -16,7 +15,7 @@ const MyArticle = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `${config.SERVER_URL}/user/articles/${userId}`
+          `/user/articles/${userId}`
         );
 
         setArticles(data.articles);

@@ -22,7 +22,7 @@ export const DeleteArticle: React.FC<DeleteArticleProps> = ({ articleId }) => {
   const deleteArticle = async (articleId: string): Promise<void> => {
     try {
       const { data } = await apiInstance.delete(
-        `${config.SERVER_URL}/article`,
+        `/article`,
         {
           data: { articleId },
         }

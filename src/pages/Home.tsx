@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import { ArticleCard } from "../components/article/ArticleCard"; 
 import { useSelector } from "react-redux";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { config } from "../config/config";
+import { useEffect, useState } from "react";
 import { UserState } from "../config/UserStateConftg";
+import { ArticleCard } from "../components/article/ArticleCard"; 
+import { apiInstance } from "../api/axiosInstance/axiosInstance"; 
 
 interface Article {
   userId: string;
@@ -25,7 +24,7 @@ const Home = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `${config.SERVER_URL}/articles/${userId}`
+          `/articles/${userId}`
         );
 
         console.log("The result: ", data);

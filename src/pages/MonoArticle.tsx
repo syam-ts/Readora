@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { config } from "../config/config";
 import { toast } from "sonner";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Sonner } from "../components/sonner/Sonner";
+import { apiInstance } from "../api/axiosInstance/axiosInstance"; 
 
 interface Article {
     _id: string;
@@ -39,7 +38,7 @@ const MonoArticle: React.FC = () => {
         try {
             const fetchArticles = async () => {
                 const { data } = await apiInstance.get(
-                    `${config.SERVER_URL}/article/${articleId}`
+                    `/article/${articleId}`
                 );
 
                 setArticle(data.article);
@@ -56,7 +55,7 @@ const MonoArticle: React.FC = () => {
     const likeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `${config.SERVER_URL}/like/${articleId}`
+                `/like/${articleId}`
             );
 
             console.log("The result: ", data);
@@ -82,7 +81,7 @@ const MonoArticle: React.FC = () => {
     const dislikeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `${config.SERVER_URL}/dislike/${articleId}`
+                `/dislike/${articleId}`
             );
 
             console.log("The result: ", data);

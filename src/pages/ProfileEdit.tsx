@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { userProfileSchema } from "../utils/validation/userProfileSchema";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { config } from "../config/config";
+import React, { useEffect, useState } from "react";
 import { UserState } from "../config/UserStateConftg";
 import { categories } from "../utils/constants/categories";
+import { apiInstance } from "../api/axiosInstance/axiosInstance"; 
+import { userProfileSchema } from "../utils/validation/userProfileSchema";
+import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 
 interface User {
   name: string;
@@ -40,7 +39,7 @@ const ProfileEdit: React.FC = () => {
     try {
       const fetchUserData = async () => {
         const { data } = await apiInstance.get(
-          `${config.SERVER_URL}/profile/${userId}`
+          `/profile/${userId}`
         );
 
         setUser(data.user);
@@ -56,7 +55,7 @@ const ProfileEdit: React.FC = () => {
     try {
       const fetchUserData = async () => {
         const { data } = await apiInstance.get(
-          `${config.SERVER_URL}/profile/${userId}`
+          `/profile/${userId}`
         );
         setUser(data.user);
       };
@@ -140,7 +139,7 @@ const ProfileEdit: React.FC = () => {
 
       if (validForm) {
         const { data } = await apiInstance.put(
-          `${config.SERVER_URL}/user/profile`,
+          `/user/profile`,
           {
             userId,
             name: user.name,

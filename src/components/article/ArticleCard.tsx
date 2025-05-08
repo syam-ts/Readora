@@ -17,6 +17,7 @@ interface ArticleCardProps {
     type: string;
 }
 
+
 export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 

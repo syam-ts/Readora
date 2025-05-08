@@ -15,7 +15,7 @@ const MyArticle = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `/user/articles/${userId}`
+          `/user/articles/${articleType}`
         );
 
         setArticles(data.articles);
@@ -32,8 +32,8 @@ const MyArticle = () => {
 
 
   return (
-    <div>
-      <section className="w-screen bg-gradient-to-r text-white py-12 px-6 mt-12 nunito-regular">
+    <div className='overflow-hidden'>
+      <section className="w-screen bg-gradient-to-r text-white py-12 px-6 mt-16 nunito-regular">
         <div className="w-2/3 mx-auto bg-[#ffffff] shadow-2xl border-t border-gray-300 text-black rounded-2xl p-6 flex flex-col items-center text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Share Your Voice with the World
@@ -53,7 +53,7 @@ const MyArticle = () => {
 
       <section>
         <div> 
-          <ul className='flex gap-12 justify-center text-center text-2xl text-gray-400 cursor-pointer font-thin'>
+          <ul className='flex gap-12 mt-16 justify-center text-center text-2xl text-gray-400 cursor-pointer font-thin'>
             <li>
               <p onClick={() => setArticleType('unpublished')} className={`${articleType === 'unpublished' && articleTypeTitleStyle}`}> Unpublished Articles</p>
             </li>

@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { config } from "../config/config";
 import { useSelector } from "react-redux";
+import { config } from "../config/config";
 import { useNavigate } from "react-router-dom";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
 import { UserState } from "../config/UserStateConftg";
+import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
+import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
 
 interface FormData {
   title: string;
@@ -18,6 +18,7 @@ interface FormData {
 }
 
 const ArticleCreation: React.FC = () => {
+
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState<string>("");
   const [preview, setPreview] = useState<string | null>(null);
@@ -30,7 +31,9 @@ const ArticleCreation: React.FC = () => {
     tags: [""],
     category: "",
   });
-  const userId: string = useSelector((state: UserState) => state.currentUser._id);
+  const userId: string = useSelector(
+    (state: UserState) => state.currentUser._id
+  );
   const navigate = useNavigate();
 
   const onChangeHandler = (e: any): void => {
@@ -60,16 +63,16 @@ const ArticleCreation: React.FC = () => {
   });
 
   const handleFileUpload = async (e: any): Promise<void> => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "devlink-userProfle"),
+      data.append("cloud_name", "dusbc29s2");
+
+    console.log("the data", data);
     try {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const data = new FormData();
-      data.append("file", file);
-      data.append("upload_preset", "devlink-userProfle"),
-        data.append("cloud_name", "dusbc29s2");
-
-      console.log("file", [...data.entries()]);
       const response = await cloudinaryInstance.post("", data);
       console.log("finl imag: ", response.data?.url);
       formData.image = response.data?.url;
@@ -88,11 +91,8 @@ const ArticleCreation: React.FC = () => {
       });
 
       if (validForm) {
-        const { data } = await apiInstance.post(
-          `/article/${userId}`,
-          formData
-        );
- 
+        const { data } = await apiInstance.post(`/article/${userId}`, formData);
+
         if (data.success) {
           setTimeout(() => {
             alert("success");

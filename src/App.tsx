@@ -15,12 +15,13 @@ import Prefrences from "./components/user/Preferences";
 import NotFound from "./components/errorComponents/NotFound";
 import About from "./pages/About";
 import Contact from "./pages/Contact"; 
+import VerifyOtp from "./pages/VerifyOtp";
 
 
 const App: React.FC = () => {
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/login", "/signup", "/preferences", "/404"];
+  const hideNavbarRoutes = ["/login", "/signup", "/verify","/preferences", "/404"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -30,6 +31,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify" element={<VerifyOtp />} />
         <Route path="/preferences" element={<Prefrences />} />
 
         <Route element={<UserProtectedRoute />}>

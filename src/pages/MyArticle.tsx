@@ -27,6 +27,11 @@ const MyArticle = () => {
 
   const articleTypeTitleStyle: string = 'text-black font-normal'; 
 
+  const cb = (callback: any) => {
+    console.log('call', callback)
+    callback()
+  }
+console.log('from PARENT: ',articleType)
 
   return (
     <div className='overflow-hidden'>
@@ -71,7 +76,7 @@ const MyArticle = () => {
 
       <section>
         <div className="flex justify-center py-20">
-          <ArticleCard articles={articles} type={articleType} />
+          <ArticleCard articles={articles} type={articleType} cb={articleType} />
         </div>
       </section>
     </div>

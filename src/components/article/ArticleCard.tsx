@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteArticle } from "./DeleteArticleModel";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
@@ -18,12 +18,15 @@ interface Article {
 interface ArticleCardProps {
     articles: Article[];
     type: string; 
+    cb: any
 }
 
 
-export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
+export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type, cb }) => {
     
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);  
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);   
+
+        cb="javascript"  
 
     const publishArticle = async (articleId: string): Promise<void> => {
         try{
@@ -41,6 +44,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                     border: "none",
                 },
             }); 
+            setTimeout(() => {
+                window.location.reload()
+            }, 200);
           }
 
         }catch(err) {
@@ -62,8 +68,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                     height: "3rem",
                     justifyContent: "center",
                     border: "none",
-                },
+                }
             }); 
+            setTimeout(() => {
+                window.location.reload()
+            }, 200);
           }
 
         }catch(err) {
@@ -80,7 +89,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                         <div className="relative flex w-full flex-col overflow-hidden bg-white text-gray-700">
                             <div className="relative m-0 overflow-hidden text-gray-700">
                                 <div>
-                                    { type === 'myArticles' && (
+                                    { type === 'unpublished' && (
                                         <div className="flex justify-between absolute w-full">
                                             <Link to={`/article?articleId=${article[1]._id}`} >
                                                 <img
@@ -105,7 +114,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                             article[1].image ||
                                             "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
                                         }
-                                        className={`h-[14rem] w-full ${type !== 'myArticles' && 'hover:scale-110 transition-transform duration-400'}`}
+                                        className={`h-[14rem] w-full ${type !== 'unpublished' && 'hover:scale-110 transition-transform duration-400'}`}
                                         alt="article image"
                                     />
                                 </Link>

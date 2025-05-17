@@ -13,7 +13,7 @@ const VerifyOtp = () => {
     const message = useLocation();
 
     const isUser = useSelector((state: UserState) => state.isUser);
-    console.log('The data: ',message.state.message);
+    console.log("The data: ", message.state.message);
 
     useEffect(() => {
         if (isUser) navigate("/home");
@@ -24,25 +24,25 @@ const VerifyOtp = () => {
             const body = {
                 data: message.state.message.body,
                 generatedOtp: message.state.message.generatedOtp,
-                inputOtp: Number(otp)
-            }
-            console.log('The body from veiryf: ',body)
+                inputOtp: Number(otp),
+            };
+            console.log("The body from veiryf: ", body);
             const { data } = await axios.post(
                 `${config.SERVER_URL}/verifyOtp`,
                 {
-                    body,
+                    body
                 },
                 {
                     withCredentials: true,
                 }
-            ); 
- 
-            const userId =data.user.userId
+            );
+
+            const userId = data.user.userId;
             if (data.success) {
-           navigate(`/preferences?userId=${userId}`);
+                navigate(`/preferences?userId=${userId}`);
             }
         } catch (error: unknown) {
-            console.log('The error: ',error)
+            console.log("The error: ", error);
             const err = error as {
                 errors: string[];
                 response: {
@@ -61,11 +61,10 @@ const VerifyOtp = () => {
                     justifyContent: "center",
                     border: "none",
                 },
-            }); 
+            });
         }
     };
 
- 
     return (
         <div className="w-screen h-screen flex">
             <Sonner />

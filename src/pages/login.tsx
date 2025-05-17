@@ -73,12 +73,13 @@ const LoginPage = () => {
                     };
                 };
             };
+            console.log('er',err.response)
             toast.error(err.response.data.message, {
                 position: "bottom-center",
                 style: {
                     backgroundColor: "red",
                     color: "white",
-                    width: "12rem",
+                    width: "full",
                     height: "3rem",
                     justifyContent: "center",
                     border: "none",

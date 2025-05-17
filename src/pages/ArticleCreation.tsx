@@ -7,6 +7,8 @@ import { UserState } from "../config/UserStateConftg";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
+import { toast } from "sonner";
+import { Sonner } from "../components/sonner/Sonner";
 
 interface FormData {
   title: string;
@@ -95,9 +97,19 @@ const ArticleCreation: React.FC = () => {
 
         if (data.success) {
           setTimeout(() => {
-            alert("success");
-            navigate("/articles");
+                    toast.success('article created succssfully', {
+                position: "top-center",
+                style: {
+                    backgroundColor: "green",
+                    color: "white",
+                    width: "16rem",
+                    height: "3rem",
+                    justifyContent: "center",
+                    border: "none",
+                },
+            });
           }, 500);
+            navigate("/articles");
         }
       } else {
         await articleCreationSchema.validate(formData, {
@@ -114,6 +126,7 @@ const ArticleCreation: React.FC = () => {
   return (
     <div className="max-w-xl mx-auto px-4 py-20 text-neutral-800 font-sans">
       {/* Title */}
+      <Sonner />
       <div className="grid gap-1 my-5">
         <input
           onChange={onChangeHandler}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { config } from "../config/config";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserState } from "../config/UserStateConftg";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -10,8 +10,10 @@ import { Sonner } from "../components/sonner/Sonner";
 const VerifyOtp = () => {
     const [otp, setOtp] = useState<number>(0);
     const navigate = useNavigate();
+    const message = useLocation();
 
     const isUser = useSelector((state: UserState) => state.isUser);
+    console.log('The data: ',message.state.message);
 
     useEffect(() => {
         if (isUser) navigate("/home");
@@ -19,20 +21,28 @@ const VerifyOtp = () => {
 
     const submitForm = async () => {
         try {
+            const body = {
+                data: message.state.message.body,
+                generatedOtp: message.state.message.generatedOtp,
+                inputOtp: Number(otp)
+            }
+            console.log('The body from veiryf: ',body)
             const { data } = await axios.post(
-                `${config.SERVER_URL}/verityOtp`,
+                `${config.SERVER_URL}/verifyOtp`,
                 {
-                    otp: otp,
+                    body,
                 },
                 {
                     withCredentials: true,
                 }
-            );
-
+            ); 
+ 
+            const userId =data.user.userId
             if (data.success) {
-                navigate("/home");
+           navigate(`/preferences?userId=${userId}`);
             }
         } catch (error: unknown) {
+            console.log('The error: ',error)
             const err = error as {
                 errors: string[];
                 response: {
@@ -46,7 +56,7 @@ const VerifyOtp = () => {
                 style: {
                     backgroundColor: "red",
                     color: "white",
-                    width: "12rem",
+                    width: "16rem",
                     height: "3rem",
                     justifyContent: "center",
                     border: "none",
@@ -77,7 +87,7 @@ const VerifyOtp = () => {
                                 name="otp"
                                 className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                                 type="number"
-                                placeholder="******"
+                                placeholder="****"
                             />
                         </div>
 

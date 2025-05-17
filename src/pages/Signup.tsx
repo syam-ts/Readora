@@ -40,10 +40,10 @@ const SignupPage = () => {
                     password: formData.password,
                 });
 
-                const userId = data.user.userId;
+               
                 console.log("the result", data);
                 if (data.success) {
-                    navigate(`/preferences?userId=${userId}`);
+                    navigate(`/verify`, {state: {message: data.user}});
                 }
             } else {
                 await userSignupSchema.validate(formData, {

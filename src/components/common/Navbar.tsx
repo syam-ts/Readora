@@ -17,65 +17,71 @@ const Navbar = () => {
     };
 
     return (
-        <div>
-            <nav className="shadow bg-[#151031]">
-                <div className="flex justify-between p-5 text-white nunito-regular">
-                    <div className="pl-[45rem]">
-                        <span className="text-white mx-1.5 sm:mx-6">
-                            <Link to="/home"> Home </Link>
-                        </span>
-                        <span className="mx-1.5 sm:mx-6">
-                            <Link to="/articles">Articles</Link>
-                        </span>
-                        <span className="mx-1.5 sm:mx-6">
-                            <Link to="/contact">Contact</Link>
-                        </span>
-                        <span className="mx-1.5 sm:mx-6">
-                            <Link to="/about">About</Link>
-                        </span>
-                    </div>
-                    <div>
-                        {isUser ? (
-                            <div className="grid">
-                                <div className="flex gap-5 px-7">
-                                    <p className="text-white">{user?.name}</p>
-                                    <img
-                                        onClick={() => setDropdown((prev) => !prev)}
-                                        className="w-10 h-10 p-1 cursor-pointer rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                                        src={user.profilePicture}
-                                        alt="Bordered avatar"
-                                    />
-                                </div>
-                                <div>
-                                    {dropdown && (
-                                        <div className="w-[8rem] bg-gray-500 grid justify-center rounded-lg absolute right-0 mt-[1.2rem]">
-                                            <ul className="grid gap-2 font-sans m-2 cursor-pointer">
-                                                <li>
-                                                    <p onClick={() => setDropdown((prev) => !prev)}>
-                                                        <Link to="/profile">Profile</Link>
-                                                    </p>
-                                                </li>
-                                                <li onClick={signoutUser}>
-                                                    <button onClick={() => setDropdown((prev) => !prev)}>
-                                                        Logout
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        ) : (
-                            <div>
-                                <span className="mx-1.5 sm:mx-6">
-                                    <Link to="/login">Login</Link>
-                                </span>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </nav>
+            <nav className="shadow bg-[#151031] text-white">
+      <div className="lg:max-w-screen lg:ml-[50rem] sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        {/* Navigation section */}
+        <div className="flex space-x-6 text-sm sm:text-base">
+          <Link to="/home" className="hover:text-indigo-400 transition">
+            Home
+          </Link>
+          <Link to="/articles" className="hover:text-indigo-400 transition">
+            Articles
+          </Link>
+          <Link to="/contact" className="hover:text-indigo-400 transition">
+            Contact
+          </Link>
+          <Link to="/about" className="hover:text-indigo-400 transition">
+            About
+          </Link>
         </div>
+
+        {/* Right Section (User or Login) */}
+        <div className="relative">
+          {isUser ? (
+            <div className="flex items-center space-x-4">
+              <p className="hidden sm:block">{user?.name}</p>
+              <img
+                onClick={() => setDropdown((prev) => !prev)}
+                className="w-10 h-10 p-1 cursor-pointer rounded-full ring-2 ring-gray-300"
+                src={user?.profilePicture}
+                alt="User Avatar"
+              />
+              {/* Dropdown */}
+              {dropdown && (
+                <div className="absolute right-0 mt-12 w-32 bg-gray-800 text-white rounded-md shadow-lg z-50">
+                  <ul className="py-2 text-sm">
+                    <li>
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 hover:bg-gray-700"
+                        onClick={() => setDropdown(false)}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => {
+                          signoutUser();
+                          setDropdown(false);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-700"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/login" className="hover:text-indigo-400 transition">
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
+    </nav>
     );
 };
 

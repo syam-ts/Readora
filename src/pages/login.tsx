@@ -20,6 +20,7 @@ const LoginPage = () => {
         password: "",
     });
     const [error, setError] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ const LoginPage = () => {
             console.log("er", validForm);
 
             if (validForm) {
+              setLoading(true);
                 const { data } = await axios.post(
                     `${config.SERVER_URL}/login`,
                     {
@@ -174,7 +176,13 @@ const LoginPage = () => {
               onClick={submitForm}
               className="bg-gray-600 text-white p-3 w-full rounded-full font-semibold hover:bg-indigo-600 transition shadow-lg"
             >
-              Log In
+              {
+                loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <p>Log In</p>
+                )
+              }
             </button>
           </div>
 

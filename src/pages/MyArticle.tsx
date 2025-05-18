@@ -75,9 +75,15 @@ console.log('from PARENT: ',articleType)
 
 
       <section>
+        {
+          articles.length === 0 ? (
+            <div className='flex justify-center my-[10rem]'>Empty </div>
+          ) : (
         <div className="flex justify-center py-20">
           <ArticleCard articles={articles} type={articleType} cb={articleType} />
         </div>
+          )
+        }
       </section>
     </div>
   );

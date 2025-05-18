@@ -40,7 +40,7 @@ const Preferences = () => {
     <div className="h-screen bg-stone-100">
       <section>
         <div className="grid justify-center pt-44">
-          <span className="text-2xl">Select Your Desired Categories </span>
+          <span className="text-2xl">Select Your Desired Categories - atleast 3 </span>
           <hr className="w-full my-5 border-black" />
         </div>
       </section>

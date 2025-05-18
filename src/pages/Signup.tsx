@@ -20,6 +20,7 @@ const SignupPage = () => {
         password: "",
     });
     const [error, setError] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const isUser = useSelector((state: UserState) => state.isUser);
 
@@ -34,6 +35,7 @@ const SignupPage = () => {
             });
 
             if (validForm) {
+                setLoading(true);
                 const { data } = await axios.post(`${config.SERVER_URL}/signup`, {
                     name: formData.name,
                     email: formData.email,
@@ -150,7 +152,10 @@ const SignupPage = () => {
                                         font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                                         shadow-lg"
                             >
-                                Log In
+                           
+                           {
+                            loading ? <p>Loading...</p> : <p>Sign up</p>
+                           }
                             </button>
                         </div>
 

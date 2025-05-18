@@ -1,14 +1,15 @@
 import axios from "axios";
+import { toast } from "sonner";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { config } from "../config/config";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Sonner } from "../components/sonner/Sonner";
 import { UserState } from "../config/UserStateConftg";
+import { categories } from "../utils/constants/categories";
 import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
 import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
-import { toast } from "sonner";
-import { Sonner } from "../components/sonner/Sonner";
 
 interface FormData {
   title: string;
@@ -97,19 +98,19 @@ const ArticleCreation: React.FC = () => {
 
         if (data.success) {
           setTimeout(() => {
-                    toast.success('article created succssfully', {
-                position: "top-center",
-                style: {
-                    backgroundColor: "green",
-                    color: "white",
-                    width: "16rem",
-                    height: "3rem",
-                    justifyContent: "center",
-                    border: "none",
-                },
+            toast.success('article created succssfully', {
+              position: "top-center",
+              style: {
+                backgroundColor: "green",
+                color: "white",
+                width: "16rem",
+                height: "3rem",
+                justifyContent: "center",
+                border: "none",
+              },
             });
           }, 500);
-            navigate("/articles");
+          navigate("/articles");
         }
       } else {
         await articleCreationSchema.validate(formData, {
@@ -251,10 +252,15 @@ const ArticleCreation: React.FC = () => {
           name="category"
           className="w-full text-xs bg-transparent border border-neutral-300 px-2 py-2 rounded-md focus:outline-none"
         >
-          <option value="">Select category</option>
-          <option value="tech">Tech</option>
-          <option value="design">Design</option>
-          <option value="lifestyle">Lifestyle</option>
+          <option >Select category</option>
+          {
+            categories.map((category, index) => (
+              <div key={index}>
+                <option>{category}</option>
+              </div>
+            )
+            )
+          }
         </select>
         <ErrorComponent
           error={error}

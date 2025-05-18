@@ -75,7 +75,7 @@ const SignupPage = () => {
     };
 
     return (
-        <div className="h-[59.1rem] flex flex-col lg:flex-row   ">
+        <div className="h-screen flex flex-col lg:flex-row   ">
   {/* Form Section */}
   <div className="w-full lg:w-1/2 flex justify-center items-center p-6 sm:p-12">
     <div className="w-full max-w-md">

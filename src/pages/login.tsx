@@ -99,134 +99,107 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex">
-            <Sonner />
-            <div className="w-2/4 h-screen pt-55  px-28">
-                <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
-                    <h2
-                        className="text-4xl text-indigo-900 font-display font-semibold text-start
-                    xl:text-bold"
-                    >
-                        Log in
-                    </h2>
-                    <div className="mt-12">
-                        <div>
-                            <div className="text-sm font-bold text-gray-700 tracking-wide">
-                                Email Address
-                            </div>
-                            <input
-                                onChange={(e) => handleChange(e)}
-                                name="email"
-                                className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                                type=""
-                                placeholder="vinaykumar@gmail.com"
-                            />
-                            {error?.some((err: string) => err.includes("Email is required"))
-                                ? error?.map((err: string, index: number) => {
-                                    if (err.includes("Email is required")) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                                : error?.map((err: string, index: number) => {
-                                    if (
-                                        err.includes("Email is required") ||
-                                        err.includes("Email is invalid")
-                                    ) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })}
-                        </div>
-                        <div className="mt-8">
-                            <div className="flex justify-between items-center">
-                                <div className="text-sm font-bold text-gray-700 tracking-wide">
-                                    Password
-                                </div>
-                            </div>
-                            <input
-                                onChange={(e) => handleChange(e)}
-                                name="password"
-                                className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                                type=""
-                                placeholder="Enter your password"
-                            />
+         <div className="h-screen flex flex-col lg:flex-row">
+      {/* Notification System */}
+      <Sonner />
 
-                            {error?.some((err: string) =>
-                                err.includes("Password is required")
-                            )
-                                ? error?.map((err: string, index: number) => {
-                                    if (err.includes("Password is required")) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                                : error?.map((err: string, index: number) => {
-                                    if (
-                                        err.includes("Password is required") ||
-                                        err.includes("minimum 8 characters need")
-                                    ) {
-                                        return (
-                                            <div key={index} className="text-center">
-                                                <span className="text-black text-xs montserrat-bold">
-                                                    {err}
-                                                </span>
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })}
-                        </div>
-                        <div className="mt-10">
-                            <button
-                                onClick={submitForm}
-                                className="bg-gray-600 text-gray-100 p-4 w-full rounded-full tracking-wide
-                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
-                                shadow-lg"
-                            >
-                                Log In
-                            </button>
-                        </div>
+      {/* Form Section */}
+      <div className="w-full lg:w-1/2 flex justify-center items-center px-6 sm:px-12 py-12">
+        <div className="w-full max-w-md">
+          <h2 className="text-3xl sm:text-4xl text-indigo-900 font-semibold mb-10">
+            Log in
+          </h2>
 
-                        <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                            Don't have an account ?{" "}
-                            <p className="cursor-pointer text-indigo-600 hover:text-indigo-800">
-                                <Link to="/signup">Sign up</Link>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          {/* Email Field */}
+          <div className="mb-6">
+            <label className="text-sm font-bold text-gray-700">
+              Email Address
+            </label>
+            <input
+              onChange={(e) => handleChange(e)}
+              name="email"
+              className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+              type="email"
+              placeholder="vinaykumar@gmail.com"
+            />
+            {error?.map((err: string, index: number) => {
+              if (
+                err.includes("Email is required") ||
+                err.includes("Email is invalid")
+              ) {
+                return (
+                  <div key={index} className="text-center">
+                    <span className="text-red-500 text-xs font-semibold">
+                      {err}
+                    </span>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
 
-            {/* image section */}
+          {/* Password Field */}
+          <div className="mb-6">
+            <label className="text-sm font-bold text-gray-700">
+              Password
+            </label>
+            <input
+              onChange={(e) => handleChange(e)}
+              name="password"
+              className="w-full text-md py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+              type="password"
+              placeholder="Enter your password"
+            />
+            {error?.map((err: string, index: number) => {
+              if (
+                err.includes("Password is required") ||
+                err.includes("minimum 8 characters need")
+              ) {
+                return (
+                  <div key={index} className="text-center">
+                    <span className="text-red-500 text-xs font-semibold">
+                      {err}
+                    </span>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
 
-            <div className="w-2/4 h-screen">
-                <div className="max-w-full">
-                    <img
-                        src="https://img.freepik.com/free-photo/concept-fake-news_23-2148837021.jpg?ga=GA1.1.971265415.1746433248&semt=ais_hybrid&w=740"
-                        className="h-screen w-full object-cover"
-                    />
-                </div>
-            </div>
+          {/* Login Button */}
+          <div className="mt-8">
+            <button
+              onClick={submitForm}
+              className="bg-gray-600 text-white p-3 w-full rounded-full font-semibold hover:bg-indigo-600 transition shadow-lg"
+            >
+              Log In
+            </button>
+          </div>
+
+          {/* Redirect to Signup */}
+          <div className="mt-8 text-sm text-center text-gray-700 font-semibold">
+            Don’t have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-indigo-600 hover:text-indigo-800 underline ml-1"
+            >
+              Sign up
+            </Link>
+          </div>
         </div>
+      </div>
+
+      {/* Image Section */}
+      <div className=" lg:block lg:w-1/2">
+        <img
+          src="https://img.freepik.com/free-photo/concept-fake-news_23-2148837021.jpg?ga=GA1.1.971265415.1746433248&semt=ais_hybrid&w=740"
+          alt="Login Visual"
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </div>
     );
 };
 

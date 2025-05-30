@@ -40,7 +40,7 @@ const Home = () => {
   return (
     <div>
       <section>
-        <div className="grid justify-center pt-20 gap-3">
+        <div className="grid justify-center pt-28 gap-3">
           <p className="font-mono text-center text-3xl nunito-regular">
             For You
           </p>
@@ -50,7 +50,7 @@ const Home = () => {
 
       {/* Card section */}
       <section>
-        <div className="flex justify-center pt-20">
+        <div className="flex justify-center pt-12">
           <ArticleCard articles={articles} type="home" />
         </div>
       </section>

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { UserState } from "../config/UserStateConftg";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
+import { UserState } from "../../config/UserStateConftg";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 
 interface User {
   name: string;

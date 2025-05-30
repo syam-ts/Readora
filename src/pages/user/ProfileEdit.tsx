@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { UserState } from "../config/UserStateConftg";
-import { categories } from "../utils/constants/categories";
-import { apiInstance } from "../api/axiosInstance/axiosInstance"; 
-import { userProfileSchema } from "../utils/validation/userProfileSchema";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
+import { UserState } from "../../config/UserStateConftg";
+import { categories } from "../../utils/constants/categories";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
+import { userProfileSchema } from "../../utils/validation/userProfileSchema";
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 
 interface User {
   name: string;

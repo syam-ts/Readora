@@ -1,11 +1,11 @@
 import axios from "axios";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserState } from "../config/UserStateConftg"; 
-import { userSignupSchema } from "../utils/validation/signupSchema";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
+import { UserState } from "../../config/UserStateConftg"; 
+import { userSignupSchema } from "../../utils/validation/signupSchema";
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 
 interface FormData {
     name: string;

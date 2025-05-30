@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { UserState } from "../config/UserStateConftg";
-import { ArticleCard } from "../components/article/ArticleCard"; 
-import { apiInstance } from "../api/axiosInstance/axiosInstance"; 
+import { UserState } from "../../config/UserStateConftg";
+import { ArticleCard } from "../../components/article/ArticleCard"; 
+import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
 
 interface Article {
   userId: string;

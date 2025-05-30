@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { ArticleCard } from "../components/article/ArticleCard";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { ArticleCard } from "../../components/article/ArticleCard";
 
 const MyArticle = () => {
   const [articles, setArticles] = useState([]);

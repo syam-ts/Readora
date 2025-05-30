@@ -1,21 +1,21 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { UserProtectedRoute } from "./utils/HOC/ProtectedRoute";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import LoginPage from "./pages/login";
-import SignupPage from "./pages/Signup";
-import MyArticle from "./pages/MyArticle";
-import ProfileEdit from "./pages/ProfileEdit";
+import Home from "./pages/user/Home";
+import Profile from "./pages/user/Profile";
+import LoginPage from "./pages/common/login";
+import SignupPage from "./pages/common/Signup";
+import MyArticle from "./pages/article/MyArticle";
+import ProfileEdit from "./pages/user/ProfileEdit";
 import MonoArticle from "./pages/MonoArticle";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import ArticleEditPage from "./pages/ArticleEditPage";
-import ArticleCreation from "./pages/ArticleCreation";
+import ArticleCreation from "./pages/article/ArticleCreation";
 import Prefrences from "./components/user/Preferences";
 import NotFound from "./components/errorComponents/NotFound";
-import About from "./pages/About";
-import Contact from "./pages/Contact"; 
-import VerifyOtp from "./pages/VerifyOtp";
+import About from "./pages/common/About";
+import Contact from "./pages/common/Contact"; 
+import VerifyOtp from "./pages/common/VerifyOtp";
 
 
 const App: React.FC = () => {

@@ -1,15 +1,15 @@
 import axios from "axios";
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Sonner } from "../components/sonner/Sonner";
-import { UserState } from "../config/UserStateConftg";
-import { categories } from "../utils/constants/categories";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
-import { articleCreationSchema } from "../utils/validation/articleCreationSchema";
+import { Sonner } from "../../components/sonner/Sonner";
+import { UserState } from "../../config/UserStateConftg";
+import { categories } from "../../utils/constants/categories";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
+import { articleCreationSchema } from "../../utils/validation/articleCreationSchema";
 
 interface FormData {
   title: string;

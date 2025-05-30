@@ -1,13 +1,13 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import { useEffect, useState } from "react";
-import { Sonner } from "../components/sonner/Sonner";
+import { Sonner } from "../../components/sonner/Sonner";
 import { Link, useNavigate } from "react-router-dom";
-import { UserState } from "../config/UserStateConftg";
+import { UserState } from "../../config/UserStateConftg";
 import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../redux/slices/userSlice";
-import { userLoginSchema } from "../utils/validation/loginSchema";
+import { signInUser } from "../../redux/slices/userSlice";
+import { userLoginSchema } from "../../utils/validation/loginSchema";
 
 interface FormData {
     email: string;

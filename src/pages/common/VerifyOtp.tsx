@@ -1,11 +1,11 @@
 import axios from "axios";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { UserState } from "../config/UserStateConftg";
+import { UserState } from "../../config/UserStateConftg";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { Sonner } from "../components/sonner/Sonner";
+import { Sonner } from "../../components/sonner/Sonner";
 
 const VerifyOtp = () => {
     const [otp, setOtp] = useState<number>(0);

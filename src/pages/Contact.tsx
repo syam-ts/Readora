@@ -27,7 +27,7 @@ const Contact: React.FC = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto px-4 py-12 nunito-regular">
+        <div className="max-w-3xl mx-auto px-4 py-28 nunito-regular">
             <h1 className="text-4xl font-bold mb-6  ">Contact Us</h1>
             <p className="text-lg mb-8 leading-relaxed ">
                 Have a question, feedback, or just want to say hello? We'd love to hear

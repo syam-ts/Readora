@@ -4,16 +4,13 @@ import { apiInstance } from "../api/axiosInstance/axiosInstance";
 import { ArticleCard } from "../components/article/ArticleCard";
 
 const MyArticle = () => {
-
   const [articles, setArticles] = useState([]);
-  const [articleType, setArticleType] = useState<string>('unpublished');
+  const [articleType, setArticleType] = useState<string>("unpublished");
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
-        const { data } = await apiInstance.get(
-          `/user/articles/${articleType}`
-        );
+        const { data } = await apiInstance.get(`/user/articles/${articleType}`);
 
         setArticles(data.articles);
       };
@@ -24,19 +21,12 @@ const MyArticle = () => {
     }
   }, [articleType]);
 
-
-  const articleTypeTitleStyle: string = 'text-black font-normal';
-
-  const cb = (callback: any) => {
-    console.log('call', callback)
-    callback()
-  }
-  console.log('from PARENT: ', articleType)
+  const articleTypeTitleStyle: string = "text-black font-normal";
 
   return (
-    <div className='overflow-hidden'>
+    <div className="overflow-hidden">
       <section className="w-screen text-white py-16 px-4 mt-16">
-        <div className="max-w-4xl mx-auto bg-white shadow-2xl border-t border-gray-300 text-black rounded-2xl p-8 flex flex-col items-center text-center">
+        <div className="max-w-4xl mx-auto bg-white shadow-2xl border-t border-gray-300 text-black rounded-2xl p-4 flex flex-col items-center text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Share Your Voice with the World
           </h2>
@@ -46,13 +36,12 @@ const MyArticle = () => {
             experiences, or life lessons — your stories deserve to be heard.
           </p>
           <Link to="/articleCreation">
-            <button className="bg-sky-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+            <button className="bg-sky-500 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md transition duration-300">
               Create Your Article Here
             </button>
           </Link>
         </div>
       </section>
-
 
       <section className="w-full mt-16">
         <div>
@@ -60,7 +49,9 @@ const MyArticle = () => {
             <li>
               <p
                 onClick={() => setArticleType("unpublished")}
-                className={articleType === "unpublished" ? articleTypeTitleStyle : ""}
+                className={
+                  articleType === "unpublished" ? articleTypeTitleStyle : ""
+                }
               >
                 Unpublished Articles
               </p>
@@ -68,7 +59,9 @@ const MyArticle = () => {
             <li>
               <p
                 onClick={() => setArticleType("published")}
-                className={articleType === "published" ? articleTypeTitleStyle : ""}
+                className={
+                  articleType === "published" ? articleTypeTitleStyle : ""
+                }
               >
                 Published Articles
               </p>
@@ -76,7 +69,9 @@ const MyArticle = () => {
             <li>
               <p
                 onClick={() => setArticleType("archived")}
-                className={articleType === "archived" ? articleTypeTitleStyle : ""}
+                className={
+                  articleType === "archived" ? articleTypeTitleStyle : ""
+                }
               >
                 Archived Articles
               </p>
@@ -89,17 +84,17 @@ const MyArticle = () => {
         </div>
       </section>
 
-
       <section>
-        {
-          articles.length === 0 ? (
-            <div className='flex justify-center my-[10rem]'>Empty </div>
-          ) : (
-            <div className="flex justify-center py-20">
-              <ArticleCard articles={articles} type={articleType} cb={articleType} />
-            </div>
-          )
-        }
+        {articles.length === 0 ? (
+          <div className="flex justify-center my-[10rem]">Empty </div>
+        ) : (
+          <div className="flex justify-center py-20">
+            <ArticleCard
+              articles={articles}
+              type={articleType}
+            />
+          </div>
+        )}
       </section>
     </div>
   );

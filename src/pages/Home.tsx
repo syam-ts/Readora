@@ -40,11 +40,11 @@ const Home = () => {
   return (
     <div>
       <section>
-        <div className="grid justify-center pt-16 gap-3">
-          <p className="font-mono text-center text-2xl nunito-regular">
+        <div className="grid justify-center pt-20 gap-3">
+          <p className="font-mono text-center text-3xl nunito-regular">
             For You
           </p>
-          <hr className="w-[20rem]" />
+          <hr className="w-[40rem] border-gray-400" />
         </div>
       </section>
 

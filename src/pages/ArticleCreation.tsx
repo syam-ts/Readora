@@ -21,7 +21,6 @@ interface FormData {
 }
 
 const ArticleCreation: React.FC = () => {
-
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState<string>("");
   const [preview, setPreview] = useState<string | null>(null);
@@ -98,7 +97,7 @@ const ArticleCreation: React.FC = () => {
 
         if (data.success) {
           setTimeout(() => {
-            toast.success('article created succssfully', {
+            toast.success("article created succssfully", {
               position: "top-center",
               style: {
                 backgroundColor: "green",
@@ -125,18 +124,18 @@ const ArticleCreation: React.FC = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-20 text-neutral-800 font-sans">
-      {/* Title */}
+    <div className="max-w-2xl mx-auto px-4 py-20 text-neutral-800 font-sans">
       <Sonner />
-      <div className="grid gap-1 my-5">
+
+      {/* Title */}
+      <div className="mb-6">
         <input
           onChange={onChangeHandler}
           type="text"
           name="title"
           placeholder="Title"
-          className="w-full text-2xl font-medium placeholder-neutral-400 mb-4 focus:outline-none"
+          className="w-full text-xl font-semibold placeholder-neutral-400 bg-white border border-neutral-200 px-4 py-2 shadow-xs focus:ring-1 focus:ring-gray-500 focus:outline-none rounded-md"
         />
-
         <ErrorComponent
           error={error}
           e1="Title is required"
@@ -146,13 +145,13 @@ const ArticleCreation: React.FC = () => {
       </div>
 
       {/* Subtitle */}
-      <div className="grid gap-1 my-5">
+      <div className="mb-6">
         <input
           onChange={onChangeHandler}
           type="text"
           name="subtitle"
           placeholder="Add a subtitle…"
-          className="w-full text-md placeholder-neutral-400 focus:outline-none"
+          className="w-full text-base placeholder-neutral-400 bg-white border border-neutral-200 px-4 py-2 shadow-xs focus:ring-1 focus:ring-gray-500 focus:outline-none rounded-md"
         />
         <ErrorComponent
           error={error}
@@ -163,55 +162,58 @@ const ArticleCreation: React.FC = () => {
       </div>
 
       {/* Image Upload */}
-      <div className="mb-12 grid">
-        <label className="text-xs text-neutral-500 mb-2">Upload image</label>
+      <div className="mb-10">
+        <label className="block text-sm text-neutral-500 mb-2">
+          Upload Image
+        </label>
         <input
           onChange={handleFileUpload}
           name="image"
           type="file"
-          className="text-xs text-neutral-500 border w-2/7 py-1 rounded-sm"
+          className="text-sm text-neutral-600 file:mr-4 file:py-1 file:px-3 file:border-0 file:text-sm file:font-medium file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 file:rounded-lg"
         />
-
         {preview && (
           <img
             src={preview}
             alt="Preview"
-            className="mt-4 w-48 h-48 object-cover rounded-md border"
+            className="mt-4 w-40 h-40 object-cover border border-neutral-200 rounded-md"
           />
         )}
       </div>
 
       {/* Description */}
-      <div className="grid gap-5">
-        <label className="text-md text-neutral-500">Description</label>
+      <div className="mb-10">
+        <label className="text-sm text-neutral-500 block mb-2">
+          Description
+        </label>
         <textarea
           onChange={onChangeHandler}
           name="description"
           placeholder="Start writing…"
-          rows={8}
-          className="w-full text-sm placeholder-neutral-400 focus:outline-none resize-none border border-neutral-300 rounded-xl p-3 "
+          rows={6}
+          className="w-full text-sm placeholder-neutral-400 bg-white border border-neutral-200 px-4 py-3 shadow-xs focus:ring-1 focus:ring-gray-500 focus:outline-none resize-none rounded-md"
         />
         <ErrorComponent
           error={error}
           e1="Description is required"
-          e2="Description should have atleast 80 characters"
+          e2="Description should have at least 80 characters"
           e3="Description should be under 450 characters"
         />
       </div>
 
       {/* Tags */}
-      <div className="mb-12 pt-5">
-        <label className="text-xs text-neutral-500 block mb-2">Tags</label>
-        <div className="flex flex-wrap gap-2 mb-2">
+      <div className="mb-10">
+        <label className="text-sm text-neutral-500 block mb-2">Tags</label>
+        <div className="flex flex-wrap gap-2 mb-3">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs bg-neutral-100 px-3 py-1 rounded-full flex items-center"
+              className="text-sm bg-neutral-100 px-3 py-1 border border-neutral-300 flex items-center rounded-md"
             >
               {tag}
               <button
                 onClick={() => removeTag(tag)}
-                className="ml-2 text-neutral-400 hover:text-neutral-600"
+                className="ml-2 text-neutral-400 hover:text-red-500"
               >
                 ×
               </button>
@@ -225,11 +227,11 @@ const ArticleCreation: React.FC = () => {
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             placeholder="Enter a tag"
-            className="w-2/4 text-xs placeholder-neutral-400 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
+            className="w-1/2 text-sm placeholder-neutral-400 bg-white border border-neutral-200 px-3 py-2 shadow-xs focus:ring-1 focus:ring-gray-500 focus:outline-none rounded-md"
           />
           <button
             onClick={addTag}
-            className="text-xs text-neutral-600 hover:text-black transition"
+            className="text-sm text-sky-600 hover:text-sky-800 transition"
           >
             Add
           </button>
@@ -243,30 +245,23 @@ const ArticleCreation: React.FC = () => {
       </div>
 
       {/* Categories */}
-      <div className="mb-14">
-        <label className="text-xs text-neutral-500 block mb-2">
-          Categories
-        </label>
+      <div className="mb-12">
+        <label className="text-sm text-neutral-500 block mb-2">Category</label>
         <select
           onChange={onChangeHandler}
           name="category"
-          className="w-full text-xs bg-transparent border border-neutral-300 px-2 py-2 rounded-md focus:outline-none"
+          className="w-full text-sm bg-white border border-neutral-200 px-3 py-2 shadow-xs focus:ring-1 focus:ring-gray-500 focus:outline-none rounded-md"
         >
-          <option >Select category</option>
-          {
-            categories.map((category, index) => (
-              <div key={index}>
-                <option>{category}</option>
-              </div>
-            )
-            )
-          }
+          <option>Select category</option>
+          {categories.map((category, index) => (
+            <option key={index}>{category}</option>
+          ))}
         </select>
         <ErrorComponent
           error={error}
           e1="Category is required"
-          e2="Categorey is required (minimum 10 characters)"
-          e3="Categorey is required (maximum 80 characters)"
+          e2="Category is required (minimum 10 characters)"
+          e3="Category is required (maximum 80 characters)"
         />
       </div>
 
@@ -274,7 +269,7 @@ const ArticleCreation: React.FC = () => {
       <div className="flex justify-end">
         <button
           onClick={submitForm}
-          className="text-xs px-6 py-2 border bg-sky-500 text-white border-neutral-300 rounded-md hover:bg-neutral-100 transition"
+          className="px-6 py-2 bg-sky-600 text-white text-sm font-medium shadow-xs hover:bg-sky-700 transition rounded-md"
         >
           Submit
         </button>

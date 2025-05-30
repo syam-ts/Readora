@@ -36,7 +36,7 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     try {
-      const fetchUserData = async () => {
+      const fetchUserData = async (): Promise<void> => {
         const { data } = await apiInstance.get(`/profile/${userId}`);
 
         setUser(data.user);

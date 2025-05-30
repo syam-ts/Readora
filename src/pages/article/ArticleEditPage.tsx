@@ -1,11 +1,11 @@
 import axios from "axios";
-import { config } from "../config/config";
+import { config } from "../../config/config";
 import React, { useEffect, useState } from "react";
-import { categories } from "../utils/constants/categories";
-import { ErrorComponent } from "../components/errorComponents/ErrorComponent";
+import { categories } from "../../utils/constants/categories";
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { apiInstance } from "../api/axiosInstance/axiosInstance";
-import { articleEditSchema } from "../utils/validation/articleEditSchema";
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { articleEditSchema } from "../../utils/validation/articleEditSchema";
 
 interface Article {
   userId: string;

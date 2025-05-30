@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { UserState } from "../../config/UserStateConftg";
 import { ArticleCard } from "../../components/article/ArticleCard"; 
 import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
+import HomeShimmer from "../../components/shimmer/HomeShimmer";
 
 interface Article {
   userId: string;
@@ -50,9 +51,17 @@ const Home = () => {
 
       {/* Card section */}
       <section>
-        <div className="flex justify-center pt-12">
+       {
+        articles.length !== 0 ? (
+           <div className="flex justify-center pt-12">
           <ArticleCard articles={articles} type="home" />
         </div>
+        ) : (
+            <div className="flex justify-center pt-12">
+          <HomeShimmer />
+        </div>
+        )
+       }
       </section>
     </div>
   );

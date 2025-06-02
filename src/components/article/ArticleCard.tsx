@@ -4,7 +4,7 @@ import { DeleteArticle } from "./DeleteArticleModel";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 import { toast } from "sonner";
 import { Sonner } from "../sonner/Sonner";
-import { Eye, ThumbsUp } from "lucide-react";
+import { ThumbsUp } from "lucide-react";
 
 interface Article {
     userId: string;
@@ -131,15 +131,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                             <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
                                 <div className="flex items-center gap-1">
                                     <ThumbsUp className="w-4 h-4" />
-                                    <span>8 hours ago</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <Eye className="w-4 h-4" />
-                                    <span>16.9K views</span>
-                                </div>
-                                <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold">
-                                    RE-UPLOADED
-                                </span>
+                                    <span>23</span>
+                                </div>  
                             </div>
                         </div>
 

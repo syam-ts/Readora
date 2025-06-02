@@ -16,7 +16,7 @@ import NotFound from "./components/errorComponents/NotFound";
 import About from "./pages/common/About";
 import Contact from "./pages/common/Contact"; 
 import VerifyOtp from "./pages/common/VerifyOtp";
-
+  
 
 const App: React.FC = () => {
 
@@ -35,7 +35,7 @@ const App: React.FC = () => {
         <Route path="/preferences" element={<Prefrences />} />
 
         <Route element={<UserProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home />} /> 
           <Route path="/articles" element={<MyArticle />} />
           <Route path="/articleCreation" element={<ArticleCreation />} />
           <Route path="/article/:articleId" element={<MonoArticle />} />

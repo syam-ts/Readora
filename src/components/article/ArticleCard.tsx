@@ -4,6 +4,7 @@ import { DeleteArticle } from "./DeleteArticleModel";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 import { toast } from "sonner";
 import { Sonner } from "../sonner/Sonner";
+import { Eye, ThumbsUp } from "lucide-react";
 
 interface Article {
     userId: string;
@@ -20,9 +21,7 @@ interface ArticleCardProps {
     type: string;
 }
 
-
 export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
-
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const publishArticle = async (articleId: string): Promise<void> => {
@@ -30,7 +29,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
             const { data } = await apiInstance.put(`/publishArticle/${articleId}`);
 
             if (data.success) {
-                toast.error('Article Published', {
+                toast.error("Article Published", {
                     position: "top-center",
                     style: {
                         backgroundColor: "green",
@@ -42,12 +41,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                     },
                 });
                 setTimeout(() => {
-                    window.location.reload()
+                    window.location.reload();
                 }, 200);
             }
-
         } catch (err) {
-            console.log('ERROR: ', err);
+            console.log("ERROR: ", err);
         }
     };
 
@@ -56,7 +54,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
             const { data } = await apiInstance.put(`/archiveArticle/${articleId}`);
 
             if (data.success) {
-                toast.error('Article archived', {
+                toast.error("Article archived", {
                     position: "top-center",
                     style: {
                         backgroundColor: "green",
@@ -65,15 +63,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                         height: "3rem",
                         justifyContent: "center",
                         border: "none",
-                    }
+                    },
                 });
                 setTimeout(() => {
-                    window.location.reload()
+                    window.location.reload();
                 }, 200);
             }
-
         } catch (err) {
-            console.log('ERROR: ', err);
+            console.log("ERROR: ", err);
         }
     };
 
@@ -82,13 +79,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
             {isModalOpen}
             <Sonner />
 
-            <div className="flex flex-wrap gap-8 w-3/5 justify-center mx-auto">
+            <div className="flex flex-wrap gap-4 w-4/5 justify-center mx-auto">
                 {Object.entries(articles).map(([_, article]: any) => (
                     <div
                         key={article._id}
-                        className="w-[300px] bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                        className="w-[24rem] rounded-xl overflow-hidden shadow border bg-white flex flex-col"
                     >
-                        <div className="relative h-[200px] w-full overflow-hidden">
+                        {/* Image Section */}
+                        <div className="relative h-48 w-full">
                             <Link to={`/article/${article._id}`}>
                                 <img
                                     src={
@@ -101,7 +99,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                             </Link>
 
                             {type === "unpublished" && (
-                                <div className="absolute top-3 left-3 right-3 flex justify-between items-center">
+                                <div className="absolute top-2 left-2 right-2 flex justify-between items-center z-10">
                                     <Link to={`/article?articleId=${article._id}`}>
                                         <div className="bg-white p-2 rounded-full shadow-md hover:scale-105 transition-transform">
                                             <img
@@ -120,17 +118,34 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                             )}
                         </div>
 
-                        <div className="p-5 flex-1 flex flex-col justify-between">
-                            <h2 className="text-xl font-bold text-gray-800 truncate">
+                        {/* Content */}
+                        <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                            <h3 className="text-sm font-semibold text-gray-800 leading-tight truncate">
                                 {article.title}
-                            </h2>
-                            <p className="mt-2 text-xs text-gray-600 line-clamp-3">
+                            </h3>
+                            <p className="text-xs text-gray-700 leading-snug line-clamp-3">
                                 {article.description}
                             </p>
+
+                            {/* Footer */}
+                            <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
+                                <div className="flex items-center gap-1">
+                                    <ThumbsUp className="w-4 h-4" />
+                                    <span>8 hours ago</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <Eye className="w-4 h-4" />
+                                    <span>16.9K views</span>
+                                </div>
+                                <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold">
+                                    RE-UPLOADED
+                                </span>
+                            </div>
                         </div>
 
+                        {/* Publish/Archive Button */}
                         {(type === "unpublished" || type === "published") && (
-                            <div className="p-4 border-t border-gray-100 bg-gradient-to-r from-gray-100 to-gray-50 rounded-b-3xl">
+                            <div className="p-4 border-t border-gray-100 bg-gradient-to-r from-gray-100 to-gray-50 rounded-b-xl">
                                 <button
                                     onClick={() =>
                                         type === "unpublished"
@@ -147,6 +162,5 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                 ))}
             </div>
         </div>
-
     );
 };

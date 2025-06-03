@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <div>
       <section>
-        <div className="grid justify-center pt-28 gap-3">
+        <div className="grid justify-center pt-32 gap-3">
           <p className="font-mono text-center text-3xl nunito-regular">
             For You
           </p>
@@ -53,11 +53,11 @@ const Home = () => {
       <section>
        {
         articles.length !== 0 ? (
-           <div className="flex justify-center pt-12">
+           <div className="flex justify-center pt-22">
           <ArticleCard articles={articles} type="home" />
         </div>
         ) : (
-            <div className="flex justify-center pt-12">
+            <div className="flex justify-center pt-22">
           <HomeShimmer />
         </div>
         )

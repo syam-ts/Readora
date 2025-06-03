@@ -18,10 +18,12 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-full z-50 bg-dark-glass glass-card py-3 px-8 backdrop-blur-lg ">
+      <nav className="fixed w-full z-50 bg-dark-glass glass-card py-3 px-8 backdrop-blur-lg border-b border-1 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold gradient-text">
-            <span className="text-black montserrat-bold">READORA</span>
+                 <Link to="/home" className="hover:text-neon transition-colors">
+            <span className="text-black montserrat-bold">READORA</span> 
+            </Link>
           </div>
           <div className="flex items-center space-x-6 nunito-regular justify-center mx-auto">
             <Link to="/home" className="hover:text-neon transition-colors">

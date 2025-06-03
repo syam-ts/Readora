@@ -1,10 +1,10 @@
+import { toast } from "sonner";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Sonner } from "../sonner/Sonner";
 import { DeleteArticle } from "./DeleteArticleModel";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
-import { toast } from "sonner";
-import { Sonner } from "../sonner/Sonner";
-import { ThumbsUp } from "lucide-react";
+// import { ThumbsUp } from "lucide-react";
 
 interface Article {
     userId: string;
@@ -79,11 +79,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
             {isModalOpen}
             <Sonner />
 
-            <div className="flex flex-wrap gap-4 w-4/5 justify-center mx-auto">
+            <div className="flex flex-wrap gap-8 w-4/5 justify-center mx-auto">
                 {Object.entries(articles).map(([_, article]: any) => (
                     <div
                         key={article._id}
-                        className="w-[24rem] rounded-xl overflow-hidden shadow border bg-white flex flex-col"
+                        className="w-[22rem] rounded-xl overflow-hidden shadow border bg-white flex flex-col"
                     >
                         {/* Image Section */}
                         <div className="relative h-48 w-full">
@@ -127,14 +127,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                 {article.description}
                             </p>
 
-                            {/* Footer */}
-                            <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
+                            {/* Likes */}
+                            {/* <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
                                 <div className="flex items-center gap-1">
                                     <ThumbsUp className="w-4 h-4" />
                                     <span>23</span>
-                                </div>  
-                            </div>
-                        </div>
+                                </div>  =
+                            </div> */}
+                        </div> 
 
                         {/* Publish/Archive Button */}
                         {(type === "unpublished" || type === "published") && (
@@ -145,7 +145,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                             ? publishArticle(article._id)
                                             : archiveArticle(article._id)
                                     }
-                                    className="w-full py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold hover:from-indigo-600 hover:to-purple-600 transition"
+                                    className="w-full py-2 rounded-xl bg-gray-600 text-white font-bold"
                                 >
                                     {type === "unpublished" ? "Publish" : "Archive"}
                                 </button>

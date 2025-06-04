@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-full z-50 bg-dark-glass glass-card py-3 px-8 backdrop-blur-lg border-b border-1 shadow-lg">
+      <nav className="fixed w-full z-50 bg-dark-glass glass-card bg-white py-3 px-8 backdrop-blur-lg border-b border-1 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold gradient-text">
                  <Link to="/home" className="hover:text-neon transition-colors">

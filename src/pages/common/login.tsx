@@ -39,14 +39,10 @@ const LoginPage = () => {
 
             if (validForm) {
               setLoading(true);
-                const { data } = await axios.post(
-                    `${config.SERVER_URL}/login`,
-                    {
+                const { data } = await axios.post(`${config.SERVER_URL}/login`,{
                         email: formData.email,
-                        password: formData.password,
-                    },
-                    {
-                        withCredentials: true,
+                        password: formData.password},{
+                        withCredentials: true, 
                     }
                 );
 

@@ -29,6 +29,7 @@ const ProfileEdit: React.FC = () => {
   const [preferencesInput, setPreferencesInput] = useState("");
   const [error, setError] = useState<string[]>([]);
   const [imageError, setImageError] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
  
 
@@ -39,6 +40,7 @@ const ProfileEdit: React.FC = () => {
           `/user/profile`
         );
         setUser(data.user);
+        setPreferences(data.user.preferences)
       };
 
       fetchUserData();
@@ -55,14 +57,12 @@ const ProfileEdit: React.FC = () => {
     }));
   };
 
-  const addPreference = () => {
-    console.log("TH pre : 1st: ", preferencesInput);
+  const addPreference = () => { 
     if (preferencesInput && !preferences.includes(preferencesInput)) {
       setPreferences((prev) => [...prev, preferencesInput]);
       setPreferencesInput("");
     }
-  };
-  console.log("Th rpe", preferences);
+  }; 
 
   const removePreference = (preference: string) => {
     setPreferences(preferences.filter((p) => p !== preference));
@@ -119,6 +119,7 @@ const ProfileEdit: React.FC = () => {
       });
 
       if (validForm) {
+        setLoading(true);
         const { data } = await apiInstance.put(
           `/user/profile`,
           {
@@ -135,6 +136,7 @@ const ProfileEdit: React.FC = () => {
         );
 
         if (data.success) {
+          setLoading(false);
           navigate("/profile");
         }
       } else {
@@ -264,7 +266,7 @@ const ProfileEdit: React.FC = () => {
 
     {/* Selected Preferences */}
     <div className="flex flex-wrap gap-2 mb-4">
-      {user.preferences.map((preference) => (
+      {preferences.map((preference) => (
         <span
           key={preference}
           className="bg-gray-200 text-sm px-4 py-1 rounded-full flex items-center"
@@ -314,10 +316,12 @@ const ProfileEdit: React.FC = () => {
   <div className="text-center">
     <button
       onClick={submitForm}
-      className="bg-sky-500 hover:bg-sky-700 text-white font-semibold px-8 py-2 rounded-md text-sm"
+      className="bg-sky-500 hover:bg-sky-700 text-white font-semibold px-28 py-2 rounded-md text-sm"
       type="button"
     >
-      Save
+      {
+        loading ? <p>Loading...</p> : <p>Save</p>
+      }
     </button>
   </div>
 </div>

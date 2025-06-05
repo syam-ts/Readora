@@ -125,7 +125,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                             <h3 className="text-md font-semibold text-gray-800 leading-tight truncate">
                                 {article.title}
                             </h3>
-                            <p className="text-xs text-gray-700 leading-snug line-clamp-3 px-2">
+                            <p className="text-xs text-gray-700 leading-snug line-clamp-3 px-1">
                                 {article.description}
                             </p>
 
@@ -140,7 +140,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
                         <div className="flex justify-between px-5 pb-2">
                             <div className="flex">
-                                <p className="text-sm">{new Date(article.createdAt).toLocaleDateString("en-GB", {
+                                <p className="text-xs">{new Date(article.createdAt).toLocaleDateString("en-GB", {
                                     day: "2-digit",
                                     month: "short",
                                     year: "numeric",
@@ -148,7 +148,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                             </div>
 
                             <div className="flex gap-5">
-                                <p className="flex gap-2 text-sm">
+                                <p className="flex gap-2 text-xs">
                                     <img
                                         src="/like.png"
                                         className="h-3 w-3 hover:scale-130"
@@ -158,7 +158,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                         article.likes || 0
                                     }
                                 </p>
-                                <p className="flex gap-2 text-sm">
+                                <p className="flex gap-2 text-xs">
                                     <img
                                         src="/dislike.png"
                                         className="h-3 w-3 hover:scale-130"

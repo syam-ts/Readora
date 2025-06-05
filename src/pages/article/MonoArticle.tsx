@@ -30,6 +30,8 @@ const MonoArticle: React.FC = () => {
         likes: 0,
         dislikes: 0,
     });
+    const [likes, setLikes] = useState<number>(0);
+    const [dislikes, setDislikes] = useState<number>(0);
     const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
     const { articleId } = useParams();
@@ -56,10 +58,10 @@ const MonoArticle: React.FC = () => {
         try {
             const { data } = await apiInstance.put(
                 `/article/like/${articleId}`
-            );
+            ); 
 
             console.log("The result: ", data);
-            if (data.success) {
+            if (data.success) { 
                 toast.success('liked the image', {
                     position: "bottom-center",
                     style: {
@@ -85,7 +87,7 @@ const MonoArticle: React.FC = () => {
             );
 
             console.log("The result: ", data);
-            if (data.success) {
+            if (data.success) { 
                 toast.success('disliked the image', {
                     position: "bottom-center",
                     style: {
@@ -172,9 +174,9 @@ const MonoArticle: React.FC = () => {
                 {article.category}
             </div>
             <div className="mt-6 flex justify-end gap-5 text-sm text-gray-500">
-                <span className="font-medium text-gray-700">Like: {article.likes}</span>
+                <span className="font-medium text-gray-700">Like: {article.likes || 0}</span>
                 <span className="font-medium text-gray-700">
-                    Dislike: {article.dislikes}
+                    Dislike: {article.dislikes || 0}
                 </span>
             </div>
         </div>

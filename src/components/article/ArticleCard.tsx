@@ -27,7 +27,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     const publishArticle = async (articleId: string): Promise<void> => {
         try {
             const { data } = await apiInstance.put(`/article/publish/${articleId}`, {
-                withCredentials: true, 
+                withCredentials: true,
             });
 
             if (data.success) {
@@ -136,7 +136,40 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                     <span>23</span>
                                 </div>  =
                             </div> */}
-                        </div> 
+                        </div>
+
+                        <div className="flex justify-between px-5 pb-2">
+                            <div className="flex">
+                                <p className="text-sm">{new Date(article.createdAt).toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                })}</p>
+                            </div>
+
+                            <div className="flex gap-5">
+                                <p className="flex gap-2 text-sm">
+                                    <img
+                                        src="/like.png"
+                                        className="h-3 w-3 hover:scale-130"
+                                        alt="like-image"
+                                    />
+                                    {
+                                        article.likes || 0
+                                    }
+                                </p>
+                                <p className="flex gap-2 text-sm">
+                                    <img
+                                        src="/dislike.png"
+                                        className="h-3 w-3 hover:scale-130"
+                                        alt="dislike-image"
+                                    />
+                                    {
+                                        article.dislikes || 0
+                                    }
+                                </p>
+                            </div>
+                        </div>
 
                         {/* Publish/Archive Button */}
                         {(type === "unpublished" || type === "published") && (

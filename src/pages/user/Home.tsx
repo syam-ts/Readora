@@ -4,7 +4,7 @@ import { UserState } from "../../config/UserStateConftg";
 import { ArticleCard } from "../../components/article/ArticleCard"; 
 import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
-import SearchArticle from "../article/SearchArticle";
+import SearchArticle from "../../components/article/SearchArticle";
 
 interface Article {
   userId: string;

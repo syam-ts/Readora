@@ -1,7 +1,5 @@
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { UserState } from "../../config/UserStateConftg";
+import React, { useEffect, useState } from "react"; 
 import { categories } from "../../utils/constants/categories";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
 import { userProfileSchema } from "../../utils/validation/userProfileSchema";
@@ -32,15 +30,13 @@ const ProfileEdit: React.FC = () => {
   const [error, setError] = useState<string[]>([]);
   const [imageError, setImageError] = useState<string[]>([]);
   const navigate = useNavigate();
-
-  const userId = useSelector((state: UserState) => state.currentUser._id);
-
+ 
 
   useEffect(() => {
     try {
       const fetchUserData = async () => {
         const { data } = await apiInstance.get(
-          `/user/profile/${userId}`
+          `/user/profile`
         );
         setUser(data.user);
       };
@@ -157,174 +153,175 @@ const ProfileEdit: React.FC = () => {
   };
 
   return (
-    <div className="w-full grid justify-center px-4 py-20 font-sans text-gray-800">
-      <label className="text-lg">Profile Picture</label>
-      <div className="flex">
-        <input
-          type="file"
-          accept="image/*"
-          placeholder={user.profilePicture}
-          onChange={(e) => handleImageChange(e)}
-          className="text-gray-700 text-sm"
-        />
-        <img src={user.profilePicture} className="w-16 h-16 rounded-full" />
-      </div>
+    <div className="w-full max-w-xl mx-auto px-6 py-10 font-sans text-gray-800 nunito-regular">
+  <h2 className="text-2xl font-bold mb-8 text-center">Edit Profile</h2>
 
-      <div>
-        <div className="text-sm text-gray-700 pt-5">
-          <div className="flex gap-4">
-            <label className="text-lg">Name</label>
-            <input
-              onChange={(e) => onChangeHandler(e)}
-              name="name"
-              value={user.name}
-              className="text-sm font-semibold outline-none underline"
-            />
-            <ErrorComponent
-              error={error}
-              e1="Name is required"
-              e2="Invalid name (minimum 5 characters)"
-              e3="Invalid name (maximum 20 characters)"
-            />
-          </div>
-
-          <div className="flex gap-3 pt-5">
-            <label className="text-lg">Phone</label>
-            <input
-              onChange={(e) => onChangeHandler(e)}
-              name="phone"
-              className="outline-none text-sm underline"
-              value={user.phone?.toString()}
-            />
-            <ErrorComponent
-              error={error}
-              e1="Phone Number is required"
-              e2="Invalid Number (must be positive)"
-              e3="Invalid Number (must be at least 10 digits)"
-            />
-          </div>
-
-          <div className="pt-5">
-            <form className="w-44 flex gap-5">
-              <label className="text-sm font-medium text-gray-900 dark:text-white">
-                Gender
-              </label>
-              <select
-                onChange={(e) => onChangeHandler(e)}
-                name="gender"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option>{user.gender}</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </form>
-          </div>
-
-          <div className="flex gap-3 pt-5">
-            <label className="text-lg">Location</label>
-            <input
-              onChange={(e) => onChangeHandler(e)}
-              name="location"
-              value={user.location}
-              className="text-sm font-semibold outline-none underline"
-              placeholder={user.location}
-            />
-            <ErrorComponent
-              error={error}
-              e1="Location is required"
-              e2="Invalid location (minimum 5 characters)"
-              e3="Invalid location (maximum 20 characters)"
-            />
-          </div>
-
-          <div className="flex gap-3 pt-5">
-            <p className="text-lg">Date of Birth</p>
-            <p>
-              <input
-                onChange={(e) => onChangeHandler(e)}
-                name="dob"
-                type="date"
-                value={String(user.dob)}
-                className="outline-none text-sm underline"
-              />
-            </p>
-            <ErrorComponent
-              error={error}
-              e1="Date of Birth is required"
-              e2="Date of Birth must be a valid date"
-              e3="Date of Birth cannot be in the future"
-            />
-          </div>
-
-          <div className="pt-3">
-            <div className="flex flex-wrap gap-2">
-              <div className="">
-                <label className="text-lg">Preferences</label>
-
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {preferences.map((preference) => (
-                    <span
-                      key={preference}
-                      className="text-xs bg-neutral-100 px-3 p-4 py-1 rounded-full flex items-center"
-                    >
-                      {preference}
-                      <button
-                        onClick={() => removePreference(preference)}
-                        className="ml-2 text-neutral-400 hover:text-neutral-600"
-                      >
-                        x
-                      </button>
-                    </span>
-                  ))}
-                </div>
-
-                <div className="grid gap-2">
-       
-                  <div className="flex gap-5">
-                    <select
-                      name="prefrences"
-                      onChange={(e) => setPreferencesInput(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 w-[10rem] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                      {categories.map((category: string) => (
-                        <div>
-                          <option value={category}>{category}</option>
-                        </div>
-                      ))}
-                    </select>
-
-                    <button
-                      onClick={addPreference}
-                      className="text-xs text-white font-bold bg-sky-600 rounded-md w-[5rem] py-3 hover:text-black transition cursor-pointer"
-                    >
-                      Add
-                    </button>
-                  </div>
-                </div>
-
-                <ErrorComponent
-                  error={error}
-                  e1="Preferences required"
-                  e2="Minimum 3 preferences needed"
-                  e3="Maximum 5 preferences are allowed"
-                />
-
-                <div>
-                  <button
-                    onClick={submitForm}
-                    className="rounded-md bg-sky-600 py-1.5 mt-6 px-10 cursor-pointer text-center text-sm text-white font-bold"
-                    type="button"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  {/* Profile Picture */}
+  <div className="mb-6">
+    <label className="block text-lg font-medium mb-2">Profile Picture</label>
+    <div className="flex items-center gap-4">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="text-sm text-gray-700 border border-gray-300 rounded-md file:mr-3 file:py-1 file:px-3 file:border-0 file:text-sm file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
+      />
+      <img
+        src={user.profilePicture}
+        alt="Profile"
+        className="w-16 h-16 rounded-full object-cover border border-gray-300"
+      />
     </div>
+  </div>
+
+  {/* Name */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-1">Name</label>
+    <input
+      onChange={onChangeHandler}
+      name="name"
+      value={user.name}
+      className="w-full border-b-2 border-gray-300 outline-none text-sm py-2 focus:border-sky-600"
+    />
+    <ErrorComponent
+      error={error}
+      e1="Name is required"
+      e2="Invalid name (minimum 5 characters)"
+      e3="Invalid name (maximum 20 characters)"
+    />
+  </div>
+
+  {/* Phone */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-1">Phone</label>
+    <input
+      onChange={onChangeHandler}
+      name="phone"
+      className="w-full border-b-2 border-gray-300 outline-none text-sm py-2 focus:border-sky-600"
+      value={user.phone?.toString()}
+    />
+    <ErrorComponent
+      error={error}
+      e1="Phone Number is required"
+      e2="Invalid Number (must be positive)"
+      e3="Invalid Number (must be at least 10 digits)"
+    />
+  </div>
+
+  {/* Gender */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-1">Gender</label>
+    <select
+      onChange={onChangeHandler}
+      name="gender"
+      className="w-22 bg-white border border-gray-300 text-sm rounded-md p-1 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option>{user.gender}</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+
+  {/* Location */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-1">Location</label>
+    <input
+      onChange={onChangeHandler}
+      name="location"
+      value={user.location}
+      placeholder="Enter your location"
+      className="w-full border-b-2 border-gray-300 outline-none text-sm py-2 focus:border-sky-600"
+    />
+    <ErrorComponent
+      error={error}
+      e1="Location is required"
+      e2="Invalid location (minimum 5 characters)"
+      e3="Invalid location (maximum 20 characters)"
+    />
+  </div>
+
+  {/* Date of Birth */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-1">Date of Birth</label>
+    <input
+      onChange={onChangeHandler}
+      name="dob"
+      type="date"
+      value={String(user.dob)}
+      className="w-full border-b-2 border-gray-300 outline-none text-sm py-2 focus:border-sky-600"
+    />
+    <ErrorComponent
+      error={error}
+      e1="Date of Birth is required"
+      e2="Date of Birth must be a valid date"
+      e3="Date of Birth cannot be in the future"
+    />
+  </div>
+
+  {/* Preferences */}
+  <div className="mb-5">
+    <label className="block text-lg font-medium mb-2">Preferences</label>
+
+    {/* Selected Preferences */}
+    <div className="flex flex-wrap gap-2 mb-4">
+      {user.preferences.map((preference) => (
+        <span
+          key={preference}
+          className="bg-gray-200 text-sm px-4 py-1 rounded-full flex items-center"
+        >
+          {preference}
+          <button
+            onClick={() => removePreference(preference)}
+            className="ml-2 text-gray-500 hover:text-red-600"
+          >
+            ×
+          </button>
+        </span>
+      ))}
+    </div>
+
+    {/* Add Preference */}
+    <div className="flex items-center gap-4">
+      <select
+        name="prefrences"
+        onChange={(e) => setPreferencesInput(e.target.value)}
+        className="bg-white border border-gray-300 text-sm rounded-md p-1 w-[10rem]"
+      >
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
+
+      <button
+        onClick={addPreference}
+        className="bg-sky-500 text-white px-4 py-1 text-sm font-medium rounded-md  hover:bg-sky-500 transition"
+      >
+        Add
+      </button>
+    </div>
+
+    <ErrorComponent
+      error={error}
+      e1="Preferences required"
+      e2="Minimum 3 preferences needed"
+      e3="Maximum 5 preferences are allowed"
+    />
+  </div>
+
+  {/* Submit Button */}
+  <div className="text-center">
+    <button
+      onClick={submitForm}
+      className="bg-sky-500 hover:bg-sky-700 text-white font-semibold px-8 py-2 rounded-md text-sm"
+      type="button"
+    >
+      Save
+    </button>
+  </div>
+</div>
+
   );
 };
 

@@ -1,27 +1,34 @@
 import { useEffect, useState } from "react";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 
-const SearchArticle = ({ articleSet}: any) => {
-  const [input, setInput] = useState<string>(""); 
+const SearchArticle = ({ articleSet, inputEmpty, emptyInputSet }: any) => {
+  const [input, setInput] = useState<string>("");
 
   useEffect(() => {
-    const submitButton = async (): Promise<void> => {
-      try {
-        const { data } = await apiInstance.post(`/article/search/${input}`, {
-          withCredentials: true, 
-        });
+    if (input.length === 0) {
+     
+      emptyInputSet(true);
+    } else {
+   if(input.length !== 0) {
+     emptyInputSet(false)
+       const submitButton = async (): Promise<void> => {
+        try {
+          const { data } = await apiInstance.post(`/article/search/${input}`, {
+            withCredentials: true,
+          });
 
-        console.log("result", data);
-        articleSet(data.articles)
-      } catch (err) {
-        console.log("ERROR: ", err);
-      }
-
-    };
-    submitButton();
+          console.log("result", data);
+          articleSet(data.articles);
+        } catch (err) {
+          console.log("ERROR: ", err);
+        }
+      };
+      submitButton();
+   }
+    }
   }, [input]);
 
-  
+ 
 
   return (
     <div className="max-w-md mx-auto w-[20rem]">

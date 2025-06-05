@@ -21,15 +21,12 @@ const Home = () => {
 
   const [articles, setArticles] = useState<Article[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);
+  const [emptyInput, setEmptyInput] = useState<boolean>(false);
 
-  useEffect(() => {
-    if(loading) {
-
-    }
-  }, [loading]);
-
+  
   useEffect(() => {
     try {
+    
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
           `/article/viewAll`
@@ -44,7 +41,9 @@ const Home = () => {
     } catch (err) {
       console.log("ERROR: ", err);
     }
-  }, []);
+  }, [emptyInput]);
+
+  console.log('the emp', emptyInput)
 
   return (
     <div>
@@ -57,7 +56,7 @@ const Home = () => {
         </div>
       </section>
       <div className="pt-12">
-        <SearchArticle articleSet={setArticles} />
+        <SearchArticle articleSet={setArticles} inputEmpty={emptyInput} emptyInputSet={setEmptyInput} />
       </div>
 
       {/* Card section */}

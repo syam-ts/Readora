@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { UserState } from "../../config/UserStateConftg";
+ import { useEffect, useState } from "react"; 
 import { ArticleCard } from "../../components/article/ArticleCard"; 
 import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
@@ -22,6 +20,7 @@ const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);
   const [emptyInput, setEmptyInput] = useState<boolean>(false);
+  const [loadMore, setLoadMore] = useState<number>(1);
 
   
   useEffect(() => {
@@ -29,7 +28,7 @@ const Home = () => {
     
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `/article/viewAll`
+          `/article/viewAll?loadMoreIndex=${loadMore}`
         );
 
         console.log("The result: ", data);
@@ -41,7 +40,7 @@ const Home = () => {
     } catch (err) {
       console.log("ERROR: ", err);
     }
-  }, [emptyInput]);
+  }, [emptyInput, loadMore]);
 
   console.log('the emp', emptyInput)
 
@@ -66,8 +65,14 @@ const Home = () => {
         }
        {
         articles.length !== 0 ? (
-           <div className="flex justify-center pt-12">
+           <div className=" justify-center pt-12">
           <ArticleCard articles={articles} type="home" />
+           <div className='flex justify-center'>
+            <p>{loadMore}</p>
+             <button onClick={() => setLoadMore(loadMore+1)} className="rounded-lg bg-blue-600 py-2 px-10 montserrat-bold border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg  hover:bg-sky-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                 Load More
+            </button>
+           </div>
         </div>
         ) : (
             <div className="flex justify-center pt-12 h-screen">

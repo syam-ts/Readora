@@ -93,7 +93,9 @@ const ArticleCreation: React.FC = () => {
       });
 
       if (validForm) {
-        const { data } = await apiInstance.post(`/article/create/${userId}`, formData);
+        const { data } = await apiInstance.post(`/article/create/${userId}`, formData, {
+          withCredentials: true, 
+        });
 
         if (data.success) {
           setTimeout(() => {

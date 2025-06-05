@@ -4,6 +4,7 @@ import { UserState } from "../../config/UserStateConftg";
 import { ArticleCard } from "../../components/article/ArticleCard"; 
 import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
+import SearchArticle from "../article/SearchArticle";
 
 interface Article {
   userId: string;
@@ -19,6 +20,13 @@ interface Article {
 const Home = () => {
 
   const [articles, setArticles] = useState<Article[]>([]); 
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if(loading) {
+
+    }
+  }, [loading]);
 
   useEffect(() => {
     try {
@@ -32,6 +40,7 @@ const Home = () => {
       };
 
       fetchArticles();
+      setLoading(false);
     } catch (err) {
       console.log("ERROR: ", err);
     }
@@ -47,17 +56,23 @@ const Home = () => {
           <hr className="w-[40rem] border-gray-400" />
         </div>
       </section>
+      <div className="pt-12">
+        <SearchArticle articleSet={setArticles} />
+      </div>
 
       {/* Card section */}
       <section>
+        {
+          loading && <div><HomeShimmer /></div>
+        }
        {
         articles.length !== 0 ? (
-           <div className="flex justify-center pt-22">
+           <div className="flex justify-center pt-12">
           <ArticleCard articles={articles} type="home" />
         </div>
         ) : (
-            <div className="flex justify-center pt-22">
-          <HomeShimmer />
+            <div className="flex justify-center pt-12 h-screen">
+              <p className="py-44 nunito-regular">No Article Found!</p>
         </div>
         )
        }

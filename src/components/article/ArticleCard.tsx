@@ -26,7 +26,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
     const publishArticle = async (articleId: string): Promise<void> => {
         try {
-            const { data } = await apiInstance.put(`/article/publish/${articleId}`);
+            const { data } = await apiInstance.put(`/article/publish/${articleId}`, {
+                withCredentials: true, 
+            });
 
             if (data.success) {
                 toast.error("Article Published", {

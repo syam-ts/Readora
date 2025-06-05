@@ -133,6 +133,8 @@ const ProfileEdit: React.FC = () => {
             gender: user.gender,
             location: user.location,
             preferences: preferences,
+          }, {
+            withCredentials: true
           }
         );
 

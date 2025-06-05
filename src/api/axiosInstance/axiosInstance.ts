@@ -53,7 +53,7 @@ apiInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await refreshInstance.post("/refreshToken");
+        const { data } = await refreshInstance.post("/user/refreshToken");
         const { accessToken } = data;
 
         if (!accessToken) {

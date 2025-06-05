@@ -11,6 +11,21 @@
   font-weight: 300;
   font-style: normal;
 }
+ 
+
+.ysabeau-office-main {
+  font-family: "Ysabeau Office", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+} 
+
+.baloo-bhai-2-main {
+  font-family: "Baloo Bhai 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
 
 .montserrat-bold {
   font-family: "Montserrat", sans-serif;

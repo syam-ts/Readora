@@ -77,7 +77,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
     };
 
     return (
-        <div className="w-full px-4 py-6 sm:px-6 lg:px-8 nunito-regular">
+        <div className="w-full px-4 py-6 sm:px-6 lg:px-8 baloo-bhai-2-main">
             {isModalOpen}
             <Sonner />
 
@@ -122,10 +122,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
                         {/* Content */}
                         <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                            <h3 className="text-sm font-semibold text-gray-800 leading-tight truncate">
+                            <h3 className="text-md font-semibold text-gray-800 leading-tight truncate">
                                 {article.title}
                             </h3>
-                            <p className="text-xs text-gray-700 leading-snug line-clamp-3">
+                            <p className="text-xs text-gray-700 leading-snug line-clamp-3 px-2">
                                 {article.description}
                             </p>
 

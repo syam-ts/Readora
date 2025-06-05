@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className="fixed w-full z-50 bg-dark-glass glass-card bg-white py-3 px-8 backdrop-blur-lg border-b border-1 shadow-lg">
-        <div className="container   flex justify-between items-center">
+        <div className="container  flex justify-between mx-auto items-center">
           <div className="text-2xl font-bold gradient-text">
                  <Link to="/home" className="hover:text-neon transition-colors">
             <span className="text-black montserrat-bold">READORA</span> 
@@ -30,20 +30,20 @@ const Navbar = () => {
             <SearchArticle />
           </div> */}
           
-          <div className="flex mr-56 items-center space-x-6 nunito-regular justify-center ">
+          <div className="flex mr-22 items-center space-x-12 justify-center ">
             <Link to="/home" className="hover:text-neon transition-colors">
-              <span className='font-bold'>Home</span>
+              <span className='text-black baloo-bhai-2-main text-[1.1rem]'>Home</span>
             </Link>
             <Link to="/articles" className="hover:text-neon transition-colors">
-              <span className='font-bold'>Articles</span>
+              <span className='text-black baloo-bhai-2-main text-[1.1rem]'>Articles</span>
 
             </Link>
             <Link to="/about" className="hover:text-neon transition-colors">
-              <span className='font-bold'>About</span>
+              <span className='text-black baloo-bhai-2-main text-[1.1rem]'>About</span>
 
             </Link>
             <Link to="/contact" className="hover:text-neon transition-colors">
-              <span className='font-bold'>Contact</span>
+              <span className='text-black baloo-bhai-2-main text-[1.1rem]'>Contact</span>
 
             </Link>
           </div>

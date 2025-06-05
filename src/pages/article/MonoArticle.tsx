@@ -105,7 +105,7 @@ const MonoArticle: React.FC = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-12 font-sans text-gray-800 nunito-regular">
+        <div className="max-w-2xl mx-auto px-4 py-22 font-sans text-gray-800 baloo-bhai-2-main">
             <Sonner />
             <h1 className="text-4xl font-semibold mb-2">{article.title}</h1>
 

@@ -18,14 +18,13 @@ interface Article {
 
 const Home = () => {
 
-  const [articles, setArticles] = useState<Article[]>([]);
-  const userId: string = useSelector((state: UserState) => state.currentUser._id);
+  const [articles, setArticles] = useState<Article[]>([]); 
 
   useEffect(() => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `/articles/${userId}`
+          `/article/viewAll`
         );
 
         console.log("The result: ", data);

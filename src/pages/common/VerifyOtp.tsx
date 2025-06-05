@@ -28,7 +28,7 @@ const VerifyOtp = () => {
             };
             console.log("The body from veiryf: ", body);
             const { data } = await axios.post(
-                `${config.SERVER_URL}/verifyOtp`,
+                `${config.SERVER_URL}/user/verifyOtp`,
                 {
                     body
                 },

@@ -44,7 +44,7 @@ const ArticleEditPage: React.FC = () => {
     try {
       const fetchArticles = async () => {
         const { data } = await apiInstance.get(
-          `/article/${articleId}`
+          `/article/view/${articleId}`
         );
 
         setArticle(data.article);
@@ -122,7 +122,7 @@ const ArticleEditPage: React.FC = () => {
 
       if (validForm) {
         const { data } = await apiInstance.put(
-          `/article`,
+          `/article/edit`,
           article
         );
 

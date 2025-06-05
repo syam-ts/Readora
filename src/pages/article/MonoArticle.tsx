@@ -38,7 +38,7 @@ const MonoArticle: React.FC = () => {
         try {
             const fetchArticles = async () => {
                 const { data } = await apiInstance.get(
-                    `/article/${articleId}`
+                    `/article/view/${articleId}`
                 );
 
                 setArticle(data.article);
@@ -55,7 +55,7 @@ const MonoArticle: React.FC = () => {
     const likeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `/like/${articleId}`
+                `/article/like/${articleId}`
             );
 
             console.log("The result: ", data);
@@ -81,7 +81,7 @@ const MonoArticle: React.FC = () => {
     const dislikeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
-                `/dislike/${articleId}`
+                `/article/dislike/${articleId}`
             );
 
             console.log("The result: ", data);

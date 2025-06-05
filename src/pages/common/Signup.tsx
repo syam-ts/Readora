@@ -36,7 +36,7 @@ const SignupPage = () => {
 
             if (validForm) {
                 setLoading(true);
-                const { data } = await axios.post(`${config.SERVER_URL}/signup`, {
+                const { data } = await axios.post(`${config.SERVER_URL}/user/signup`, {
                     name: formData.name,
                     email: formData.email,
                     password: formData.password,

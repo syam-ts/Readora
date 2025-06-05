@@ -35,27 +35,12 @@ const ProfileEdit: React.FC = () => {
 
   const userId = useSelector((state: UserState) => state.currentUser._id);
 
-  useEffect(() => {
-    try {
-      const fetchUserData = async () => {
-        const { data } = await apiInstance.get(
-          `/profile/${userId}`
-        );
-
-        setUser(data.user);
-      };
-
-      fetchUserData();
-    } catch (err) {
-      console.log("ERROR: ", err);
-    }
-  }, []);
 
   useEffect(() => {
     try {
       const fetchUserData = async () => {
         const { data } = await apiInstance.get(
-          `/profile/${userId}`
+          `/user/profile/${userId}`
         );
         setUser(data.user);
       };
@@ -141,7 +126,6 @@ const ProfileEdit: React.FC = () => {
         const { data } = await apiInstance.put(
           `/user/profile`,
           {
-            userId,
             name: user.name,
             profilePicture: user.profilePicture,
             phone: user.phone,

@@ -10,7 +10,7 @@ const MyArticle = () => {
   useEffect(() => {
     try {
       const fetchArticles = async () => {
-        const { data } = await apiInstance.get(`/user/articles/${articleType}`);
+        const { data } = await apiInstance.get(`/article/viewMy/${articleType}`);
 
         setArticles(data.articles);
       };

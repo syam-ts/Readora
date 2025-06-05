@@ -21,7 +21,7 @@ const Preferences = () => {
   const submitFunction = async () => {
     try {
       const { data } = await axios.put(
-        `${config.SERVER_URL}/preferences/${userId}`,
+        `${config.SERVER_URL}/user/preferences/${userId}`,
         {
           preferences,
         }

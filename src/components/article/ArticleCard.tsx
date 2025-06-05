@@ -26,7 +26,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
     const publishArticle = async (articleId: string): Promise<void> => {
         try {
-            const { data } = await apiInstance.put(`/publishArticle/${articleId}`);
+            const { data } = await apiInstance.put(`/article/publish/${articleId}`);
 
             if (data.success) {
                 toast.error("Article Published", {
@@ -51,7 +51,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
     const archiveArticle = async (articleId: string): Promise<void> => {
         try {
-            const { data } = await apiInstance.put(`/archiveArticle/${articleId}`);
+            const { data } = await apiInstance.put(`/article/archive/${articleId}`);
 
             if (data.success) {
                 toast.error("Article archived", {

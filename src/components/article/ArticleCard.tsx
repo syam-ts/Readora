@@ -81,11 +81,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
             {isModalOpen}
             <Sonner />
 
-            <div className="flex flex-wrap gap-8 w-4/5 justify-center mx-auto">
+            <div className="flex flex-wrap gap-10 w-4/5 justify-center mx-auto">
                 {Object.entries(articles).map(([_, article]: any) => (
                     <div
                         key={article._id}
-                        className="w-[22rem] rounded-xl overflow-hidden shadow border bg-white flex flex-col"
+                        className="w-[22rem] rounded-xl overflow-hidden border-black shadow-xl bg-white flex flex-col"
                     >
                         {/* Image Section */}
                         <div className="relative h-48 w-full">

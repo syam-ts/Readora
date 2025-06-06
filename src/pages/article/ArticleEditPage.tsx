@@ -148,7 +148,7 @@ const ArticleEditPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-20 text-neutral-800 font-sans">
+    <div className="max-w-xl mx-auto px-4 py- text-neutral-800 font-sans">
       {/* Title */}
       <label className="text-2xl">Title</label>
       <input

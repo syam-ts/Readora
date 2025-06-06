@@ -126,7 +126,7 @@ const ArticleCreation: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-20 text-neutral-800 font-sans">
+    <div className="max-w-2xl mx-auto px-4 pt-28 text-neutral-800 font-sans">
       <Sonner />
 
       {/* Title */}

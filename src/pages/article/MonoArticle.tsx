@@ -161,7 +161,7 @@ const MonoArticle: React.FC = () => {
                         article?.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="bg-gray-300 text-sm px-3 py-1 rounded-full"
+                                className="readora-theme text-sm px-3 py-1 rounded-full"
                             >
                                 {tag}
                             </span>

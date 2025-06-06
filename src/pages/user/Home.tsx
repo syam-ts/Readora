@@ -50,7 +50,7 @@ const Home = () => {
           <p className="font-mono text-center text-3xl nunito-regular">
             For You
           </p>
-          <hr className="w-[40rem] border-gray-400" />
+          {/* <hr className="w-[40rem] border-gray-400" /> */}
         </div>
       </section>
       <div className="pt-12">
@@ -67,7 +67,7 @@ const Home = () => {
            <div className=" justify-center pt-12">
           <ArticleCard articles={articles} type="home" />
            <div className='flex justify-center'>
-             <button onClick={() => setLoadMore(loadMore+1)} className="rounded-lg bg-blue-600 py-2 px-10 montserrat-bold border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg  hover:bg-sky-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+             <button onClick={() => setLoadMore(loadMore+1)} className="rounded-lg bg-[#b1afa1] py-2 px-10 montserrat-bold border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg  hover:bg-sky-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                  Load More
             </button>
            </div>

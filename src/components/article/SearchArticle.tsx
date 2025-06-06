@@ -31,9 +31,9 @@ const SearchArticle = ({ articleSet, inputEmpty, emptyInputSet }: any) => {
  
 
   return (
-    <div className="max-w-md mx-auto w-[20rem]">
-      <div className="relative flex items-center w-full h-9 px-16 rounded-lg focus-within:shadow-lg shadow-lg border-t border-r border-l overflow-hidden">
-        <div className="grid place-items-center h-full w-12 left-0 absolute text-gray-400 ">
+    <div className="max-w-md mx-auto w-[24rem]">
+      <div className="relative readora-theme flex items-center w-full h-10  px-16 rounded-lg focus-within:shadow-lg shadow-lg border-t border-r border-l overflow-hidden">
+        <div className="grid place-items-center h-full w-12 left-0 absolute text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -51,7 +51,7 @@ const SearchArticle = ({ articleSet, inputEmpty, emptyInputSet }: any) => {
         </div>
 
         <input
-          className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+          className="peer h-full w-full outline-none text-sm text-white pr-2"
           type="text"
           id="search"
           placeholder="Search article.."

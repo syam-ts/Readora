@@ -55,26 +55,25 @@ export const DeleteArticle: React.FC<DeleteArticleProps> = ({ articleId }) => {
         className="h-52"
         style={{ width: "40rem", maxWidth: "90vw" }}
       >
-        <div>
-          <DialogTitle className="text-center">Edit profile</DialogTitle>
-        </div>
-
-        <div className="grid gap-2 text-center">
+        <div className="grid text-center">
+          <DialogTitle className="text-center text-xl">Delete profile</DialogTitle>
+      
+ 
           <div>
-            <span className="nunito-regular">
+            <span className="baloo-bhai-2-main">
               Are you sure , you want to delete the Article ?
             </span>
           </div>
-          <div className="flex gap-10 justify-center">
+          <div className="flex gap-12 justify-center">
             <Button
               onClick={() => setOpen(false)}
-              className="px-6 bg-gray-600 cursor-pointer"
+              className="px-8 readora-theme cursor-pointer"
             >
               Close
             </Button>
             <Button
               onClick={() => deleteArticle(articleId)}
-              className="px-6 bg-red-500 cursor-pointer"
+              className="px-8 bg-red-500 cursor-pointer"
             >
               Delete
             </Button>

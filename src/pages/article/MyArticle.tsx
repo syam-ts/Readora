@@ -25,18 +25,18 @@ const MyArticle = () => {
 
   return (
     <div className="overflow-hidden">
-      <section className="w-screen text-white py-16 px-4 mt-16">
-        <div className="max-w-4xl mx-auto bg-white shadow-2xl border-t border-gray-300 text-black rounded-2xl p-4 flex flex-col items-center text-center">
+      <section className="w-screen text-white py-16 px-4 mt-16 baloo-bhai-2-main">
+        <div className="max-w-5xl mx-auto bg-white shadow-2xl border-t border-gray-300 text-black rounded-2xl p-4 flex flex-col items-center text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Share Your Voice with the World
           </h2>
-          <p className="text-base sm:text-lg mb-6 max-w-2xl">
+          <p className="text-base sm:text-md mb-6 max-w-2xl">
             Add your own personal articles to inspire, educate, or entertain
             readers across the globe. Whether it's tech insights, travel
             experiences, or life lessons — your stories deserve to be heard.
           </p>
           <Link to="/articleCreation">
-            <button className="bg-sky-500 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+            <button className="readora-theme hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-md transition duration-300">
               Create Your Article Here
             </button>
           </Link>
@@ -79,9 +79,9 @@ const MyArticle = () => {
           </ul>
         </div>
 
-        <div className="pt-5">
+        {/* <div className="pt-5">
           <hr className="w-3/4 md:w-2/4 mx-auto border-black" />
-        </div>
+        </div> */}
       </section>
 
       <section>

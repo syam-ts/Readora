@@ -271,7 +271,7 @@ const ArticleCreation: React.FC = () => {
       <div className="flex justify-end">
         <button
           onClick={submitForm}
-          className="px-6 py-2 bg-sky-600 text-white text-sm font-medium shadow-xs hover:bg-sky-700 transition rounded-md"
+          className="px-6 py-2 readora-theme text-white text-sm font-medium shadow-xs hover:bg-sky-700 transition rounded-md"
         >
           Submit
         </button>

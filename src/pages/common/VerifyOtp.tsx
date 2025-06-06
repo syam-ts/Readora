@@ -93,7 +93,7 @@ const VerifyOtp = () => {
                         <div className="mt-10">
                             <button
                                 onClick={submitForm}
-                                className="bg-gray-600 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                className="readora-theme text-gray-100 p-4 w-full rounded-full tracking-wide
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                                 shadow-lg"
                             >

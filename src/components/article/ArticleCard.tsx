@@ -129,7 +129,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                 {article.description}
                             </p>
 
-                            {/* Likes */}
+                            {/* Likes */}k22233
                             {/* <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
                                 <div className="flex items-center gap-1">
                                     <ThumbsUp className="w-4 h-4" />
@@ -173,14 +173,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
 
                         {/* Publish/Archive Button */}
                         {(type === "unpublished" || type === "published") && (
-                            <div className="p-4 border-t border-gray-100 bg-gradient-to-r from-gray-100 to-gray-50 rounded-b-xl">
+                            <div className="p-5 rounded-b-xl">
                                 <button
                                     onClick={() =>
                                         type === "unpublished"
                                             ? publishArticle(article._id)
                                             : archiveArticle(article._id)
                                     }
-                                    className="w-full py-2 rounded-xl bg-gray-600 text-white font-bold"
+                                    className="w-full py-1 rounded-xl readora-theme text-white font-bold"
                                 >
                                     {type === "unpublished" ? "Publish" : "Archive"}
                                 </button>

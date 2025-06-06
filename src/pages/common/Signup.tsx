@@ -141,7 +141,7 @@ const SignupPage = () => {
       <div className="mt-8">
         <button
           onClick={submitForm}
-          className="bg-gray-600 text-white p-3 w-full rounded-full font-semibold hover:bg-indigo-600 transition"
+          className="readora-theme text-white p-3 w-full rounded-full font-semibold hover:bg-indigo-600 transition"
         >
           {loading ? "Loading..." : "Sign up"}
         </button>

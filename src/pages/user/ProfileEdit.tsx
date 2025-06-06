@@ -298,7 +298,7 @@ const ProfileEdit: React.FC = () => {
 
       <button
         onClick={addPreference}
-        className="bg-sky-500 text-white px-4 py-1 text-sm font-medium rounded-md  hover:bg-sky-500 transition"
+        className="readora-theme text-white px-4 py-1 text-sm font-medium rounded-md  hover:bg-sky-500 transition"
       >
         Add
       </button>
@@ -316,7 +316,7 @@ const ProfileEdit: React.FC = () => {
   <div className="text-center">
     <button
       onClick={submitForm}
-      className="bg-sky-500 hover:bg-sky-700 text-white font-semibold px-28 py-2 rounded-md text-sm"
+      className="readora-theme hover:bg-sky-700 text-white font-semibold px-28 py-2 rounded-md text-sm"
       type="button"
     >
       {

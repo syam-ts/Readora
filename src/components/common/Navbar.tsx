@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className="container  flex justify-between mx-auto items-center">
           <div className="text-2xl font-bold gradient-text">
                  <Link to="/home" className="hover:text-neon transition-colors">
-            <span className="text-black montserrat-bold">READORA</span> 
+            <span className="text-black montserrat-bold text-3xl">READORA</span> 
             </Link>
           </div>
 {/*           
@@ -61,7 +61,7 @@ const Navbar = () => {
                   />
                   {/* Dropdown */}
                   {dropdown && (
-                    <div className="absolute right-0 mt-40 w-32 bg-gray-800 text-white rounded-md shadow-lg z-50">
+                    <div className="absolute right-0 mt-40 w-32 readora-theme text-white rounded-md shadow-lg z-50">
                       <ul className="py-2 text-sm">
                         <li>
                           <Link

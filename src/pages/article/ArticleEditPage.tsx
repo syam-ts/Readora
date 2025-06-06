@@ -156,7 +156,7 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="title"
         placeholder={article.title}
-        className="w-full text-2xl font-medium placeholder-blue-200 mb-4 focus:outline-none"
+        className="w-full text-2xl font-medium placeholder-gray-300 mb-4 focus:outline-none"
       />
 
       <ErrorComponent error={error}
@@ -172,7 +172,7 @@ const ArticleEditPage: React.FC = () => {
         type="text"
         name="subtitle"
         placeholder={article.subtitle}
-        className="w-full text-sm placeholder-blue-200 mb-8 focus:outline-none"
+        className="w-full text-sm placeholder-gray-300 mb-8 focus:outline-none"
       />
 
       <ErrorComponent error={error}
@@ -207,7 +207,7 @@ const ArticleEditPage: React.FC = () => {
         name="description"
         placeholder={article.description}
         rows={8}
-        className="w-full text-sm p-3 placeholder-blue-200 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-3"
+        className="w-full text-sm p-3 placeholder-gray-300 focus:outline-none resize-none border border-neutral-300 rounded-xl mb-3"
       />
 
       <ErrorComponent error={error}
@@ -223,12 +223,12 @@ const ArticleEditPage: React.FC = () => {
           {tags?.map((tag) => (
             <span
               key={tag}
-              className="text-xs bg-gray-300 px-3 py-1 rounded-full font-bold flex items-center"
+              className="text-xs readora-theme px-3 py-1 rounded-full flex items-center"
             >
               {tag}
               <button
                 onClick={() => removeTag(tag)}
-                className="ml-2 text-neutral-400 hover:text-neutral-600"
+                className="ml-2 text-white hover:text-neutral-600"
               >
                 ×
               </button>
@@ -243,7 +243,7 @@ const ArticleEditPage: React.FC = () => {
             onChange={(e) => setTagInput(e.target.value)}
             value={tagInput}
             placeholder="Enter a tag"
-            className="w-2/4 text-xs placeholder-blue-200 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
+            className="w-2/4 text-xs placeholder-gray-300 border border-neutral-300 rounded-md px-2 py-1 focus:outline-none"
           ></input>
           <button
             onClick={() => addTag(tagInput)}
@@ -279,7 +279,7 @@ const ArticleEditPage: React.FC = () => {
       <div className="flex justify-end">
         <button
           onClick={submitForm}
-          className="text-xs px-6 py-2 border cursor-pointer bg-sky-700 text-white border-neutral-300 rounded-md hover:bg-gray-800 transition"
+          className="text-xs px-6 py-2 border cursor-pointer readora-theme text-white border-neutral-300 rounded-md hover:bg-gray-800 transition"
         >
           Submit
         </button>

@@ -2,7 +2,7 @@
 const HomeShimmer: React.FC = () => {
 
 	return (
-		<div className="flex flex-wrap gap-8 w-3/5 justify-center mx-auto">
+		<div className="flex flex-wrap gap-8 w-3/5 justify-center mx-auto py-20">
 			{Array(10)
 				.fill("")
 				.map(() => (

@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
     preferences: [""],
     noOfArticles: 0,
   });
-  const [btn, setBtn] = useState(false)
+ 
 
   useEffect(() => {
     try {
@@ -44,10 +44,11 @@ const Profile: React.FC = () => {
       console.log("ERROR: ", err);
     }
   }, []);
+ 
 
   return (
     <div>
-      {Object.entries(user).length === 0 ? (
+      {Array(user).length === 0 ? (
         <div>
           <ProfileShimmer />
         </div>

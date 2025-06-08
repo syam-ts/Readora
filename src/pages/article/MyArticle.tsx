@@ -11,9 +11,8 @@ const MyArticle = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
+      setLoading(true); 
         try {
-          setLoading(true)
-          console.log('FIND')
         const { data } = await apiInstance.get(`/article/viewMy/${articleType}`);
 
         setArticles(data.articles);
@@ -25,7 +24,6 @@ const MyArticle = () => {
       }
     };
     fetchArticles();
-    setLoading(false);
   }, [articleType]);
 
   const articleTypeTitleStyle: string = "text-black font-normal";

@@ -46,7 +46,6 @@ const Profile: React.FC = () => {
     };
 
     fetchUserData();
-    setLoading(false);
   }, []);
 
   return (
@@ -64,7 +63,7 @@ const Profile: React.FC = () => {
             {/*  Profile Picture */}
             <div className="flex-shrink-0">
               <img
-                src={'jme'}
+                src={user.profilePicture}
                 alt="Profile"
                 className="w-24 h-24 object-cover border border-gray-300 rounded-xl"
               />

@@ -29,17 +29,20 @@ const Profile: React.FC = () => {
     preferences: [""],
     noOfArticles: 0,
   });
+  const [loading, setLoading] = useState(false);
  
 
   useEffect(() => {
     try {
       const fetchUserData = async (): Promise<void> => {
+        setLoading(true);
         const { data } = await apiInstance.get(`/user/profile`);
 
         setUser(data.user);
       };
 
       fetchUserData();
+      setLoading(false);
     } catch (err) {
       console.log("ERROR: ", err);
     }
@@ -48,10 +51,14 @@ const Profile: React.FC = () => {
 
   return (
     <div>
-      {Array(user).length === 0 ? (
+      {
+        loading &&   
         <div>
           <ProfileShimmer />
         </div>
+      }
+      {Array(user).length === 0 ? (
+       <p> Empty </p>
       ) : (
         <div className="w-full max-w-4xl mx-auto px-4 py-44 font-sans text-gray-800">
           <div className="flex flex-col md:flex-row md:items-start gap-8">

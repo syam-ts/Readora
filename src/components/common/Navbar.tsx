@@ -79,7 +79,7 @@ const Navbar = () => {
                   alt="User Avatar"
                 />
                 {dropdown && (
-                  <div className="absolute right-0 mt-2 w-32 bg-black text-white rounded-md shadow-lg z-50">
+                  <div className="absolute right-0 mt-36 w-32 readora-theme text-white nunito-regular rounded-md shadow-lg z-50">
                     <ul className="py-2 text-sm">
                       <li>
                         <Link

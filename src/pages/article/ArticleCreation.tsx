@@ -1,11 +1,9 @@
 import axios from "axios";
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { config } from "../../config/config";
-import { useSelector } from "react-redux";
+import { config } from "../../config/config"; 
 import { useNavigate } from "react-router-dom";
-import { Sonner } from "../../components/sonner/Sonner";
-import { UserState } from "../../config/UserStateConftg";
+import { Sonner } from "../../components/sonner/Sonner"; 
 import { categories } from "../../utils/constants/categories";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
@@ -25,6 +23,8 @@ const ArticleCreation: React.FC = () => {
   const [tagInput, setTagInput] = useState<string>("");
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingImage, setLoadingImage] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     title: "",
     subtitle: "",
@@ -33,9 +33,7 @@ const ArticleCreation: React.FC = () => {
     tags: [""],
     category: "",
   });
-  const userId: string = useSelector(
-    (state: UserState) => state.currentUser._id
-  );
+ 
   const navigate = useNavigate();
 
   const onChangeHandler = (e: any): void => {
@@ -75,11 +73,13 @@ const ArticleCreation: React.FC = () => {
 
     console.log("the data", data);
     try {
+      setLoadingImage(true);
       const response = await cloudinaryInstance.post("", data);
       console.log("finl imag: ", response.data?.url);
       formData.image = response.data?.url;
       setPreview(response.data.url);
-    } catch (err) {
+      setLoadingImage(false);
+        } catch (err) {
       console.log("ERR: ", err);
     }
   };
@@ -93,7 +93,8 @@ const ArticleCreation: React.FC = () => {
       });
 
       if (validForm) {
-        const { data } = await apiInstance.post(`/article/create/${userId}`, formData, {
+        setLoading(true);
+        const { data } = await apiInstance.post(`/article/create`, formData, {
           withCredentials: true, 
         });
 
@@ -166,7 +167,9 @@ const ArticleCreation: React.FC = () => {
       {/* Image Upload */}
       <div className="mb-10">
         <label className="block text-sm text-neutral-500 mb-2">
-          Upload Image
+          {
+            loadingImage ? <p> Loading...</p> : <p>Upload Image</p>
+          }
         </label>
         <input
           onChange={handleFileUpload}
@@ -273,7 +276,9 @@ const ArticleCreation: React.FC = () => {
           onClick={submitForm}
           className="px-6 py-2 readora-theme text-white text-sm font-medium shadow-xs hover:bg-sky-700 transition rounded-md"
         >
-          Submit
+          {
+            loading ? <p>Loading...</p> : <p>Submit</p>
+          }
         </button>
       </div>
     </div>

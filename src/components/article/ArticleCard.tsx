@@ -129,7 +129,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                 {article.description}
                             </p>
 
-                            {/* Likes */}k22233
+                            {/* Likes */} 
                             {/* <div className="flex items-center justify-between text-gray-500 text-xs pt-2">
                                 <div className="flex items-center gap-1">
                                     <ThumbsUp className="w-4 h-4" />
@@ -155,7 +155,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                         alt="like-image"
                                     />
                                     {
-                                        article.likes || 0
+                                        article.likes.total || 0
                                     }
                                 </p>
                                 <p className="flex gap-2 text-xs">
@@ -165,7 +165,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                                         alt="dislike-image"
                                     />
                                     {
-                                        article.dislikes || 0
+                                        article.dislikes.total || 0
                                     }
                                 </p>
                             </div>

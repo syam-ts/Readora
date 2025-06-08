@@ -2,23 +2,29 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 import { ArticleCard } from "../../components/article/ArticleCard";
+import HomeShimmer from "../../components/shimmer/HomeShimmer";
 
 const MyArticle = () => {
   const [articles, setArticles] = useState([]);
   const [articleType, setArticleType] = useState<string>("unpublished");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    try {
-      const fetchArticles = async () => {
+    const fetchArticles = async () => {
+        try {
+          setLoading(true)
         const { data } = await apiInstance.get(`/article/viewMy/${articleType}`);
 
         setArticles(data.articles);
-      };
-
-      fetchArticles();
-    } catch (err: unknown) {
-      console.log("ERROR: ", err);
+        
+        fetchArticles();
+        setLoading(false);
+      } catch (err: unknown) {
+        console.log("ERROR: ", err);
+      } finally {
+      setLoading(false);
     }
+    };
   }, [articleType]);
 
   const articleTypeTitleStyle: string = "text-black font-normal";
@@ -85,6 +91,9 @@ const MyArticle = () => {
       </section>
 
       <section>
+        {
+          loading && <HomeShimmer />
+        }
         {articles.length === 0 ? (
           <div className="flex justify-center my-[10rem]">Empty </div>
         ) : (

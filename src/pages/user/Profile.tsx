@@ -30,35 +30,34 @@ const Profile: React.FC = () => {
     noOfArticles: 0,
   });
   const [loading, setLoading] = useState(true);
- 
 
   useEffect(() => {
-    try {
-      const fetchUserData = async (): Promise<void> => {
-        setLoading(true);
+    const fetchUserData = async (): Promise<void> => {
+      setLoading(true);
+      try {
         const { data } = await apiInstance.get(`/user/profile`);
 
         setUser(data.user);
-      };
-
-      fetchUserData();
+      } catch (err) {
+        console.log("ERROR: ", err);
+      } finally {
       setLoading(false);
-    } catch (err) {
-      console.log("ERROR: ", err);
     }
+    };
+
+    fetchUserData();
+    setLoading(false);
   }, []);
- 
 
   return (
     <div>
-      {
-        loading &&   
+      {loading && (
         <div>
           <ProfileShimmer />
         </div>
-      }
+      )}
       {Array(user).length === 0 ? (
-       <p> Empty </p>
+        <p> Empty </p>
       ) : (
         <div className="w-full max-w-4xl mx-auto px-4 py-44 font-sans text-gray-800">
           <div className="flex flex-col md:flex-row md:items-start gap-8">
@@ -127,7 +126,6 @@ const Profile: React.FC = () => {
         </div>
       )}
     </div>
-   
   );
 };
 

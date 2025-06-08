@@ -1,10 +1,9 @@
 import { toast } from "sonner";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Sonner } from "../sonner/Sonner";
 import { DeleteArticle } from "./DeleteArticleModel";
+import { Dispatch, SetStateAction, useState } from "react";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
-// import { ThumbsUp } from "lucide-react";
 
 interface Article {
     userId: string;
@@ -19,9 +18,10 @@ interface Article {
 interface ArticleCardProps {
     articles: Article[];
     type: string;
+    articleType?: any;
 }
 
-export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
+export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type, articleType }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const publishArticle = async (articleId: string): Promise<void> => {
@@ -43,7 +43,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                     },
                 });
                 setTimeout(() => {
-                    window.location.reload();
+                    articleType('published');
                 }, 200);
             }
         } catch (err) {
@@ -68,7 +68,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ articles, type }) => {
                     },
                 });
                 setTimeout(() => {
-                    window.location.reload();
+                      articleType('archived');
                 }, 200);
             }
         } catch (err) {

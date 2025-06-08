@@ -88,10 +88,11 @@ const MyArticle = () => {
         {articles.length === 0 ? (
           <div className="flex justify-center my-[10rem]">Empty </div>
         ) : (
-          <div className="flex justify-center py-20">
+          <div className="w-4/5 justify-center mx-auto py-20">
             <ArticleCard
               articles={articles}
               type={articleType}
+              articleType={setArticleType}
             />
           </div>
         )}

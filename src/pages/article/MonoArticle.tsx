@@ -48,6 +48,7 @@ const MonoArticle: React.FC = () => {
     });
     const [refreshPage, setRefreshPage] = useState<boolean>(false);
     const [hasLiked, setHasLiked] = useState(false);
+    const [hasDisliked, setHasDisliked] = useState(false);
 
     const { articleId } = useParams();
 
@@ -74,7 +75,7 @@ const MonoArticle: React.FC = () => {
     useEffect(() => {
         try {
             const checkIfUserLikedArticle = async () => {
-                const { data } = await apiInstance.get(`article/like/${articleId}`);
+                const { data } = await apiInstance.get(`/article/like/${articleId}`);
 
                 console.log('The data from checking liked or not: ', data)
                 //data if tue then state true or false
@@ -89,6 +90,25 @@ const MonoArticle: React.FC = () => {
         }
     }, [refreshPage]) 
 
+    //checks if user already disliked or not
+    useEffect(() => {
+        try {
+            const checkIfUserDislikedArticle = async () => {
+                const { data } = await apiInstance.get(`/article/dislike/${articleId}`);
+
+                console.log('The data from checking liked or not: ', data)
+                //data if tue then state true or false
+                if (data.result) {
+                    setHasDisliked(true)
+                }
+            }
+
+            checkIfUserDislikedArticle();
+        } catch (err) {
+            console.log('ERROR: ', err)
+        }
+    }, [refreshPage]) 
+
     const likeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
@@ -97,7 +117,7 @@ const MonoArticle: React.FC = () => {
 
             console.log("The result: ", data);
             if (data.success) {
-                toast.success('liked the image', {
+                toast.success('liked the article', {
                     position: "bottom-center",
                     style: {
                         backgroundColor: "#00FF00",
@@ -123,7 +143,7 @@ const MonoArticle: React.FC = () => {
 
             console.log("The result: ", data);
             if (data.success) {
-                toast.success('disliked the image', {
+                toast.success('disliked the article', {
                     position: "bottom-center",
                     style: {
                         backgroundColor: "#FCF259",
@@ -184,7 +204,16 @@ const MonoArticle: React.FC = () => {
                                 </button>
                             </div>
                     }
-                    <button
+                    {
+                           hasDisliked ? <div>
+                            <img
+                                src="/disliked.png"
+                                className="h-6 w-6 hover:scale-130"
+                                alt="disliked-image"
+                            />
+                        </div> :    
+                       <div>
+                            <button
                         className="cursor-pointer"
                         onClick={() => dislikeArticle(article._id)}
                     >
@@ -194,6 +223,9 @@ const MonoArticle: React.FC = () => {
                             alt="dislike-image"
                         />
                     </button>
+                       </div>
+                    }
+              
                 </div>
             </div>
 

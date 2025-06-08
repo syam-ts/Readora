@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
             {/*  Profile Picture */}
             <div className="flex-shrink-0">
               <img
-                src={user.profilePicture}
+                src={'jme'}
                 alt="Profile"
                 className="w-24 h-24 object-cover border border-gray-300 rounded-xl"
               />

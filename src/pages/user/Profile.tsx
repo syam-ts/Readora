@@ -50,12 +50,11 @@ const Profile: React.FC = () => {
 
   return (
     <div>
-      {loading && (
+      {loading ? (
         <div>
           <ProfileShimmer />
         </div>
-      )}
-   
+      ) : ( 
         <div className="w-full max-w-4xl mx-auto px-4 py-44 font-sans text-gray-800">
           <div className="flex flex-col md:flex-row md:items-start gap-8">
             {/*  Profile Picture */}
@@ -121,6 +120,8 @@ const Profile: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+   
        
     </div>
   );

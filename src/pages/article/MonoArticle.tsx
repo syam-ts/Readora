@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Sonner } from "../../components/sonner/Sonner";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
+import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 
 interface Article {
     _id: string;
@@ -13,8 +13,18 @@ interface Article {
     description: string;
     tags?: string[];
     category: string;
-    likes: number;
-    dislikes: number;
+    likes: Likes;
+    dislikes: Dislikes;
+}
+
+interface Likes {
+    users: string[],
+    total: number
+}
+
+interface Dislikes {
+    users: string[],
+    total: number
 }
 
 const MonoArticle: React.FC = () => {
@@ -27,12 +37,17 @@ const MonoArticle: React.FC = () => {
         description: "",
         tags: [""],
         category: "",
-        likes: 0,
-        dislikes: 0,
+        likes: {
+            users: [''],
+            total: 0
+        },
+        dislikes: {
+            users: [''],
+            total: 0
+        },
     });
-    const [likes, setLikes] = useState<number>(0);
-    const [dislikes, setDislikes] = useState<number>(0);
     const [refreshPage, setRefreshPage] = useState<boolean>(false);
+    const [hasLiked, setHasLiked] = useState(false);
 
     const { articleId } = useParams();
 
@@ -54,25 +69,45 @@ const MonoArticle: React.FC = () => {
         }
     }, [refreshPage]);
 
+
+    //checks if user already liked or not
+    useEffect(() => {
+        try {
+            const checkIfUserLikedArticle = async () => {
+                const { data } = await apiInstance.get(`article/like/${articleId}`);
+
+                console.log('The data from checking liked or not: ', data)
+                //data if tue then state true or false
+                if (data.result) {
+                    setHasLiked(true)
+                }
+            }
+
+            checkIfUserLikedArticle();
+        } catch (err) {
+            console.log('ERROR: ', err)
+        }
+    }, [refreshPage]) 
+
     const likeArticle = async (articleId: string) => {
         try {
             const { data } = await apiInstance.put(
                 `/article/like/${articleId}`
-            ); 
+            );
 
             console.log("The result: ", data);
-            if (data.success) { 
+            if (data.success) {
                 toast.success('liked the image', {
                     position: "bottom-center",
                     style: {
-                      backgroundColor: "#00FF00",
-                      color: "black",
-                      width: "10rem",
-                      height: "3rem",
-                      justifyContent: "center",
-                      border: "none",
+                        backgroundColor: "#00FF00",
+                        color: "black",
+                        width: "10rem",
+                        height: "3rem",
+                        justifyContent: "center",
+                        border: "none",
                     }
-            })
+                })
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -87,18 +122,18 @@ const MonoArticle: React.FC = () => {
             );
 
             console.log("The result: ", data);
-            if (data.success) { 
+            if (data.success) {
                 toast.success('disliked the image', {
                     position: "bottom-center",
                     style: {
-                      backgroundColor: "#FCF259",
-                      color: "black",
-                      width: "12rem",
-                      height: "3rem",
-                      justifyContent: "center",
-                      border: "none",
+                        backgroundColor: "#FCF259",
+                        color: "black",
+                        width: "12rem",
+                        height: "3rem",
+                        justifyContent: "center",
+                        border: "none",
                     }
-            })
+                })
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -127,16 +162,28 @@ const MonoArticle: React.FC = () => {
             <div className="text-base flex justify-between leading-relaxed whitespace-pre-line mb-10">
                 <p>{article.subtitle}</p>
                 <div className="flex justify-between gap-10 pr-3">
-                    <button
-                        className="cursor-pointer"
-                        onClick={() => likeArticle(article._id)}
-                    >
-                        <img
-                            src="/like.png"
-                            className="h-6 w-6 hover:scale-130"
-                            alt="like-image"
-                        />
-                    </button>
+                    {
+                        hasLiked ? <div>
+                            <img
+                                src="/liked.png"
+                                className="h-6 w-6 hover:scale-130"
+                                alt="liked-image"
+                            />
+                        </div>
+                            :
+                            <div>
+                                <button
+                                    className="cursor-pointer"
+                                    onClick={() => likeArticle(article._id)}
+                                >
+                                    <img
+                                        src="/like.png"
+                                        className="h-6 w-6 hover:scale-130"
+                                        alt="like-image"
+                                    />
+                                </button>
+                            </div>
+                    }
                     <button
                         className="cursor-pointer"
                         onClick={() => dislikeArticle(article._id)}
@@ -174,9 +221,9 @@ const MonoArticle: React.FC = () => {
                 {article.category}
             </div>
             <div className="mt-6 flex justify-end gap-5 text-sm text-gray-500">
-                <span className="font-medium text-gray-700">Like: {article.likes || 0}</span>
+                <span className="font-medium text-gray-700">Like: {article.likes.total || 0}</span>
                 <span className="font-medium text-gray-700">
-                    Dislike: {article.dislikes || 0}
+                    Dislike: {article.dislikes.total || 0}
                 </span>
             </div>
         </div>

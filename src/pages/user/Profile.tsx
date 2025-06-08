@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
     preferences: [""],
     noOfArticles: 0,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
  
 
   useEffect(() => {

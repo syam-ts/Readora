@@ -13,18 +13,19 @@ const MyArticle = () => {
     const fetchArticles = async () => {
         try {
           setLoading(true)
+          console.log('FIND')
         const { data } = await apiInstance.get(`/article/viewMy/${articleType}`);
 
         setArticles(data.articles);
         
-        fetchArticles();
-        setLoading(false);
       } catch (err: unknown) {
         console.log("ERROR: ", err);
       } finally {
-      setLoading(false);
-    }
+        setLoading(false);
+      }
     };
+    fetchArticles();
+    setLoading(false);
   }, [articleType]);
 
   const articleTypeTitleStyle: string = "text-black font-normal";

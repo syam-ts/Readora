@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import HomeShimmer from "../../components/shimmer/HomeShimmer";
 import { ArticleCard } from "../../components/article/ArticleCard";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
-import HomeShimmer from "../../components/shimmer/HomeShimmer";
 import SearchArticle from "../../components/article/SearchArticle";
 
 interface Article {
@@ -23,24 +23,26 @@ const Home = () => {
   const [loadMore, setLoadMore] = useState<number>(1);
 
 
-  useEffect(() => {
+useEffect(() => {
+  const fetchArticles = async (): Promise<void> => {
+    setLoading(true);
     try {
-
-      const fetchArticles = async () => {
-        const { data } = await apiInstance.get(
-          `/article/viewAll?loadMoreIndex=${loadMore}`
-        );
-
-        console.log("The result: ", data);
-        setArticles(data.articles);
-      };
-
-      fetchArticles();
-      setLoading(false);
+      const { data } = await apiInstance.get(
+        `/article/viewAll?loadMoreIndex=${loadMore}`
+      );
+      
+      setArticles(data.articles);
     } catch (err) {
       console.log("ERROR: ", err);
+    } finally {
+      setLoading(false);
     }
-  }, [emptyInput, loadMore]);
+  };
+
+  if (emptyInput) {
+    fetchArticles();
+  }
+}, [emptyInput, loadMore]);
 
 
 

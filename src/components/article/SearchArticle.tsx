@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../hooks/useDebouncer";
 import { apiInstance } from "../../api/axiosInstance/axiosInstance";
 
 const SearchArticle = ({ articleSet, inputEmpty, emptyInputSet }: any) => {
   const [input, setInput] = useState<string>("");
-
-  useEffect(() => {
-    if (input.length === 0) {
-     
-      emptyInputSet(true);
-    } else {
-   if(input.length !== 0) {
-     emptyInputSet(false)
-       const submitButton = async (): Promise<void> => {
-        try {
-          const { data } = await apiInstance.post(`/article/search/${input}`, {
-            withCredentials: true,
-          });
-
-          console.log("result", data);
-          articleSet(data.articles);
-        } catch (err) {
-          console.log("ERROR: ", err);
-        }
-      };
-      submitButton();
-   }
-    }
-  }, [input]);
-
+  const debouncedInput = useDebounce(input, 500);
  
+
+useEffect(() => {
+  const fetchArticles = async (): Promise<void> => {
+    if (debouncedInput.trim().length === 0) {
+      emptyInputSet(true);   
+      return;
+    }
+
+    emptyInputSet(false);
+
+    try {
+      const { data } = await apiInstance.post(
+        `/article/search/${debouncedInput}`,
+        {},
+        { withCredentials: true }
+      );
+
+      console.log("result", data);
+      articleSet(data.articles);
+    } catch (err) {
+      console.error("Search error: ", err);
+    }
+  };
+
+  fetchArticles();
+}, [debouncedInput]);
+
 
   return (
     <div className="max-w-md mx-auto w-[24rem]">

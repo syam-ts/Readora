@@ -1,4 +1,4 @@
-<h1>📰 Readora Frontend</h1>
+<h1>📰 Readora </h1>
 
 <p><strong>Readora</strong> is a dynamic article-centric web application where users can create and manage their own content. Users can set reading preferences, write articles, interact through likes/dislikes, and explore content via vertical pagination and search. This is the frontend repository built using React.js and Tailwind CSS.</p>
 

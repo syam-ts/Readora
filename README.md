@@ -29,8 +29,7 @@
 ├── <b>App.tsx</b>               # App layout and routes
 ├── <b>main.tsx</b>              # React root entry
 │
-└── <b>/src</b>
-    ├── <b>api/axiosInstance</b>      # Axios setup
+└── <b>/src</b> 
     ├── <b>assets/</b>                # Images and static resources
     ├── <b>components/</b>            # Reusable UI components
     ├── <b>config/</b>                # Configurations (e.g., base URLs)
@@ -38,6 +37,7 @@
     ├── <b>lib/</b>                   # UI library integrations (e.g., shadcn)
     ├── <b>pages/</b>                 # Main page components (Home, Profile, Article etc.)
     ├── <b>redux/</b>                 # State slices and store setup
+    ├── <b>services/</b>              # All service api's and axios api
     ├── <b>utils/</b>                 # Utility functions
 </pre>
 

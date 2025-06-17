@@ -2,6 +2,20 @@ import { apiInstance } from "../axios/axiosInstance/axiosInstance";
 
 
 
+export const fetchAllArticles = async (
+    loadMore: number
+): Promise<any> => {
+    try {
+        const response = await apiInstance.get(`/article/viewAll?loadMoreIndex=${loadMore}`);
+        return response;
+    } catch (err: any) {
+        if (!err.response.data.success) {
+            return err.response.data;
+        }
+    }
+};
+
+
 export const fetchArticles = async (
     articleId: string | undefined
 ): Promise<any> => {

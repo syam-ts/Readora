@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
-import { ArticleCard } from "../../components/article/ArticleCard";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { ArticleCard } from "../../components/article/ArticleCard"; 
 import SearchArticle from "../../components/article/SearchArticle";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface Article {
   userId: string;

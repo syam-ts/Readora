@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Sonner } from "../../components/sonner/Sonner";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { Sonner } from "../../components/sonner/Sonner"; 
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface Article {
     _id: string;

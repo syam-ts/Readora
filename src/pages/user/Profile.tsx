@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import React, { useEffect, useState } from "react"; 
 import ProfileShimmer from "../../components/shimmer/ProfileShimmer";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface User {
   name: string;

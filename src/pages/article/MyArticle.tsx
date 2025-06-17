@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { useEffect, useState } from "react"; 
 import { ArticleCard } from "../../components/article/ArticleCard";
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 const MyArticle = () => {
   const [articles, setArticles] = useState([]);

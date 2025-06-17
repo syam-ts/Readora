@@ -1,7 +1,7 @@
 import axios from "axios";
-import { signOutUser } from "../../redux/slices/userSlice";
-import store from "../../redux/store";
-import { config } from "../../config/config";
+import { signOutUser } from "../../../redux/slices/userSlice";
+import store from "../../../redux/store";
+import { config } from "../../../config/config";
  
 
 export const apiInstance = axios.create({

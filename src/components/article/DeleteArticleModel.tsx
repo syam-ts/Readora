@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { config } from "../../config/config";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { Button } from "../ui/button"; 
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 import {
   Dialog,
   DialogContent,

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Sonner } from "../sonner/Sonner";
 import { DeleteArticle } from "./DeleteArticleModel";
 import { Dispatch, SetStateAction, useState } from "react";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
+ 
 
 interface Article {
     userId: string;

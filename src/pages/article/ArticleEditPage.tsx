@@ -3,9 +3,9 @@ import { config } from "../../config/config";
 import React, { useEffect, useState } from "react";
 import { categories } from "../../utils/constants/categories";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { useNavigate, useSearchParams } from "react-router-dom"; 
 import { articleEditSchema } from "../../utils/validation/articleEditSchema";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface Article {
   userId: string;

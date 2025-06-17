@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react"; 
-import { categories } from "../../utils/constants/categories";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance"; 
+import { categories } from "../../utils/constants/categories"; 
 import { userProfileSchema } from "../../utils/validation/userProfileSchema";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface User {
   name: string;

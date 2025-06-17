@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { config } from "../../config/config"; 
 import { useNavigate } from "react-router-dom";
 import { Sonner } from "../../components/sonner/Sonner"; 
-import { categories } from "../../utils/constants/categories";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { categories } from "../../utils/constants/categories"; 
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 import { articleCreationSchema } from "../../utils/validation/articleCreationSchema";
 

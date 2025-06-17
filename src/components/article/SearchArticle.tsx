@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDebounce } from "../../hooks/useDebouncer";
-import { apiInstance } from "../../api/axiosInstance/axiosInstance";
+import { useDebounce } from "../../hooks/useDebouncer"; 
+import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 const SearchArticle = ({ articleSet, inputEmpty, emptyInputSet }: any) => {
   const [input, setInput] = useState<string>("");

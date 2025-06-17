@@ -1,104 +1,94 @@
-import axios from "axios";
-import { toast } from "sonner";
-import { config } from "../../config/config";
+import { toast } from "sonner"; 
 import { useEffect, useState } from "react";
-import { Sonner } from "../../components/sonner/Sonner";
+import { userLogin } from "../../services/api/user";
 import { Link, useNavigate } from "react-router-dom";
-import { UserState } from "../../config/UserStateConftg";
+import { Sonner } from "../../components/sonner/Sonner";
 import { useDispatch, useSelector } from "react-redux";
+import { UserState } from "../../config/UserStateConftg";
 import { signInUser } from "../../redux/slices/userSlice";
 import { userLoginSchema } from "../../utils/validation/loginSchema";
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 
 interface FormData {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 const LoginPage = () => {
-    const [formData, setFormData] = useState<FormData>({
-        email: "",
-        password: "",
-    });
-    const [error, setError] = useState<string[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const isUser = useSelector((state: UserState) => state.isUser); 
+  const isUser = useSelector((state: UserState) => state.isUser);
 
-    useEffect(() => {
-        if (isUser) navigate("/home");
-    }, []);
+  useEffect(() => {
+    if (isUser) navigate("/home");
+  }, []);
 
-    const submitForm = async () => {
-        try {
-            const validForm = await userLoginSchema.validate(formData, {
-                abortEarly: false,
-            });
-            console.log("er", validForm);
+  const submitForm = async () => {
+    try {
+      const validForm = await userLoginSchema.validate(formData, {
+        abortEarly: false,
+      });
 
-            if (validForm) {
-              setLoading(true);
-                const { data } = await axios.post(`${config.SERVER_URL}/user/login`,{
-                        email: formData.email,
-                        password: formData.password},{
-                        withCredentials: true, 
-                    }
-                );
+      //checking validation
+      // console.log("er", validForm);
 
-                dispatch(signInUser(data.user));
-                const { accessToken } = data;
+      if (validForm) {
+        setLoading(true);
+        const { email, password } = formData;
+        const response = await userLogin(email, password);
 
-                localStorage.setItem("accessToken", accessToken);
-
-                if (data.success) {
-                    navigate("/home");
-                }
-            } else {
-                await userLoginSchema.validate(
-                    { formData },
-                    {
-                        abortEarly: false,
-                    }
-                );
-            }
-        } catch (error: unknown) {
-            const err = error as {
-                errors: string[];
-                response: {
-                    data: {
-                        message: string;
-                    };
-                };
-            };
-            
-            console.log('er',err.response)
-            toast.error(err.response.data.message, {
-                position: "bottom-center",
-                style: {
-                    backgroundColor: "red",
-                    color: "white",
-                    width: "full",
-                    height: "3rem",
-                    justifyContent: "center",
-                    border: "none",
-                },
-            });
-            console.log("VALIDATION ERRORS: ", err.errors);
-            setError(err.errors);
+        if (!response.success) {
+          toast.error(response.message, {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "red",
+              color: "white",
+              width: "full",
+              height: "3rem",
+              justifyContent: "center",
+              border: "none",
+            },
+          });
         }
-    };
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+        dispatch(signInUser(response.data.user));
+        const { accessToken } = response.data;
+        localStorage.setItem("accessToken", accessToken);
 
-    return (
-         <div className="h-screen flex flex-col lg:flex-row">
+        if (response.data.success) {
+          navigate("/home");
+        }
+      } else {
+        await userLoginSchema.validate(
+          { formData },
+          {
+            abortEarly: false,
+          }
+        );
+      }
+    } catch (error: any) {
+      console.log("VALIDATION ERRORS: ", error.errors);
+      setError(error.errors);
+    }
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div className="h-screen flex flex-col lg:flex-row">
       {/* Notification System */}
       <Sonner />
 
@@ -121,28 +111,18 @@ const LoginPage = () => {
               type="email"
               placeholder="vinaykumar@gmail.com"
             />
-            {error?.map((err: string, index: number) => {
-              if (
-                err.includes("Email is required") ||
-                err.includes("Email is invalid")
-              ) {
-                return (
-                  <div key={index} className="text-center">
-                    <span className="text-red-500 text-xs font-semibold">
-                      {err}
-                    </span>
-                  </div>
-                );
-              }
-              return null;
-            })}
+
+            <ErrorComponent
+              error={error}
+              e1="Email is required"
+              e2="Email is invalid"
+              e3="Email is required"
+            />
           </div>
 
           {/* Password Field */}
           <div className="mb-6">
-            <label className="text-sm font-bold text-gray-700">
-              Password
-            </label>
+            <label className="text-sm font-bold text-gray-700">Password</label>
             <input
               onChange={(e) => handleChange(e)}
               name="password"
@@ -150,21 +130,13 @@ const LoginPage = () => {
               type="password"
               placeholder="Enter your password"
             />
-            {error?.map((err: string, index: number) => {
-              if (
-                err.includes("Password is required") ||
-                err.includes("minimum 8 characters need")
-              ) {
-                return (
-                  <div key={index} className="text-center">
-                    <span className="text-red-500 text-xs font-semibold">
-                      {err}
-                    </span>
-                  </div>
-                );
-              }
-              return null;
-            })}
+
+            <ErrorComponent
+              error={error}
+              e1="Password is required"
+              e2="minimum 8 characters need"
+              e3="Password is required"
+            />
           </div>
 
           {/* Login Button */}
@@ -173,13 +145,7 @@ const LoginPage = () => {
               onClick={submitForm}
               className="readora-theme text-white p-3 w-full rounded-full font-semibold hover:bg-indigo-600 transition shadow-lg"
             >
-              {
-                loading ? (
-                  <p>Loading...</p>
-                ) : (
-                  <p>Log In</p>
-                )
-              }
+              {loading ? <p>Loading...</p> : <p>Log In</p>}
             </button>
           </div>
 
@@ -205,7 +171,7 @@ const LoginPage = () => {
         />
       </div>
     </div>
-    );
+  );
 };
 
 export default LoginPage;

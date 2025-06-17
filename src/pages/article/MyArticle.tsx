@@ -4,6 +4,8 @@ import { viewMyArticles } from "../../services/api/article";
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
 import { ArticleCard } from "../../components/article/ArticleCard";
 
+
+
 const MyArticle = () => {
   const [articles, setArticles] = useState([]);
   const [articleType, setArticleType] = useState<string>("unpublished");

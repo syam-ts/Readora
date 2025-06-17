@@ -2,11 +2,11 @@ import { apiInstance } from "../axios/axiosInstance/axiosInstance";
 
 
 
-export const fetchAllArticles = async (
-    loadMore: number
-): Promise<any> => {
+export const fetchAllArticles = async (loadMore: number): Promise<any> => {
     try {
-        const response = await apiInstance.get(`/article/viewAll?loadMoreIndex=${loadMore}`);
+        const response = await apiInstance.get(
+            `/article/viewAll?loadMoreIndex=${loadMore}`
+        );
         return response;
     } catch (err: any) {
         if (!err.response.data.success) {
@@ -14,7 +14,6 @@ export const fetchAllArticles = async (
         }
     }
 };
-
 
 export const fetchArticle = async (
     articleId: string | undefined | null
@@ -29,18 +28,12 @@ export const fetchArticle = async (
     }
 };
 
-
-
-export const createArticle = async (
-   formData: any
-): Promise<any> => {
+export const createArticle = async (formData: any): Promise<any> => {
     try {
-
- const response = await apiInstance.post(`/article/create`, formData, {
-          withCredentials: true, 
+        const response = await apiInstance.post(`/article/create`, formData, {
+            withCredentials: true,
         });
 
- 
         return response;
     } catch (err: any) {
         if (!err.response.data.success) {
@@ -49,20 +42,10 @@ export const createArticle = async (
     }
 };
 
-
-
-
-export const editArticle = async (
-   article: any
-): Promise<any> => {
+export const editArticle = async (article: any): Promise<any> => {
     try {
+        const response = await apiInstance.put(`/article/edit`, article);
 
- const response = await apiInstance.put(
-          `/article/edit`,
-          article
-        )
-
- 
         return response;
     } catch (err: any) {
         if (!err.response.data.success) {
@@ -71,17 +54,10 @@ export const editArticle = async (
     }
 };
 
-
-export const viewMyArticles = async (
-   articleType: string
-): Promise<any> => {
+export const viewMyArticles = async (articleType: string): Promise<any> => {
     try {
+        const response = await apiInstance.get(`/article/viewMy/${articleType}`);
 
- const response = await apiInstance.get(
-          `/article/viewMy/${articleType}`
-        )
-
- 
         return response;
     } catch (err: any) {
         if (!err.response.data.success) {
@@ -89,5 +65,3 @@ export const viewMyArticles = async (
         }
     }
 };
-
-

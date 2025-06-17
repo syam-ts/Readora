@@ -2,6 +2,8 @@ import axios from "axios";
 import { config } from "../../config/config";
 import { apiInstance } from "../axios/axiosInstance/axiosInstance";
 
+
+
 export const userLogin = async (
     email: string,
     password: string
@@ -60,7 +62,6 @@ export const fetchUserData = async (): Promise<any> => {
         console.log("HER : ", response);
         return response;
     } catch (err: any) {
-
         if (!err.response.data.success) {
             return err.response.data;
         }
@@ -95,11 +96,8 @@ export const profileEdit = async (
 
         return response;
     } catch (err: any) {
-
         if (!err.response.data.success) {
             return err.response.data;
         }
     }
-
-
 };

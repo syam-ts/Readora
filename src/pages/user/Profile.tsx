@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
+import { fetchUserData } from "../../services/api/user";
 import ProfileShimmer from "../../components/shimmer/ProfileShimmer";
-import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 
 interface User {
   name: string;
@@ -32,20 +32,19 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async (): Promise<void> => {
+    const fetchUserDataFunction = async (): Promise<any> => {
       setLoading(true);
       try {
-        const { data } = await apiInstance.get(`/user/profile`);
-
-        setUser(data.user);
+        const response = await fetchUserData();
+        setUser(response.data.user);
       } catch (err) {
         console.log("ERROR: ", err);
       } finally {
-      setLoading(false);
-    }
+        setLoading(false);
+      }
     };
 
-    fetchUserData();
+    fetchUserDataFunction();
   }, []);
 
   return (
@@ -54,7 +53,7 @@ const Profile: React.FC = () => {
         <div>
           <ProfileShimmer />
         </div>
-      ) : ( 
+      ) : (
         <div className="w-full max-w-4xl mx-auto px-4 py-44 font-sans text-gray-800">
           <div className="flex flex-col md:flex-row md:items-start gap-8">
             {/*  Profile Picture */}
@@ -121,8 +120,6 @@ const Profile: React.FC = () => {
           </div>
         </div>
       )}
-   
-       
     </div>
   );
 };

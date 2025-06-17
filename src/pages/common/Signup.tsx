@@ -1,11 +1,13 @@
 import axios from "axios";
-import { config } from "../../config/config";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { config } from "../../config/config";
 import { Link, useNavigate } from "react-router-dom";
 import { UserState } from "../../config/UserStateConftg"; 
 import { userSignupSchema } from "../../utils/validation/signupSchema";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
+import { userSignup } from "../../services/api/user";
+
 
 interface FormData {
     name: string;
@@ -36,18 +38,14 @@ const SignupPage = () => {
 
             if (validForm) {
                 setLoading(true);
-                const { data } = await axios.post(`${config.SERVER_URL}/user/signup`, {
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                }, {
-                  withCredentials: true, 
-                });
 
-               
-                console.log("the result", data);
-                if (data.success) {
-                    navigate(`/verify`, {state: {message: data.user}});
+               const {name, email, password} = formData;
+               const response = await userSignup(name, email, password)
+               console.log("RESULT FROM SIGNUP: ", response);
+
+
+                if (response.data.success) {
+                    navigate(`/verify`, {state: {message: response.data.user}});
                 }
             } else {
                 await userSignupSchema.validate(formData, {

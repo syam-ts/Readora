@@ -2,9 +2,9 @@ import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Sonner } from "../../components/sonner/Sonner";
-import { checkIfUserDislikedArticle, dislikeArticle } from "../../services/api/dislike";
+import { fetchArticle } from "../../services/api/article";
 import { checkIfUserLikedArticle, likeArticle } from "../../services/api/like";
-import { fetchArticles } from "../../services/api/article";
+import { checkIfUserDislikedArticle, dislikeArticle } from "../../services/api/dislike";
  
 
 interface Article {
@@ -58,7 +58,7 @@ const MonoArticle: React.FC = () => {
     useEffect(() => {
         try {
             const fetchArticlesFunction = async (): Promise<any> => {
-                const response = await fetchArticles(articleId);
+                const response = await fetchArticle(articleId);
                 setArticle(response.data.article);
             };
 

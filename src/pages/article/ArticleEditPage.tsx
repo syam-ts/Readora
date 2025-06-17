@@ -2,10 +2,9 @@ import axios from "axios";
 import { config } from "../../config/config";
 import React, { useEffect, useState } from "react";
 import { categories } from "../../utils/constants/categories";
-import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 import { useNavigate, useSearchParams } from "react-router-dom"; 
+import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 import { articleEditSchema } from "../../utils/validation/articleEditSchema";
-import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 import { editArticle, fetchArticle } from "../../services/api/article";
 
 interface Article {

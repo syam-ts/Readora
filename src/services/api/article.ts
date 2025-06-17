@@ -72,3 +72,22 @@ export const editArticle = async (
 };
 
 
+export const viewMyArticles = async (
+   articleType: string
+): Promise<any> => {
+    try {
+
+ const response = await apiInstance.get(
+          `/article/viewMy/${articleType}`
+        )
+
+ 
+        return response;
+    } catch (err: any) {
+        if (!err.response.data.success) {
+            return err.response.data;
+        }
+    }
+};
+
+

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react"; 
-import { ArticleCard } from "../../components/article/ArticleCard";
+import { viewMyArticles } from "../../services/api/article";
 import HomeShimmer from "../../components/shimmer/HomeShimmer";
-import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
+import { ArticleCard } from "../../components/article/ArticleCard";
 
 const MyArticle = () => {
   const [articles, setArticles] = useState([]);
@@ -10,12 +10,12 @@ const MyArticle = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchMyArticles = async () => {
       setLoading(true); 
         try {
-        const { data } = await apiInstance.get(`/article/viewMy/${articleType}`);
+       const response = await viewMyArticles(articleType);
 
-        setArticles(data.articles);
+        setArticles(response.data.articles);
         
       } catch (err: unknown) {
         console.log("ERROR: ", err);
@@ -23,7 +23,7 @@ const MyArticle = () => {
         setLoading(false);
       }
     };
-    fetchArticles();
+    fetchMyArticles();
   }, [articleType]);
 
   const articleTypeTitleStyle: string = "text-black font-normal";

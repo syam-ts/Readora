@@ -6,6 +6,7 @@ import { ErrorComponent } from "../../components/errorComponents/ErrorComponent"
 import { useNavigate, useSearchParams } from "react-router-dom"; 
 import { articleEditSchema } from "../../utils/validation/articleEditSchema";
 import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
+import { editArticle, fetchArticle } from "../../services/api/article";
 
 interface Article {
   userId: string;
@@ -42,17 +43,17 @@ const ArticleEditPage: React.FC = () => {
 
   useEffect(() => {
     try {
-      const fetchArticles = async () => {
-        const { data } = await apiInstance.get(
-          `/article/view/${articleId}`
-        );
 
-        setArticle(data.article);
-        setTags(data.article.tags);
-        setPreview(data.article.image);
+      const fetchArticlesFunction = async () => {
+
+        const response = await fetchArticle(articleId) 
+
+        setArticle(response.data.article);
+        setTags(response.data.article.tags);
+        setPreview(response.data.article.image);
       };
 
-      fetchArticles();
+      fetchArticlesFunction();
     } catch (err) {
       console.log("ERROR: ", err);
     }
@@ -121,13 +122,9 @@ const ArticleEditPage: React.FC = () => {
       );
 
       if (validForm) {
-        const { data } = await apiInstance.put(
-          `/article/edit`,
-          article
-        );
 
-        console.log("The result: ", data);
-        if (data.success) {
+        const response = await editArticle(article);
+        if(response.data.success) {
           setTimeout(() => { 
             navigate("/articles");
           }, 500);

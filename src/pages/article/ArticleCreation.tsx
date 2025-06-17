@@ -1,13 +1,13 @@
 import axios from "axios";
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { config } from "../../config/config"; 
+import { config } from "../../config/config";
 import { useNavigate } from "react-router-dom";
-import { Sonner } from "../../components/sonner/Sonner"; 
+import { Sonner } from "../../components/sonner/Sonner";
 import { categories } from "../../utils/constants/categories"; 
-import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
 import { ErrorComponent } from "../../components/errorComponents/ErrorComponent";
 import { articleCreationSchema } from "../../utils/validation/articleCreationSchema";
+import { createArticle } from "../../services/api/article";
 
 interface FormData {
   title: string;
@@ -33,7 +33,7 @@ const ArticleCreation: React.FC = () => {
     tags: [""],
     category: "",
   });
- 
+
   const navigate = useNavigate();
 
   const onChangeHandler = (e: any): void => {
@@ -79,7 +79,7 @@ const ArticleCreation: React.FC = () => {
       formData.image = response.data?.url;
       setPreview(response.data.url);
       setLoadingImage(false);
-        } catch (err) {
+    } catch (err) {
       console.log("ERR: ", err);
     }
   };
@@ -94,11 +94,10 @@ const ArticleCreation: React.FC = () => {
 
       if (validForm) {
         setLoading(true);
-        const { data } = await apiInstance.post(`/article/create`, formData, {
-          withCredentials: true, 
-        });
 
-        if (data.success) {
+        const response = await createArticle(formData);
+
+        if (response.data.success) {
           setTimeout(() => {
             toast.success("article created succssfully", {
               position: "top-center",
@@ -167,9 +166,7 @@ const ArticleCreation: React.FC = () => {
       {/* Image Upload */}
       <div className="mb-10">
         <label className="block text-sm text-neutral-500 mb-2">
-          {
-            loadingImage ? <p> Loading...</p> : <p>Upload Image</p>
-          }
+          {loadingImage ? <p> Loading...</p> : <p>Upload Image</p>}
         </label>
         <input
           onChange={handleFileUpload}
@@ -276,9 +273,7 @@ const ArticleCreation: React.FC = () => {
           onClick={submitForm}
           className="px-6 py-2 readora-theme text-white text-sm font-medium shadow-xs hover:bg-sky-700 transition rounded-md"
         >
-          {
-            loading ? <p>Loading...</p> : <p>Submit</p>
-          }
+          {loading ? <p>Loading...</p> : <p>Submit</p>}
         </button>
       </div>
     </div>

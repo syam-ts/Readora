@@ -56,7 +56,7 @@ export const userSignup = async (
 
 export const fetchUserData = async (): Promise<any> => {
     try {
-        const response = await apiInstance.get(`${config.SERVER_URL}/user/profile`);
+        const response = await apiInstance.get(`/user/profile`);
         console.log("HER : ", response);
         return response;
     } catch (err: any) {
@@ -100,4 +100,6 @@ export const profileEdit = async (
             return err.response.data;
         }
     }
+
+
 };

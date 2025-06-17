@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Sonner } from "../../components/sonner/Sonner"; 
 import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
+import { checkIfUserDislikedArticle, checkIfUserLikedArticle, dislikeArticle, fetchArticles, likeArticle } from "../../services/api/article";
 
 interface Article {
     _id: string;
@@ -54,15 +55,12 @@ const MonoArticle: React.FC = () => {
 
     useEffect(() => {
         try {
-            const fetchArticles = async () => {
-                const { data } = await apiInstance.get(
-                    `/article/view/${articleId}`
-                );
-
-                setArticle(data.article);
+            const fetchArticlesFunction = async (): Promise<any> => {
+                const response = await fetchArticles(articleId);
+                setArticle(response.data.article);
             };
 
-            fetchArticles();
+            fetchArticlesFunction();
 
             setRefreshPage(false);
         } catch (err) {
@@ -74,17 +72,14 @@ const MonoArticle: React.FC = () => {
     //checks if user already liked or not
     useEffect(() => {
         try {
-            const checkIfUserLikedArticle = async () => {
-                const { data } = await apiInstance.get(`/article/like/${articleId}`);
-
-                console.log('The data from checking liked or not: ', data)
-                //data if tue then state true or false
-                if (data.result) {
+            const checkIfUserLikedArticleFunction = async (): Promise<void> => {
+               const response = await checkIfUserLikedArticle(articleId);
+                if (response.data.result) {
                     setHasLiked(true)
                 }
             }
 
-            checkIfUserLikedArticle();
+            checkIfUserLikedArticleFunction();
         } catch (err) {
             console.log('ERROR: ', err)
         }
@@ -93,30 +88,27 @@ const MonoArticle: React.FC = () => {
     //checks if user already disliked or not
     useEffect(() => {
         try {
-            const checkIfUserDislikedArticle = async () => {
-                const { data } = await apiInstance.get(`/article/dislike/${articleId}`);
+            const checkIfUserDislikedArticleFunction = async () => {
+               
+                const response = await checkIfUserDislikedArticle(articleId);
+           
+                if (response.data.result) {
 
-                console.log('The data from checking liked or not: ', data)
-                //data if tue then state true or false
-                if (data.result) {
                     setHasDisliked(true)
                 }
             }
 
-            checkIfUserDislikedArticle();
+            checkIfUserDislikedArticleFunction();
         } catch (err) {
             console.log('ERROR: ', err)
         }
     }, [refreshPage]) 
 
-    const likeArticle = async (articleId: string) => {
+    const likeArticleFunction = async (articleId: string) => {
         try {
-            const { data } = await apiInstance.put(
-                `/article/like/${articleId}`
-            );
-
-            console.log("The result: ", data);
-            if (data.success) {
+            const response = await likeArticle(articleId);
+ 
+            if (response.data.success) {
                 toast.success('liked the article', {
                     position: "bottom-center",
                     style: {
@@ -135,14 +127,12 @@ const MonoArticle: React.FC = () => {
         }
     };
 
-    const dislikeArticle = async (articleId: string) => {
+    const dislikeArticleFunction = async (articleId: string) => {
         try {
-            const { data } = await apiInstance.put(
-                `/article/dislike/${articleId}`
-            );
-
-            console.log("The result: ", data);
-            if (data.success) {
+            
+            const response = await dislikeArticle(articleId);
+ 
+            if (response.data.success) {
                 toast.success('disliked the article', {
                     position: "bottom-center",
                     style: {
@@ -194,7 +184,7 @@ const MonoArticle: React.FC = () => {
                             <div>
                                 <button
                                     className="cursor-pointer"
-                                    onClick={() => likeArticle(article._id)}
+                                    onClick={() => likeArticleFunction(article._id)}
                                 >
                                     <img
                                         src="/like.png"
@@ -215,7 +205,7 @@ const MonoArticle: React.FC = () => {
                        <div>
                             <button
                         className="cursor-pointer"
-                        onClick={() => dislikeArticle(article._id)}
+                        onClick={() => dislikeArticleFunction(article._id)}
                     >
                         <img
                             src="/dislike.png"

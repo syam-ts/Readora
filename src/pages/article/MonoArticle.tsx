@@ -1,9 +1,14 @@
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Sonner } from "../../components/sonner/Sonner"; 
-import { apiInstance } from "../../services/axios/axiosInstance/axiosInstance";
-import { checkIfUserDislikedArticle, checkIfUserLikedArticle, dislikeArticle, fetchArticles, likeArticle } from "../../services/api/article";
+import { Sonner } from "../../components/sonner/Sonner";
+import {
+    checkIfUserDislikedArticle,
+    checkIfUserLikedArticle,
+    dislikeArticle,
+    fetchArticles,
+    likeArticle,
+} from "../../services/api/article";
 
 interface Article {
     _id: string;
@@ -19,13 +24,13 @@ interface Article {
 }
 
 interface Likes {
-    users: string[],
-    total: number
+    users: string[];
+    total: number;
 }
 
 interface Dislikes {
-    users: string[],
-    total: number
+    users: string[];
+    total: number;
 }
 
 const MonoArticle: React.FC = () => {
@@ -39,12 +44,12 @@ const MonoArticle: React.FC = () => {
         tags: [""],
         category: "",
         likes: {
-            users: [''],
-            total: 0
+            users: [""],
+            total: 0,
         },
         dislikes: {
-            users: [''],
-            total: 0
+            users: [""],
+            total: 0,
         },
     });
     const [refreshPage, setRefreshPage] = useState<boolean>(false);
@@ -68,48 +73,45 @@ const MonoArticle: React.FC = () => {
         }
     }, [refreshPage]);
 
-
     //checks if user already liked or not
     useEffect(() => {
         try {
             const checkIfUserLikedArticleFunction = async (): Promise<void> => {
-               const response = await checkIfUserLikedArticle(articleId);
+                const response = await checkIfUserLikedArticle(articleId);
                 if (response.data.result) {
-                    setHasLiked(true)
+                    setHasLiked(true);
                 }
-            }
+            };
 
             checkIfUserLikedArticleFunction();
         } catch (err) {
-            console.log('ERROR: ', err)
+            console.log("ERROR: ", err);
         }
-    }, [refreshPage]) 
+    }, [refreshPage]);
 
     //checks if user already disliked or not
     useEffect(() => {
         try {
             const checkIfUserDislikedArticleFunction = async () => {
-               
                 const response = await checkIfUserDislikedArticle(articleId);
-           
-                if (response.data.result) {
 
-                    setHasDisliked(true)
+                if (response.data.result) {
+                    setHasDisliked(true);
                 }
-            }
+            };
 
             checkIfUserDislikedArticleFunction();
         } catch (err) {
-            console.log('ERROR: ', err)
+            console.log("ERROR: ", err);
         }
-    }, [refreshPage]) 
+    }, [refreshPage]);
 
     const likeArticleFunction = async (articleId: string) => {
         try {
             const response = await likeArticle(articleId);
- 
+
             if (response.data.success) {
-                toast.success('liked the article', {
+                toast.success("liked the article", {
                     position: "bottom-center",
                     style: {
                         backgroundColor: "#00FF00",
@@ -118,8 +120,8 @@ const MonoArticle: React.FC = () => {
                         height: "3rem",
                         justifyContent: "center",
                         border: "none",
-                    }
-                })
+                    },
+                });
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -129,11 +131,10 @@ const MonoArticle: React.FC = () => {
 
     const dislikeArticleFunction = async (articleId: string) => {
         try {
-            
             const response = await dislikeArticle(articleId);
- 
+
             if (response.data.success) {
-                toast.success('disliked the article', {
+                toast.success("disliked the article", {
                     position: "bottom-center",
                     style: {
                         backgroundColor: "#FCF259",
@@ -142,8 +143,8 @@ const MonoArticle: React.FC = () => {
                         height: "3rem",
                         justifyContent: "center",
                         border: "none",
-                    }
-                })
+                    },
+                });
                 setRefreshPage(true);
             }
         } catch (err) {
@@ -172,50 +173,50 @@ const MonoArticle: React.FC = () => {
             <div className="text-base flex justify-between leading-relaxed whitespace-pre-line mb-10">
                 <p>{article.subtitle}</p>
                 <div className="flex justify-between gap-10 pr-3">
-                    {
-                        hasLiked ? <div>
+                    {hasLiked ? (
+                        <div>
                             <img
                                 src="/liked.png"
                                 className="h-6 w-6 hover:scale-130"
                                 alt="liked-image"
                             />
                         </div>
-                            :
-                            <div>
-                                <button
-                                    className="cursor-pointer"
-                                    onClick={() => likeArticleFunction(article._id)}
-                                >
-                                    <img
-                                        src="/like.png"
-                                        className="h-6 w-6 hover:scale-130"
-                                        alt="like-image"
-                                    />
-                                </button>
-                            </div>
-                    }
-                    {
-                           hasDisliked ? <div>
+                    ) : (
+                        <div>
+                            <button
+                                className="cursor-pointer"
+                                onClick={() => likeArticleFunction(article._id)}
+                            >
+                                <img
+                                    src="/like.png"
+                                    className="h-6 w-6 hover:scale-130"
+                                    alt="like-image"
+                                />
+                            </button>
+                        </div>
+                    )}
+                    {hasDisliked ? (
+                        <div>
                             <img
                                 src="/disliked.png"
                                 className="h-6 w-6 hover:scale-130"
                                 alt="disliked-image"
                             />
-                        </div> :    
-                       <div>
+                        </div>
+                    ) : (
+                        <div>
                             <button
-                        className="cursor-pointer"
-                        onClick={() => dislikeArticleFunction(article._id)}
-                    >
-                        <img
-                            src="/dislike.png"
-                            className="h-6 w-6 hover:scale-130"
-                            alt="dislike-image"
-                        />
-                    </button>
-                       </div>
-                    }
-              
+                                className="cursor-pointer"
+                                onClick={() => dislikeArticleFunction(article._id)}
+                            >
+                                <img
+                                    src="/dislike.png"
+                                    className="h-6 w-6 hover:scale-130"
+                                    alt="dislike-image"
+                                />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -243,7 +244,9 @@ const MonoArticle: React.FC = () => {
                 {article.category}
             </div>
             <div className="mt-6 flex justify-end gap-5 text-sm text-gray-500">
-                <span className="font-medium text-gray-700">Like: {article.likes.total || 0}</span>
+                <span className="font-medium text-gray-700">
+                    Like: {article.likes.total || 0}
+                </span>
                 <span className="font-medium text-gray-700">
                     Dislike: {article.dislikes.total || 0}
                 </span>
